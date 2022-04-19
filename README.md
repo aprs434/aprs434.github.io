@@ -33,16 +33,24 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a second time using base91.
 
 
+## Frequency = 434.000 MHz
+Above mentioned LoRa data compression techniques render our firmware uncompatible with other firmware prposed for LoRa APRS i‑gates.
+Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on the air. This quickly congests channel capacity.
+Therefore, it was opted to migrate our i‑gate network to the centre frequency of 434.000 MHz.
+
+The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who have been hankering after the longer range and the improved penetration of 434 MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band.
+
+
 ## Recommended n-N paradigm paths
 
-|station|generic digipeating path|
-|:-----:|:----------------------:|
-|metropolitan fixed|`WIDE2-1`|
-|extremely remote fixed|`WIDE2-2`|
-|metropolitan mobile|`WIDE1-1,WIDE2-1`|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`|
-|balloons\ & aircraft|`WIDE2-1`|
-|145.825\ MHz|`ARISS,WIDE2-1`|
+|station|generic digipeating path|coding|
+|:-----:|:----------------------:|:----:|
+|metropolitan fixed|`WIDE2-1`|0|
+|extremely remote fixed|`WIDE2-2`|1|
+|metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
+|extremely remote mobile|`WIDE1-1,WIDE2-2`|3|
+|balloons\ & aircraft|`WIDE2-1`|4|
+|145.825\ MHz|`ARISS,WIDE2-1`|5|
 
 - The first n digit in n-N paradigm paths indicates the coverage level of the digipeater, whereby 1 is for domestic fill‑in digipeaters and 2 is for county-level digipeaters.
 - The second N digit indicates the number of repeats at the indicated coverage level.
@@ -51,8 +59,8 @@ Inside the _Information Field,_ it is customary to compress latitude, longitude,
 ## Opportunities to Reduce Power Consumption
 
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver can be put to sleep when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
-2. A GPS module is also a power hog. 
+2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate.
 
 
 ## Messaging Pager
-Up to now, APRS has been considered mainly as a localisation technology. 
+Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This happened to the point that many mistakenly think the "P" in the acronym APRS stands for "position." 
