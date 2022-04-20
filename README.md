@@ -19,9 +19,9 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 |_Flag_|**not required;** provided by LoRa|
 |_Destination Address_|**not required;** provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
-|_SSID_|1 out of **16** [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) digits|
-|_Digipeater Address_|1 of **6** recommended n‑N paradigm paths|
-|_Information Field_|up to 256 out of **95** [printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
+|_SSID_|1 out of [**16** hexadecimal digits](https://en.wikipedia.org/wiki/Hexadecimal)|
+|_Digipeater Address_|1 of [**6** recommended n‑N paradigm paths](#recommended-n-n-paradigm-paths)|
+|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
 |_Frame Check Sequence_|**not required;** provided by LoRa|
 
 Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a second time using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems).
