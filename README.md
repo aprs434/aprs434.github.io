@@ -79,4 +79,4 @@ Firmware will soon be freely available here for downloading.
 
 
 ## News & Social
-Feel free to join our public [**APRS 434 Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
+Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
