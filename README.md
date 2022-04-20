@@ -12,7 +12,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 
 
 ## Setting a Standard for LoRa Data Compression
-LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for data compression, namely:
+LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for compression at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
 
 |**Frame Field**|**Characters or Digits**|
 |:-:|:-:|
@@ -28,7 +28,7 @@ Inside the _Information Field,_ it is customary to compress latitude, longitude,
 
 
 ## Frequency = 434.000 MHz
-Above mentioned LoRa data compression techniques render our firmware uncompatible with other firmware proposed for LoRa APRS i‑gates.
+Above mentioned LoRa data link compression techniques render our firmware uncompatible with other firmware proposed for LoRa APRS i‑gates.
 Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on air. This quickly congests channel capacity.
 Therefore, we opted to migrate our i‑gate network to the centre frequency of 434.000 MHz.
 
