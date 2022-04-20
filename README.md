@@ -34,7 +34,7 @@ The choice of this frequency also serves the purpose of fending off any [ITU Reg
 
 > Our motto: **« Use 434 MHz or lose it. »**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands, which are intended for local use only. The amateur radio service forms a sole exception as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
 However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434 MHz band as a primary user.
