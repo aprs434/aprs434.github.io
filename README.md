@@ -19,7 +19,7 @@ Stay put for TTGO T-Beam and i-gate firmware that will soon be freely available 
 Feel free to join our public [Telegram Group](https://t.me/aprs434) for the latest news.
 
 
-## Opportunity to Set a Standard for LoRa Data Compression
+## Setting a Standard for LoRa Data Compression
 LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for data compression, namely:
 
 |**Frame Field**|**Characters or Codes**|
@@ -34,11 +34,18 @@ Inside the _Information Field,_ it is customary to compress latitude, longitude,
 
 
 ## Frequency = 434.000 MHz
-Above mentioned LoRa data compression techniques render our firmware uncompatible with other firmware prposed for LoRa APRS i‑gates.
-Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on the air. This quickly congests channel capacity.
-Therefore, it was opted to migrate our i‑gate network to the centre frequency of 434.000 MHz.
+Above mentioned LoRa data compression techniques render our firmware uncompatible with other firmware proposed for LoRa APRS i‑gates.
+Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on air. This quickly congests channel capacity.
+Therefore, we opted to migrate our i‑gate network to the centre frequency of 434.000 MHz.
 
-The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who have been hankering after the longer range and the improved penetration of 434 MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band.
+The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who have been hankering after the longer range and the improved penetration of 434 MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band).
+
+Our motto is: **« Use 434 MHz or lose it.»**
+
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands intended for local use only. The amateur radio service forms the only exception to this as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
+
+As a general rule, secondary users should always check whether a frequency is in use by a primary user before coming on air.
+However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434 MHz band as a primary user.
 
 
 ## Recommended n-N paradigm paths
@@ -56,11 +63,11 @@ The choice of this frequency also serves the purpose of fending off any [ITU Reg
 - The second N digit indicates the number of repeats at the indicated coverage level.
 
 
-## Opportunities to Reduce Power Consumption
+## Reducing Power Consumption
 
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver can be put to sleep when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
 2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate.
 
 
 ## Messaging Pager
-Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This happened to the point that many mistakenly think the "P" in the acronym APRS stands for "position." 
+Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This happened to the point that many mistakenly think the "P" in the acronym APRS stands for "position." Bob (SK), the of APRS, deeply resented this situation. In his view, APRS is foremost both a situational and tactical tool, which includes messaging.
