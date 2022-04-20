@@ -94,7 +94,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 ## ESP32 Firmware Downloads
 Firmware will soon be freely available here for downloading.
 
-Take note of the [byte-saving `tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json). **Keep all empty fields empty** for improved performance!
+Take note of the byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json). **Keep all empty fields empty** for improved performance!
 
 
 ## News & Social
