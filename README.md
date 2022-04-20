@@ -11,8 +11,8 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - Therefore, more channel capacity.
 
 
-## Setting a Standard for LoRa Data Compression
-LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for compression at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
+## Setting a Standard for LoRa Frame Compression
+LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for frame compression at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
 
 |**Frame Field**|**Characters or Digits**|
 |:-:|:-:|
