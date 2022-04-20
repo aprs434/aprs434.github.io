@@ -76,6 +76,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - TTGO T-Beam 434 MHz
 - longer 434 MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
 - Panasonic NCR18650B Li-ion cell, or quality equivalent
+- glue gun to stick the GPS antenna to the cell holder
 - SH1106 1.3" I²C (4‑pin) OLED display
 - enclosure
 
