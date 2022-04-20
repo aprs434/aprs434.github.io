@@ -53,6 +53,7 @@ However, LoRa has no carrier sensing capability. Therfore, secondary ISM band us
 |balloons & aircraft|`WIDE2-1`|4|
 |space satellites|`ARISS,WIDE2-1`|5|
 
+Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
