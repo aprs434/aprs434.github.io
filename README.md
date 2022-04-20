@@ -24,7 +24,7 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
 |_Frame Check Sequence_|**not required;** provided by LoRa|
 
-Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a second time using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems).
+Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a first time using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems).
 
 
 ## Frequency = 434.000 MHz
