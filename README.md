@@ -32,7 +32,7 @@ Therefore, we opted to migrate our i‑gate network to the centre frequency of 4
 
 The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who have been hankering after the longer range and the improved penetration of 434 MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band).
 
-Our motto is: **« Use 434 MHz or lose it.»**
+> Our motto: **« Use 434 MHz or lose it. »**
 
 From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands, which are intended for local use only. The amateur radio service forms a sole exception as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
 
