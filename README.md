@@ -65,7 +65,7 @@ Up to now, APRS has been unduly considered to be predominantly a one-way localis
 
 > _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
  
-In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging defintely earns its place.
+In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging defintely merrits its place.
 We set ourselfs the long-term goal of rendering APRS messaging more popular by offering messaging pager designs.
 
 
