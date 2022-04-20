@@ -14,15 +14,17 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 ## Setting a Standard for LoRa Data Compression
 LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for data compression, namely:
 
-|**Frame Field**|**Characters or Codes**|
+|**Frame Field**|**Characters or Digits**|
 |:-:|:-:|
-|_Destination Address_|not required; provided by the i‑gate|
+|_Flag_|**not required;** provided by LoRa|
+|_Destination Address_|**not required;** provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
-|_SSID_|1 out of **16** hexadecimal digits|
+|_SSID_|1 out of **16** [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) digits|
 |_Digipeater Address_|1 of **6** recommended n‑N paradigm paths|
 |_Information Field_|up to 256 out of **95** [printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
+|_Frame Check Sequence_|**not required;** provided by LoRa|
 
-Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a second time using base91.
+Inside the _Information Field,_ it is customary to compress latitude, longitude, symbol, course and speed a second time using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems).
 
 
 ## Frequency = 434.000 MHz
