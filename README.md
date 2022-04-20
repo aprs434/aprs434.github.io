@@ -71,7 +71,7 @@ In Bob's view of APRS as being foremost a real-time situational and tactical too
 We set ourselfs the long-term goal of rendering APRS messaging more popular by offering messaging pager designs.
 
 
-## Hardware Recommendations
+## Recommended Hardware
 
 ### Tracker Hardware:
 - 5V 3A microUSB charge adapter
@@ -92,9 +92,15 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 
 ## ESP32 Firmware Downloads
-Firmware will soon be freely available here for downloading.
 
-Take note of the byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json). **Keep all empty fields empty** for improved performance!
+### Tracker Firmware
+- See: <https://github.com/aprs434/lora.tracker>
+- Take note of the byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json). **Keep all empty fields empty** for improved performance!
+
+### I-Gate Firmware
+- See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
+- Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS 434 will migrate to the new 434.000 MHz channel.
+
 
 
 ## News & Social
