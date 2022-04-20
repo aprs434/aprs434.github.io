@@ -81,7 +81,9 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### I-Gate Hardware:
 - 5V 1A microUSB power supply
-- Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket) or TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
+- Either:
+  + Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket), or
+  + TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
 - 70 cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - enclosure
 
