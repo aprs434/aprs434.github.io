@@ -111,7 +111,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - [x] Byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)
 - [x] Fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
 - [ ] Base91 compression of the location, course and speed data; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
-- [ ] Random time jitter between fixed interval frames to avoid repetitive collisions
+- [ ] Random time jitter between fixed interval packets to avoid repetitive collisions
 - [ ] Tracker and i-gate with LoRa frame compression on 434.000 MHz; **no longer supports the OE5BPA i-gate**
 
 ### Tracker Hardware
