@@ -40,7 +40,8 @@ As a general rule, secondary users should always check whether a frequency is in
 However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434 MHz band as a primary user.
 
 
-## Recommended `n-N` paradigm paths
+## Recommended n-N paradigm paths
+
 |station|generic digipeating path|coding|
 |:-----:|:----------------------:|:----:|
 |metropolitan fixed|`WIDE2-1`|0|
