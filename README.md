@@ -11,14 +11,6 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - Therefore, more channel capacity.
 
 
-## ESP32 Firmware Downloads
-Stay put for TTGO T-Beam and i-gate firmware that will soon be freely available here for downloading.
-
-
-## News
-Feel free to join our public [Telegram Group](https://t.me/aprs434) for the latest news.
-
-
 ## Setting a Standard for LoRa Data Compression
 LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for data compression, namely:
 
@@ -42,14 +34,13 @@ The choice of this frequency also serves the purpose of fending off any [ITU Reg
 
 Our motto is: **« Use 434 MHz or lose it.»**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands intended for local use only. The amateur radio service forms the only exception to this as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands, which are intended for local use only. The amateur radio service forms a sole exception as its 70 cm UHF band happens to overlap the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
 
-As a general rule, secondary users should always check whether a frequency is in use by a primary user before coming on air.
+As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
 However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434 MHz band as a primary user.
 
 
-## Recommended n-N paradigm paths
-
+## Recommended `n-N` paradigm paths
 |station|generic digipeating path|coding|
 |:-----:|:----------------------:|:----:|
 |metropolitan fixed|`WIDE2-1`|0|
@@ -59,15 +50,32 @@ However, LoRa has no carrier sensing capability. Therfore, secondary ISM band us
 |balloons & aircraft|`WIDE2-1`|4|
 |space satellites|`ARISS,WIDE2-1`|5|
 
-- The first n digit in n-N paradigm paths indicates the coverage level of the digipeater, whereby 1 is for domestic fill‑in digipeaters and 2 is for county-level digipeaters.
-- The second N digit indicates the number of repeats at the indicated coverage level.
+- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
+- The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
 ## Reducing Power Consumption
-
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver can be put to sleep when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
 2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate.
 
 
 ## Messaging Pager
-Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This happened to the point that many mistakenly think the "P" in the acronym APRS stands for "position." Bob (SK), the of APRS, deeply resented this situation. In his view, APRS is foremost both a situational and tactical tool, which includes messaging.
+Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." Bob Bruninga WB4APR (SK), the spiritual father of APRS, deeply resented this situation.
+
+> _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
+ 
+In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging defintely earns its place.
+We set ourselfs the long-term goal of rendering APRS messaging more popular by offering messaging pager designs.
+
+
+## Hardware Recommendations
+- TTGO T-Beam as a tracker
+- TTGO LoRa32 as an i-gate
+
+
+## ESP32 Firmware Downloads
+Firmware will soon be freely available here for downloading.
+
+
+## News & Social
+Feel free to join our public [Telegram Group](https://t.me/aprs434) for the latest news and cordial discussions.
