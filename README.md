@@ -59,7 +59,7 @@ Note:
 
 
 ## Reducing Power Consumption
-1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver can be put to sleep when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
+1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver [can be put to sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/) when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
 2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available "war‑driving" data service from the Internet. This is comparable to how Google Android smartphone localisation works.
 
 
@@ -78,9 +78,10 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - 5V 3A microUSB charge adapter
 - TTGO T-Beam 434 MHz
 - longer 434 MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
+- 16.9 mm long tiger tail wire soldered to the female SMA socket
 - Panasonic NCR18650B Li-ion cell, or quality equivalent
 - glue gun to stick the GPS antenna to the cell holder
-- SH1106 1.3" I²C (4‑pin) OLED display
+- SH1106 1.3" I²C (4‑pin) OLED display (slightly larger than the usual 0.8" displays often sold with the TTGO T-Beam)
 - enclosure
 
 ### I-Gate Hardware:
@@ -89,6 +90,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
   + Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket), or
   + TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
 - 70 cm amateur radio colinear groundplane antenna with coaxial cable and connectors
+- - 16.9 mm long tiger tail wire soldered to the RF socket
 - enclosure
 
 
@@ -102,6 +104,21 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
 - Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS 434 will migrate to the new 434.000 MHz channel.
 
+
+## Development Road Map
+
+### Data Link Layer
+- [x] Byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)
+- [x] Fork of the OE5BPA tracker with significantly less transmitted bytes; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
+- [ ] Base91 compression of the location, course and speed data; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
+- [ ] Tracker and i-gate with LoRa frame compression on 434.000 MHz; no longer OE5BPA i-gate compatible
+
+### Tracker Hardware
+- [ ] Reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)
+- [ ] Button press to activate OLED screen
+
+### Messaging
+- [ ] …
 
 
 ## News & Social
