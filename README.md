@@ -70,8 +70,18 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 
 ## Hardware Recommendations
-- TTGO T-Beam as a tracker
-- TTGO LoRa32 as an i-gate
+
+### Tracker Hardware:
+- 5V 3A microUSB charge adapter
+- TTGO T-Beam 434 MHz
+- longer 434 MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
+- Panasonic NCR18650B Li-ion cell, or quality equivalent
+- SH1106 1.3" I²C (4‑pin) OLED display
+
+### I-Gate Hardware:
+- 5V 1A microUSB power supply
+- Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket) or TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
+- 70 cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 
 
 ## ESP32 Firmware Downloads
