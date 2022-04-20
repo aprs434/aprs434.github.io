@@ -57,7 +57,7 @@ However, LoRa has no carrier sensing capability. Therfore, secondary ISM band us
 
 ## Reducing Power Consumption
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver can be put to sleep when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
-2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate.
+2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available "war‑driving" data service from the Internet. This is comparable to how Google Android smartphone localisation works.
 
 
 ## Messaging Pager
@@ -77,11 +77,13 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - longer 434 MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
 - Panasonic NCR18650B Li-ion cell, or quality equivalent
 - SH1106 1.3" I²C (4‑pin) OLED display
+- enclosure
 
 ### I-Gate Hardware:
 - 5V 1A microUSB power supply
 - Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket) or TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
 - 70 cm amateur radio colinear groundplane antenna with coaxial cable and connectors
+- enclosure
 
 
 ## ESP32 Firmware Downloads
