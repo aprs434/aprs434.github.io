@@ -1,6 +1,6 @@
 # APRS 434
 
-Welcome to the home of **APRS 434**, the 434 MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
+Welcome to the home of **APRS&nbsp;434**, the 434 MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
 
 Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa the way it was intended;** namely by being frugal about the number of bytes put on air. Doing so, reaps a number of benefits:
 
@@ -24,23 +24,23 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
 |_Frame Check Sequence_|**not required;** provided by LoRa|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined in only 6 LoRa bytes.
-- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems). **APRS 434** will not differ in this respect. There is almost no gain to be made in compressing the _Information Field_ any further.
+- _Source Address, SSID_ and _Digipeater Address_ can by combined into only 6 LoRa bytes.
+- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems). **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information Field_ any further.
 
 
 ## Frequency = 434.000 MHz
 Above mentioned LoRa data link compression techniques render our firmware uncompatible with other firmware proposed for LoRa APRS i‑gates.
 Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on air. This quickly congests channel capacity.
-Therefore, we opted to migrate our i‑gate network to the centre frequency of 434.000 MHz.
+Therefore, we opted to migrate our i‑gate network to the centre frequency of 434.000&nbsp;MHz.
 
-The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who might be hankering after the longer range and the improved penetration of 434 MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band).
+The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who might be hankering after the longer range and the improved penetration of 434&nbsp;MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band).
 
 > Our motto: **« Use 434 MHz or lose it. »**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70 cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434 MHz ISM band as a primary service.
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
-However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434 MHz band as a primary user.
+However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
 
 
 ## Recommended n-N paradigm paths
@@ -77,9 +77,9 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### Tracker Hardware:
 - 5V 3A microUSB charge adapter
-- TTGO T-Beam 434 MHz
-- longer 434 MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
-- 16.9 mm long tiger tail wire soldered to the female SMA socket
+- TTGO T-Beam 434&nbsp;MHz
+- longer 434&nbsp;MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
+- 16.9&nbsp;mm long tiger tail wire soldered to the female SMA socket
 - Panasonic NCR18650B Li-ion cell, or quality equivalent
 - glue gun to stick the GPS antenna to the cell holder
 - SH1106 1.3" I²C (4‑pin) OLED display (slightly larger than the usual 0.8" displays often sold with the TTGO T-Beam)
@@ -88,8 +88,8 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 ### I-Gate Hardware:
 - 5V 1A microUSB power supply
 - Either:
-  + Heltec ESP32 LoRa 434 MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket), or
-  + TTGO LoRa32 434 MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
+  + Heltec ESP32 LoRa 434&nbsp;MHz ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket), or
+  + TTGO LoRa32 434&nbsp;MHz v0.7 or v1.1 ([SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket)
 - 70 cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - - 16.9 mm long tiger tail wire soldered to the RF socket
 - enclosure
