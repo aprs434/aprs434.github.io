@@ -1,6 +1,6 @@
 # APRS 434
 
-Welcome to the home of **APRS&nbsp;434**, the 434 MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
+Welcome to the home of **APRS&nbsp;434**, the 434&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
 
 Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa the way it was intended;** namely by being frugal about the number of bytes put on air. Doing so, reaps a number of benefits:
 
@@ -24,7 +24,7 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
 |_Frame Check Sequence_|**not required;** provided by LoRa|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined into only 6 LoRa bytes.
+- _Source Address, SSID_ and _Digipeater Address_ can by combined into only 6 LoRa bytes, compared to 22 LoRa bytes with OE5BPA firmware.
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems). **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information Field_ any further.
 
 
@@ -35,9 +35,9 @@ Therefore, we opted to migrate our i‑gate network to the centre frequency of 4
 
 The choice of this frequency also serves the purpose of fending off any [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) corporate secondary users who might be hankering after the longer range and the improved penetration of 434&nbsp;MHz as compared to the 868 MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band).
 
-> Our motto: **« Use 434 MHz or lose it. »**
+> Our motto: **« Use 434&nbsp;MHz or lose it. »**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU Region 1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM&nbsp;bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
 However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
@@ -103,7 +103,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### I-Gate Firmware
 - See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
-- Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS 434 will migrate to the new 434.000 MHz channel.
+- Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS&nbsp;434 will migrate to the new 434.000&nbsp;MHz channel.
 
 
 ## Development Road Map
@@ -113,7 +113,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - [x] Fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
 - [ ] Base91 compression of the location, course and speed data; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
 - [ ] Random time jitter between fixed interval packets to avoid repetitive collisions
-- [ ] Tracker and i-gate with LoRa frame compression and [LoRa CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) on 434.000 MHz; **no longer supports the OE5BPA i-gate**
+- [ ] Tracker and i-gate with LoRa frame compression and [LoRa CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) on 434.000&nbsp;MHz; **no longer supports the OE5BPA i-gate**
 
 ### Tracker Hardware
 - [ ] Coordinates displayed on screen
