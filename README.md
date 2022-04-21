@@ -14,7 +14,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 ## Setting a Standard for LoRa Frame Compression
 LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for frame compression at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
 
-|**Frame Field**|**Characters or Digits**|
+|**frame field**|**characters or digits**|
 |:-:|:-:|
 |_Flag_|**not required;** provided by LoRa|
 |_Destination Address_|**not required;** provided by the i‑gate|
@@ -99,26 +99,29 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### Tracker Firmware
 - See: <https://github.com/aprs434/lora.tracker>
-- Take note of the byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json). **Keep all empty fields empty** for improved performance!
+- The [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json) configuration file has been much simplified.
 
 ### I-Gate Firmware
 - See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
-- Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS&nbsp;434 will migrate to the new 434.000&nbsp;MHz channel.
+- Currently, the APRS&nbsp;434 tracker is still compatible with the [i-gate developped by Peter Buchegger, OE5BPA](https://github.com/lora-aprs/LoRa_APRS_iGate). However, this will soon change. When this happens, APRS&nbsp;434 will migrate to the new 434.000&nbsp;MHz channel.
 
 
 ## Development Road Map
 
 ### Data Link Layer
-- [x] Byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)
-- [x] Fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
-- [ ] Base91 compression of the location, course and speed data; yet still [OE5BPA i-gate](https://github.com/lora-aprs/LoRa_APRS_iGate) compatible
-- [ ] Random time jitter between fixed interval packets to avoid repetitive collisions
-- [ ] Tracker and i-gate with LoRa frame compression and [LoRa CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) on 434.000&nbsp;MHz; **no longer supports the OE5BPA i-gate**
+
+|tracker firmware|completion|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
+|:--------------:|:--------:|:-----:|:-:|:-:|
+|v0.1||byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|yes|433.775&nbsp;MHz|
+|v0.2||fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|yes|433.775&nbsp;MHz|
+|v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|yes|433.775&nbsp;MHz|
+|v0.4||random time jitter between fixed interval packets to avoid repetitive collisions|yes|433.775&nbsp;MHz|
+|||tracker and i-gate with LoRa frame compression and [LoRa&nbsp;CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|no|434.000&nbsp;MHz|
 
 ### Tracker Hardware
-- [ ] Coordinates displayed on screen
-- [ ] Reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)
-- [ ] Button press to activate OLED screen
+- [ ] coordinates displayed on screen
+- [ ] reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)
+- [ ] button press to activate OLED screen
 
 ### Messaging
 - [ ] …
