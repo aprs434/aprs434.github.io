@@ -119,13 +119,19 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 |||tracker and i-gate with frame address compression and [LoRa&nbsp;CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
-- [ ] coordinates displayed on screen
-- [ ] reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)
-- [ ] button press to activate OLED screen
+
+|feature|completed|
+|:-----:|:-------:|
+|coordinates displayed on screen||
+|reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)||
+|button press to activate OLED screen||
 
 ### Messaging
-- [ ] add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard
-- [ ] support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard
+
+|feature|completed|
+|:-----:|:-------:|
+|add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard||
+|support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard||
 
 ## News & Social
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
