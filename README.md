@@ -133,5 +133,9 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 |add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard||
 |support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard||
 
+### WiFi Geolocation
+TBD
+
+
 ## News & Social
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
