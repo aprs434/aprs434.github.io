@@ -110,13 +110,13 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### Data Link Layer
 
-|tracker firmware|completion|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
-|:--------------:|:--------:|:-----:|:-:|:-:|
+|tracker firmware|completed|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
+|:--------------:|:-------:|:-----:|:-:|:-:|
 |v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|✓|433.775&nbsp;MHz|
 |v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|✓|433.775&nbsp;MHz|
 |v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|✓|433.775&nbsp;MHz|
 |v0.4||random time jitter between fixed interval packets to avoid repetitive collisions|✓|433.775&nbsp;MHz|
-|||tracker and i-gate with LoRa frame compression and [LoRa&nbsp;CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|✗|**434.000&nbsp;MHz**|
+|||tracker and i-gate with frame address compression and [LoRa&nbsp;CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
 - [ ] coordinates displayed on screen
@@ -124,8 +124,8 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 - [ ] button press to activate OLED screen
 
 ### Messaging
-- [ ] …
-
+- [ ] add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard
+- [ ] support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard
 
 ## News & Social
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
