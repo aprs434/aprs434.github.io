@@ -110,8 +110,8 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### Data Link Layer
 
-|tracker firmware|completed|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
-|:--------------:|:-------:|:-----:|:-:|:-:|
+|tracker<br/>firmware|completed|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
+|:------------------:|:-------:|:-----:|:--------------------------------------------------------------------------------:|:-------:|
 |v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|✓|433.775&nbsp;MHz|
 |v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|✓|433.775&nbsp;MHz|
 |v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|✓|433.775&nbsp;MHz|
@@ -120,18 +120,18 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 ### Tracker Hardware
 
-|feature|completed|
-|:-----:|:-------:|
-|coordinates displayed on screen||
-|reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)||
-|button press to activate OLED screen||
+|tracker<br/>firmware|completed|feature|
+|:------------------:|:-------:|:-----:|
+|||coordinates displayed on screen|
+|||reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)|
+|||button press to activate OLED screen|
 
 ### Messaging
 
-|feature|completed|
-|:-----:|:-------:|
-|add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard||
-|support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard||
+|tracker<br/>firmware|completed|feature|
+|:------------------:|:-------:|:-----:|
+|||add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard|
+|||support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard|
 
 ### WiFi Geolocation
 TBD
