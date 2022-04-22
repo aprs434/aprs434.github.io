@@ -124,7 +124,7 @@ We set ourselfs the long-term goal of rendering APRS messaging more popular by o
 
 |tracker<br/>firmware|completed|feature|
 |:------------------:|:-------:|:-----:|
-|||coordinates displayed on screen|
+|v0.3||coordinates displayed on screen|
 |||reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)|
 |||button press to activate OLED screen|
 
