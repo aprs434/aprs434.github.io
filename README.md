@@ -31,7 +31,7 @@ Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 19 
 
 
 ## Frequency = 434.000 MHz
-Above mentioned LoRa data link compression techniques render our firmware uncompatible with other firmware proposed for LoRa APRS i‑gates.
+Above mentioned LoRa data link compression techniques render our firmware incompatible with other firmware proposed for LoRa APRS i‑gates.
 Moreover, [other tracker firmware produces an insane amount of bytes](https://github.com/lora-aprs/LoRa_APRS_Tracker/issues/56) on air. This quickly congests channel capacity.
 Therefore, we opted to migrate our i‑gate network to the centre frequency of 434.000&nbsp;MHz.
 
@@ -39,10 +39,10 @@ The choice of this frequency also serves the purpose of fending off any [ITU Reg
 
 > Our motto: **« Use 434&nbsp;MHz or lose it. »**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scienitfic & Medical) bands. ISM&nbsp;bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
+From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific & Medical) bands. ISM&nbsp;bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
-However, LoRa has no carrier sensing capability. Therfore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
+However, LoRa has no carrier sensing capability. Therefore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
 
 
 ## Recommended n-N paradigm paths
@@ -63,7 +63,7 @@ Note:
 
 ## Reducing Power Consumption
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver [can be put to sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/) when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
-2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available "war‑driving" data service from the Internet. This is comparable to how Google Android smartphone localisation works.
+2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available [wardriving](https://en.wikipedia.org/wiki/Wardriving) data service from the Internet. This is comparable to how Google Android smartphone localisation works.
 
 
 ## Messaging Pager
@@ -71,8 +71,8 @@ Up to now, APRS has been unduly considered to be predominantly a one-way localis
 
 > _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
  
-In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging defintely merrits its place.
-We set ourselfs the long-term goal of rendering APRS messaging more popular by offering messaging pager designs.
+In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
+One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
 
 ## Recommended Hardware
