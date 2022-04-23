@@ -39,7 +39,9 @@ The choice of this frequency also serves the purpose of fending off any [ITU Reg
 
 > Our motto: **« Use 434&nbsp;MHz or lose it. »**
 
-From a regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
+
+## ITU Regulation
+From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only. The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
 However, LoRa has no carrier sensing capability. Therefore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
@@ -47,14 +49,16 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 
 ## Recommended n-N paradigm paths
 
-|station|generic digipeating path|coding|
-|:-----:|:----------------------:|:----:|
+|station|generic digipeating path|**APRS&nbsp;434**<br/>coding|
+|:-----:|:----------------------:|:--------------------------:|
 |metropolitan fixed|`WIDE2-1`|0|
 |extremely remote fixed|`WIDE2-2`|1|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
 |extremely remote mobile|`WIDE1-1,WIDE2-2`|3|
 |balloons & aircraft|`WIDE2-1`|4|
 |space satellites|`ARISS,WIDE2-1`|5|
+|[future use]||6|
+|[future use]||7|
 
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
