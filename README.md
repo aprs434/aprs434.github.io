@@ -141,7 +141,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |tracker<br/>firmware|completed|feature|
 |:------------------:|:-------:|:-----:|
 |||add a [library](https://web.archive.org/web/20190316204938/http://cliffle.com/project/chatpad/arduino/) for the [Xbox 360 Chatpad](https://nuxx.net/gallery/v/acquired_stuff/xbox_360_chatpad/) keyboard|
-|||support for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard|
+|||[support](https://www.hackster.io/scottpowell69/lora-qwerty-messenger-c0eee6) for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard|
 
 ### WiFi Geolocation
 TBD
