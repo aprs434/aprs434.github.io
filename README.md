@@ -29,6 +29,8 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 
 Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 19 LoRa bytes** at a time, tremendously increasing the chances of a flawless reception by an i-gate. Other firmware tends to consume three times as many LoRa bytes.
 
+Upon succesful demonstration of its merits, above LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
+
 
 ## Frequency = 434.000 MHz
 Above mentioned LoRa data link compression techniques render our firmware incompatible with other firmware proposed for LoRa APRS i‑gates.
