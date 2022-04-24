@@ -145,6 +145,9 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |||button press to activate OLED screen|
 
 ### Messaging
+At first, only uplink messaging to an i-gate will be considered. This is useful for status updates, [SOTA self‑spotting](https://www.sotaspots.co.uk/Aprs2Sota_Info.php), or even emergencies.
+
+On the other hand, bidirectional messaging requires time division multiplexing between the up- and downlink, based on precise GPS timing. That is because channel isolation between different up- and downlink frequencies probably would require costly and bulky resonant cavities.
 
 |tracker<br/>firmware|completed|feature|
 |:------------------:|:-------:|:-----:|
