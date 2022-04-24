@@ -27,7 +27,11 @@ LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipe
 - _Source Address, SSID_ and _Digipeater Address_ can by combined into only 6 LoRa bytes, compared to 22 LoRa bytes with OE5BPA firmware.
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 13 LoRa bytes. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information Field_ any further.
 
-Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 19 LoRa bytes** at a time, tremendously increasing the chances of a flawless reception by an i-gate. Other firmware tends to consume three times as many LoRa bytes.
+Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 19 LoRa bytes** at a time, tremendously **increasing the chances of a flawless reception** by an i-gate. Other firmware tends to consume three times as many LoRa bytes or octets.
+
+|_Source Address_<br/>+ _SSID_<br/>+ _Digipeater Address_|_Information Field_|
+|:------------------------------------------------------:|:-----------------:|
+|6 LoRa bytes|13 LoRa bytes for geolocation, course&nbsp;& speed|
 
 Upon succesful demonstration of its merits, above LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
