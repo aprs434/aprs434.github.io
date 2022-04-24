@@ -59,8 +59,8 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 
 ## Recommended n-N paradigm paths
 
-|station|generic digipeating path|**APRS&nbsp;434**<br/>coding|
-|:-----:|:----------------------:|:--------------------------:|
+|station|generic digipeating path|APRS&nbsp;434<br/>coding|
+|:-----:|:----------------------:|:----------------------:|
 |metropolitan fixed|`WIDE2-1`|0|
 |extremely remote fixed|`WIDE2-2`|1|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
