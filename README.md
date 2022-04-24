@@ -17,7 +17,7 @@ As a physical layer, LoRa permits sending any of the [full 128 ASCII character s
 |[AX.25](https://en.wikipedia.org/wiki/AX.25) UI frame&nbsp;field|required characters or digits with&nbsp;LoRa|
 |:-:|:-:|
 |_Flag_|**not required**; provided by LoRa|
-|_Destination Address_|**not required**; provided by the i‑gate|
+|_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal digits](https://en.wikipedia.org/wiki/Hexadecimal)|
 |_Digipeater Address_|1 of [**6** recommended n‑N paradigm paths](#recommended-n-n-paradigm-paths)|
@@ -106,7 +106,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 - Either:
   + [TTGO LORA32 433&nbsp;MHz v2](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1319&FId=t3:50060:3) ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) or [SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket), or
   + Heltec ESP32 LoRa 433&nbsp;MHz **v2** ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket)
-  + **⚠ DO NOT USE** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
+  + **⚠ <u>DO NOT USE</u>** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
 - 70&nbsp;cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - 16.9&nbsp;mm long tiger tail wire soldered to the RF socket
 - 5&nbsp;V 1&nbsp;A microUSB power supply
