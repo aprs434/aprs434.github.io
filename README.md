@@ -106,7 +106,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 - Either:
   + [TTGO LORA32 433&nbsp;MHz v2](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1319&FId=t3:50060:3) ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) or [SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket), or
   + Heltec ESP32 LoRa 433&nbsp;MHz **v2** ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket)
-  + **DO NOT USE** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
+  + **⚠ DO NOT USE** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
 - 70&nbsp;cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - 16.9&nbsp;mm long tiger tail wire soldered to the RF socket
 - 5&nbsp;V 1&nbsp;A microUSB power supply
