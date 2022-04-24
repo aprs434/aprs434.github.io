@@ -12,20 +12,24 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 
 
 ## Setting a Standard for LoRa Frame Compression
-LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for frame compression at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
+As a physical layer, LoRa permits sending any of the [full 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for compressing [AX.25](https://en.wikipedia.org/wiki/AX.25) ([packet radio](https://en.wikipedia.org/wiki/Packet_radio)) unnumbered information (UI) frames at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
 
-|**frame field**|**characters or digits**|
+|[AX.25](https://en.wikipedia.org/wiki/AX.25) UI frame&nbsp;field|required characters or digits with&nbsp;LoRa|
 |:-:|:-:|
-|_Flag_|**not required;** provided by LoRa|
-|_Destination Address_|**not required;** provided by the i‑gate|
+|_Flag_|**not required**; provided by LoRa|
+|_Destination Address_|**not required**; provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal digits](https://en.wikipedia.org/wiki/Hexadecimal)|
 |_Digipeater Address_|1 of [**6** recommended n‑N paradigm paths](#recommended-n-n-paradigm-paths)|
+|_Control Field_|**not required**|
+|_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
-|_Frame Check Sequence_|**not required;** provided by LoRa|
+|_Frame Check Sequence_|**not required**; [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
+|_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined into only 6 LoRa bytes, compared to 22 LoRa bytes with OE5BPA firmware.
-- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 13 LoRa bytes. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information Field_ any further.
+- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 6 LoRa bytes, compared to 22 LoRa bytes with OE5BPA firmware.
+- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 13 LoRa bytes. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
+- Instead, APRS Mic-E compression would require another 16 LoRa bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field_. Hence, this is not a good option.
 
 Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 19 LoRa bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an i-gate. Other firmware tends to consume three times as many LoRa bytes.
 
@@ -154,5 +158,5 @@ TBD
 ## News, Social & Codevelopment
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
 
-You are invited to contribute code improvements to this project through [GitHub](https://github.com/aprs434).
+You are invited to contribute code improvements to [this project through GitHub](https://github.com/aprs434).
 Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuPbW31vAw) by Andreas Spiess, HB9BLA.
