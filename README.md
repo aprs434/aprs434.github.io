@@ -24,7 +24,7 @@ As a physical layer, LoRa permits sending any of the [full 128 ASCII character s
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)|
-|_Frame Check Sequence_|**not required**; [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
+|_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
 |_Flag_|**not required**|
 
 - _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 6 LoRa payload bytes, compared to 22 LoRa payload bytes with OE5BPA firmware.
