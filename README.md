@@ -128,13 +128,14 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 ### Data Link Layer
 
-|tracker<br/>firmware|completed|feature|compatible with [OE5BPA&nbsp;i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
-|:------------------:|:-------:|:-----:|:--------------------------------------------------------------------------------:|:-------:|
-|v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|✓|433.775&nbsp;MHz|
-|v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|✓|433.775&nbsp;MHz|
-|v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|✓|433.775&nbsp;MHz|
-|v0.4||random time jitter between fixed interval packets to avoid repetitive collisions|✓|433.775&nbsp;MHz|
-|||tracker and i-gate with frame address compression and [LoRa&nbsp;CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|✗|**434.000&nbsp;MHz**|
+|tracker<br/>firmware|completed|feature|LoRa payload|compatible with [OE5BPA i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
+|:------------------:|:-------:|:-----:|:----------:|:--------------------------------------------------------------------------------:|:-------:|
+|v0.0|✓|original [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker)|109 bytes|✓|433.775&nbsp;MHz|
+|v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|83 bytes|✓|433.775&nbsp;MHz|
+|v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|40 bytes|✓|433.775&nbsp;MHz|
+|v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|26 bytes|✓|433.775&nbsp;MHz|
+|v0.4||random time jitter between fixed interval packets to avoid repetitive collisions|26 bytes|✓|433.775&nbsp;MHz|
+|||tracker and i-gate with frame address compression|19 bytes|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
 
@@ -161,5 +162,5 @@ TBD
 ## News, Social & Codevelopment
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
 
-You are invited to contribute code improvements to [this project through GitHub](https://github.com/aprs434).
+You are invited to contribute code improvements to [**this project on GitHub**](https://github.com/aprs434).
 Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuPbW31vAw) by Andreas Spiess, HB9BLA.
