@@ -27,7 +27,7 @@ As a physical layer, LoRa permits sending any of the [full 128 ASCII character s
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
 |_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 6 LoRa payload bytes, compared to 22 LoRa payload bytes with OE5BPA firmware.
+- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 6 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 LoRa payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
 - Instead, APRS Mic-E compression would require another 16 LoRa payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
@@ -133,15 +133,15 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |v0.0|✓|original [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker)|109 bytes|✓|433.775&nbsp;MHz|
 |v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|83 bytes|✓|433.775&nbsp;MHz|
 |v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|40 bytes|✓|433.775&nbsp;MHz|
-|v0.3||[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|27 bytes|✓|433.775&nbsp;MHz|
-|v0.4||random time jitter between fixed interval packets to avoid repetitive collisions|27 bytes|✓|433.775&nbsp;MHz|
+|v0.3|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|27 bytes|✓|433.775&nbsp;MHz|
+|v0.32||random time jitter between fixed interval packets to avoid repetitive collisions|27 bytes|✓|433.775&nbsp;MHz|
 |||tracker and i-gate with frame address compression|20 bytes|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
 
 |tracker<br/>firmware|completed|feature|
 |:------------------:|:-------:|:-----:|
-|v0.3||coordinates displayed on screen|
+|v0.31||coordinates displayed on screen|
 |||reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)|
 |||button press to activate OLED screen|
 
