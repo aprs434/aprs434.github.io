@@ -69,6 +69,7 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 |space satellites|`ARISS,WIDE2-1`|5|
 |[future use]||6|
 |[future use]||7|
+|[future use]||8|
 
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
