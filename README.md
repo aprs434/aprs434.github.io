@@ -135,7 +135,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|86 bytes|✓|433.775&nbsp;MHz|
 |v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|43 bytes|✓|433.775&nbsp;MHz|
 |v0.3|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|30 bytes|✓|433.775&nbsp;MHz|
-|||random time jitter between fixed interval packets to avoid repetitive collisions|30 bytes|✓|433.775&nbsp;MHz|
+|||random time jitter between fixed interval packets to avoid repetitive [collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|433.775&nbsp;MHz|
 |||tracker and i-gate with frame address compression,<br/>no custom header in payload|20 bytes|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
