@@ -106,7 +106,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 - Either:
   + [TTGO LORA32 433&nbsp;MHz v2](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1319&FId=t3:50060:3) ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) or [SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket), or
-  + Heltec ESP32 LoRa 433&nbsp;MHz **v2** ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket)
+  + maybe Heltec ESP32 LoRa 433&nbsp;MHz **v2** ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket); subject to satisfactory receiver testing
   + **⚠ <u>DO NOT USE</u>** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
 - 70&nbsp;cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - 16.9&nbsp;mm long tiger tail wire soldered to the RF socket
@@ -131,20 +131,21 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 |tracker<br/>firmware|completed|feature|LoRa payload|compatible with [OE5BPA i‑gate](https://github.com/lora-aprs/LoRa_APRS_iGate)|frequency|
 |:------------------:|:-------:|:-----:|:----------:|:--------------------------------------------------------------------------------:|:-------:|
-|v0.0|✓|original [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker)|109 bytes|✓|433.775&nbsp;MHz|
-|v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|83 bytes|✓|433.775&nbsp;MHz|
-|v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|40 bytes|✓|433.775&nbsp;MHz|
-|v0.3|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|27 bytes|✓|433.775&nbsp;MHz|
-|v0.32||random time jitter between fixed interval packets to avoid repetitive collisions|27 bytes|✓|433.775&nbsp;MHz|
-|||tracker and i-gate with frame address compression|20 bytes|✗|**434.000&nbsp;MHz**|
+|v0.0|✓|original [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker)|112 bytes|✓|433.775&nbsp;MHz|
+|v0.1|✓|byte-saving [`tracker.json`](https://github.com/aprs434/lora.tracker/blob/master/data/tracker.json)|86 bytes|✓|433.775&nbsp;MHz|
+|v0.2|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker) with significantly less transmitted bytes|43 bytes|✓|433.775&nbsp;MHz|
+|v0.3|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|30 bytes|✓|433.775&nbsp;MHz|
+|||random time jitter between fixed interval packets to avoid repetitive collisions|30 bytes|✓|433.775&nbsp;MHz|
+|||tracker and i-gate with frame address compression,<br/>no custom header in payload|20 bytes|✗|**434.000&nbsp;MHz**|
 
 ### Tracker Hardware
 
 |tracker<br/>firmware|completed|feature|
 |:------------------:|:-------:|:-----:|
-|v0.31||coordinates displayed on screen|
+|||coordinates displayed on screen|
 |||reduced power consumption through [SH1106 OLED sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/)|
 |||button press to activate OLED screen|
+|||ESP32 power reduction|
 
 ### Messaging
 At first, only uplink messaging to an i-gate will be considered. This is useful for status updates, [SOTA self‑spotting](https://www.sotaspots.co.uk/Aprs2Sota_Info.php), or even emergencies.
