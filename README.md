@@ -115,7 +115,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 ### I-Gate Firmware
 - See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
-- Currently, the APRS&nbsp;434 tracker is still compatible with the [i-gate developped by Peter Buchegger, OE5BPA](https://github.com/lora-aprs/LoRa_APRS_iGate). However, this will soon change.
+- Currently, the APRS&nbsp;434 tracker is still compatible with the [i-gate developped by Peter Buchegger, OE5BPA](https://github.com/lora-aprs/LoRa_APRS_iGate). However, this will soon change. We feel confident that trackers with the proposed APRS 434 compressed LoRa frame will eventually become dominant because of the longer range merit. To smooth out the transition, an i‑gate capable of understanding both formats (APRS&nbsp;434&nbsp;and OE5BPA) will be developed.
 
 
 ## Development Road Map
@@ -131,7 +131,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |||random time jitter between fixed interval packets to avoid repetitive [collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓||
 |||tracker and i-gate with frame address compression,<br/>no custom header in payload|20 bytes|✗|
 
-⚠ Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change.
+⚠ Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. We feel confident that trackers with the proposed APRS&nbsp;434 compressed LoRa frame will eventually become dominant because of the longer range merit. To smooth out the transition, an i‑gate capable of understanding both formats (APRS&nbsp;434S&nbsp;and OE5BPA) will be developed.
 
 ### Tracker Hardware
 
