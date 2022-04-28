@@ -122,7 +122,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 ### I-Gate Firmware
 - See: <https://github.com/lora-aprs/LoRa_APRS_iGate>
-- Currently, the APRS&nbsp;434 tracker is still compatible with the [i-gate developped by Peter Buchegger, OE5BPA](https://github.com/lora-aprs/LoRa_APRS_iGate). However, this will soon change. When this happens, APRS&nbsp;434 will migrate to the new 434.000&nbsp;MHz channel.
+- Currently, the APRS&nbsp;434 tracker is still compatible with the [i-gate developped by Peter Buchegger, OE5BPA](https://github.com/lora-aprs/LoRa_APRS_iGate). However, this will soon change. When this happens, APRS&nbsp;434 will migrate to the new 434.000&nbsp;MHz channel to avoid interference.
 
 
 ## Development Road Map
@@ -137,6 +137,8 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |v0.3|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of the location, course and speed data|30 bytes|✓|433.775&nbsp;MHz|
 |||random time jitter between fixed interval packets to avoid repetitive [collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|433.775&nbsp;MHz|
 |||tracker and i-gate with frame address compression,<br/>no custom header in payload|20 bytes|✗|**434.000&nbsp;MHz**|
+
+⚠ Currently, the APRS 434 tracker is still compatible with the i-gate developped by Peter Buchegger, OE5BPA. However, this will soon change. When this happens, APRS 434 will migrate to the new 434.000 MHz channel to avoid interference.
 
 ### Tracker Hardware
 
