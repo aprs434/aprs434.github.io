@@ -36,10 +36,10 @@ Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 20 
 |_Source Address_<br/>+ _SSID_<br/>+ _Digipeater Address_|_Information Field_|
 |:------------------------------------------------------:|:-----------------:|
 |6 payload bytes|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
-|`CCCCCC`|`!/XXXXYYYY$csT`|
+|`CCCCDD`|`!/XXXXYYYY$csT`|
 
 where:
-- `CCCCCC`: the compressed _Source Address_, _SSID_ and _Digipeater Address_
+- `CCCCDD`: the compressed _Source Address_, _SSID_ and _Digipeater Address_
 - `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the compressed longitude
@@ -107,7 +107,6 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 - enclosure
 
 ### I-Gate Hardware:
-
 - Either:
   + [TTGO LORA32 433&nbsp;MHz v2](http://www.lilygo.cn/prod_view.aspx?TypeId=50060&Id=1319&FId=t3:50060:3) ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) or [SMA female](https://en.wikipedia.org/wiki/SMA_connector) RF socket), or
   + maybe Heltec ESP32 LoRa 433&nbsp;MHz **v2** ([U.FL](https://en.wikipedia.org/wiki/Hirose_U.FL) female RF socket); subject to satisfactory receiver testing
