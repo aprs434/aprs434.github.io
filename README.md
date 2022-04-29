@@ -30,7 +30,7 @@ As a physical layer, LoRa permits sending any character of the [full 128 ASCII c
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 LoRa payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
 - Instead, APRS Mic-E compression would require another 16 LoRa payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
-Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 20 LoRa payload bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an [APRS&nbsp;434&nbsp;i-gate](https://github.com/aprs434/lora.igate). Other firmware tends to consume five times as many LoRa payload bytes.
+Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 20 LoRa payload bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume five times as many LoRa payload bytes.
 
 |_Source Address_<br/>+ _SSID_<br/>+ _Digipeater Address_|_Information Field_|
 |:------------------------------------------------------:|:-----------------:|
@@ -130,7 +130,7 @@ Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate develop
 
 We feel confident that trackers with the proposed APRS&nbsp;434 compressed LoRa frame will eventually become dominant because of the longer range merit. To smooth out the transition, we are developing an i‑gate capable of understanding both formats; i.e. compressed APRS&nbsp;434&nbsp;and longer, legacy OE5BPA.
 
-However, it is strongly advised to already install [**the accompanying APRS&nbsp;434 i-gate**]](https://github.com/aprs434/lora.igate) as new releases will be automatically pulled over‑the‑air (OTA) via WiFi.
+However, it is strongly advised to already install [**the accompanying APRS&nbsp;434 i-gate**](https://github.com/aprs434/lora.igate) as new releases will be automatically pulled over‑the‑air (OTA) via WiFi.
 
 
 ## Development Road Map
