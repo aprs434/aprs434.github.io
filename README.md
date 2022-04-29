@@ -64,7 +64,7 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 
 |station|generic digipeating path|APRS&nbsp;434<br/>coding|
 |:-----:|:----------------------:|:----------------------:|
-|no digipeating|[empty]|0|
+|no digipeating|—|0|
 |metropolitan fixed|`WIDE2-1`|1|
 |extremely remote fixed|`WIDE2-2`|2|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|3|
