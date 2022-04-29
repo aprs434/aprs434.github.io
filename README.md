@@ -36,6 +36,17 @@ Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 20 
 |_Source Address_<br/>+ _SSID_<br/>+ _Digipeater Address_|_Information Field_|
 |:------------------------------------------------------:|:-----------------:|
 |6 payload bytes|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
+|`CCCCCC`|`!/XXXXYYYY$csT`|
+
+where:
+- `CCCCCC`: the compressed _Source Address_, _SSID_ and _Digipeater Address_
+- `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the compressed longitude
+- `YYYY`: the compressed latitude
+- `$`: the _Symbol Code_
+- `cs`: the compressed course and speed
+- `T`: the _Compression Type Byte_
 
 Upon succesful demonstration of its merits, above LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
