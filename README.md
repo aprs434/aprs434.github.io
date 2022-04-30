@@ -60,9 +60,14 @@ where:
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
 
-### CCCC Compression Details
+### Encoding CCCC
+Treat the given 6 character callsign string as a Base36 encoding. Decode it first to an integer.
+Then, encode this integer as a 4 character Base256 bytestring.
 
-### D Compression Details
+### Decoding CCCC
+
+### Encoding D
+### Decoding D
 
 ### Codec Algorithms
 - [Python3](compression.py) CCCCD compression algorithms and tests
