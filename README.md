@@ -26,19 +26,22 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
 |_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 6 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
+- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 5 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 LoRa payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
 - Instead, APRS Mic-E compression would require another 16 LoRa payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
-Hence, **APRS&nbsp;434** geolocation beacons will transmit **a total of only 20 LoRa payload bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume five times as many LoRa payload bytes.
+Hence, **APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume five times as many LoRa payload bytes.
 
-|_Source Address_<br/>+ _SSID_<br/>+ _Digipeater Address_|_Information Field_|
-|:------------------------------------------------------:|:-----------------:|
-|6 payload bytes|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
-|`CCCCDD`|`!/XXXXYYYY$csT`|
+Please, note that due to the LoRa symbol encoding scheme, transmission time gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12.
+
+|_Source Address_|_SSID_<br/>+ _Digipeater Address_|_Information Field_|
+|:--------------:|:-------------------------------:|:-----------------:|
+|4 payload bytes|1 payload byte|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
+|`CCCC`|`D`|`!/XXXXYYYY$csT`|
 
 where:
-- `CCCCDD`: the compressed _Source Address_, _SSID_ and _Digipeater Address_
+- `CCCC`: the compressed _Source Address_ (6 character call sign)
+- `D`: the compressed _SSID_ (1 of 16) and _Digipeater Address_ (1 of 8)
 - `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the compressed longitude
@@ -72,7 +75,6 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 |balloons & aircraft|`WIDE2-1`|5|
 |space satellites|`ARISS,WIDE2-1`|6|
 |[future use]||7|
-|[future use]||8|
 
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
