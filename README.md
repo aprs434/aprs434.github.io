@@ -69,8 +69,8 @@ Then, encode this integer as a 4 byte Base256 bytestring.
 ### Decoding CCCC
 
 ### Encoding D
-First, multiply the _SSID_ integer by 16 and add the path code as listed in below table.
-Then, convert the resulting integer to a single Base256 byte.
+First, multiply the _SSID_ integer by 16. Then, add the path code digit as listed in below table.
+Finally, convert the resulting integer to a single Base256 byte.
 
 ### Decoding D
 
