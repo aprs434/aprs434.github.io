@@ -18,37 +18,37 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Flag_|**not required**; provided by LoRa|
 |_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
-|_SSID_|1 out of [**16** hexadecimal digits](https://en.wikipedia.org/wiki/Hexadecimal)|
+|_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
 |_Digipeater Address_|1 of [**6** recommended n‑N paradigm paths](#recommended-n-n-paradigm-paths)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first byte = _Data Type ID_|
-|_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
+|_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) are provided by LoRa|
 |_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can be compressed into only 5 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
-- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 LoRa payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
-- Instead, APRS Mic-E compression would require another 16 LoRa payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
+- _Source Address, SSID_ and _Digipeater Address_ can be compressed into only 5 payload bytes, compared to 25 payload bytes with OE5BPA firmware.
+- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
+- If APRS Mic-E compression were to be used instead, that would require another 16 payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
-### Measurable Benefits
+## Measurable Benefits
 **APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
-After all, LoRa can receive up to 20&nbsp;dB under the noise floor. However, the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
+LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted as the stepped top trace on the figure below. (Adapted from [[source]](https://avbentem.github.io/airtime-calculator/ttn/eu868/5,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 19 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.19bytes.png)
 
-### Proposed Compression for LoRa Geolocation Frames
+## Proposed Compression for LoRa Geolocation Frames
 Upon succesful demonstration of its merits, below LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
-|4 payload bytes|1 payload byte|14 payload bytes|
+|4 bytes|1 byte|14 bytes|
 |`CCCC`|`D`|`!/XXXXYYYY$csT`|
 
 where:
-- `CCCC`: the compressed _Source Address_ (6 character call sign)
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
   + the _Digipeater Address_ (between path 0 [none] and 7; included)
@@ -59,6 +59,13 @@ where:
 - `$`: the _Symbol Code_
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
+
+### CCCC Compression Details
+
+### D Compression Details
+
+### Codec Algorithms
+- [Python3](compression.py) CCCCD compression algorithms and tests
 
 ### Recommended n-N paradigm paths
 
