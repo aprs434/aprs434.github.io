@@ -60,6 +60,8 @@ where:
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
 
+> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data or comments!**
+
 ### Encoding CCCC
 Treat the given 6 character callsign string as a Base36 encoding. Decode it first to an integer.
 Then, encode this integer as a 4 character Base256 bytestring.
