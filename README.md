@@ -66,6 +66,7 @@ where:
 
 ### Codec Algorithms
 - [Python3](compression.py) CCCCD compression algorithms and tests
+- [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### Recommended n-N paradigm paths
 
