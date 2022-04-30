@@ -33,9 +33,9 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 ### Measurable Benefits
 **APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
-After all, the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
+After all, LoRa can receive up to 20&nbsp;dB under the noise floor. However, the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
-Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted in the stepped top trace on the figure below. (Adapted from [[source]](https://avbentem.github.io/airtime-calculator/ttn/eu868/5,14).)
+Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted as the stepped top trace on the figure below. (Adapted from [[source]](https://avbentem.github.io/airtime-calculator/ttn/eu868/5,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 19 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.19bytes.png)
 
