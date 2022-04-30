@@ -40,6 +40,7 @@ Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;b
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 19 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.19bytes.png)
 
 ### Proposed Compression for LoRa Geolocation Frames
+Upon succesful demonstration of its merits, below LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
@@ -51,13 +52,11 @@ where:
 - `D`: the compressed _SSID_ (1 of 16) and _Digipeater Address_ (1 of 8 paths)
 - `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
 - `/`: the _Symbol Table Identifier_
-- `XXXX`: the compressed longitude
-- `YYYY`: the compressed latitude
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
 - `$`: the _Symbol Code_
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
-
-Upon succesful demonstration of its merits, above LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
 ### Recommended n-N paradigm paths
 
