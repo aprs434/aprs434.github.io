@@ -15,7 +15,7 @@ def encodeCCCC(string):
 
     integer = int(string, 36)                      # Decode the given Base36 string to an integer.
 
-    return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 character Base256 bytestring.
+    return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
 
 def decodeCCCC(bytestring):
