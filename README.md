@@ -26,22 +26,29 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) provided by LoRa|
 |_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can by combined and compressed into only 5 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
+- _Source Address, SSID_ and _Digipeater Address_ can be compressed into only 5 LoRa payload bytes, compared to 25 LoRa payload bytes with OE5BPA firmware.
 - It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 LoRa payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
 - Instead, APRS Mic-E compression would require another 16 LoRa payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
-Hence, **APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** or octets at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume five times as many LoRa payload bytes.
+### Measurable Benefits
+**APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
-Please, note that due to the LoRa symbol encoding scheme, transmission time gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12.
+After all, the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
-|_Source Address_|_SSID_ +<br/>_Digipeater Address_|_Information Field_|
+Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted in the stepped top trace on the figure below. (Adapted from [[source]](https://avbentem.github.io/airtime-calculator/ttn/eu868/5,14).)
+
+![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 19 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.19bytes.png)
+
+### Proposed Compression for LoRa Geolocation Frames
+
+|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
 |4 payload bytes|1 payload byte|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
 |`CCCC`|`D`|`!/XXXXYYYY$csT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character call sign)
-- `D`: the compressed _SSID_ (1 of 16) and _Digipeater Address_ (1 of 8)
+- `D`: the compressed _SSID_ (1 of 16) and _Digipeater Address_ (1 of 8 paths)
 - `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the compressed longitude
@@ -52,18 +59,7 @@ where:
 
 Upon succesful demonstration of its merits, above LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
-
-## ITU Regulation
-From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only.
-
-The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
-Moreover, ham radio is not restricted to a 20&nbsp;dBm (=&nbsp;100&nbsp;mW) power level, nor any duty cycle limits on this band.
-
-As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
-However, LoRa has no carrier sensing capability. Therefore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
-
-
-## Recommended n-N paradigm paths
+### Recommended n-N paradigm paths
 
 |station|generic digipeating path|APRS&nbsp;434<br/>coding|
 |:-----:|:----------------------:|:----------------------:|
@@ -79,6 +75,16 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
+
+
+## ITU Regulation
+From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only.
+
+The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
+Moreover, ham radio is not restricted to a 20&nbsp;dBm (=&nbsp;100&nbsp;mW) power level, nor any 1% duty cycle limits on this band.
+
+As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
+However, LoRa has no carrier sensing capability. Therefore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
 
 
 ## Reducing Power Consumption
