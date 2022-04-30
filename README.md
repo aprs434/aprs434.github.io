@@ -60,15 +60,18 @@ where:
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
 
-> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data or comments!**
+> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
 
 ### Encoding CCCC
 Treat the given 6 character callsign string as a Base36 encoding. Decode it first to an integer.
-Then, encode this integer as a 4 character Base256 bytestring.
+Then, encode this integer as a 4 byte Base256 bytestring.
 
 ### Decoding CCCC
 
 ### Encoding D
+First, multiply the _SSID_ integer by 16 and add the path code as listed in below table.
+Then, convert the resulting integer to a single Base256 byte.
+
 ### Decoding D
 
 ### Codec Algorithms
@@ -77,8 +80,8 @@ Then, encode this integer as a 4 character Base256 bytestring.
 
 ### Recommended n-N paradigm paths
 
-|station|generic digipeating path|APRS&nbsp;434<br/>coding|
-|:-----:|:----------------------:|:----------------------:|
+|station|generic digipeating path|path code|
+|:-----:|:----------------------:|:-------:|
 |no digipeating|[none]|0|
 |metropolitan fixed|`WIDE2-1`|1|
 |extremely remote fixed|`WIDE2-2`|2|
