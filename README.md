@@ -34,7 +34,7 @@ Hence, **APRS&nbsp;434** geolocation beacons will encode **a total of only 19 Lo
 
 Please, note that due to the LoRa symbol encoding scheme, transmission time gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12.
 
-|_Source Address_|_SSID_<br/>+ _Digipeater Address_|_Information Field_|
+|_Source Address_|_SSID_ +<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
 |4 payload bytes|1 payload byte|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
 |`CCCC`|`D`|`!/XXXXYYYY$csT`|
