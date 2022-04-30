@@ -44,13 +44,15 @@ Upon succesful demonstration of its merits, below LoRa frame compression procedu
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
-|4 payload bytes|1 payload byte|14 payload bytes for _Data Type ID,_ geolocation, course&nbsp;& speed|
+|4 payload bytes|1 payload byte|14 payload bytes|
 |`CCCC`|`D`|`!/XXXXYYYY$csT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character call sign)
-- `D`: the compressed _SSID_ (1 of 16) and _Digipeater Address_ (1 of 8 paths)
-- `!`: the _Data Type ID_ and at the same time a custom, positional LoRa header
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+- `!`: the _Data Type ID,_ and at the same time a custom, positional LoRa header
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -62,7 +64,7 @@ where:
 
 |station|generic digipeating path|APRS&nbsp;434<br/>coding|
 |:-----:|:----------------------:|:----------------------:|
-|no digipeating|—|0|
+|no digipeating|[none]|0|
 |metropolitan fixed|`WIDE2-1`|1|
 |extremely remote fixed|`WIDE2-2`|2|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|3|
