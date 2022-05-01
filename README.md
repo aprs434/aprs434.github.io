@@ -85,7 +85,7 @@ where:
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between path 0 [none] and 3; included)
+  + the _Data Type Code_ (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -194,8 +194,9 @@ Furthermore, in view of channel capacity and channel isolation, **it remains dou
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Data Type Code_ (between path 0 [none] and 15; included)
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
 - `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
@@ -214,7 +215,7 @@ The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#co
 1. First, decode the given Base256 `TTTT…TTTT` bytestring to an integer.
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
-### TTTT…TTTT Codec Algorithms
+### Codec Algorithms for TTTT…TTTT
 - [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
@@ -231,8 +232,9 @@ For example for `>` APRS status reports. In practice, status reports are also of
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Data Type Code_ (between path 0 [none] and 15; included)
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
