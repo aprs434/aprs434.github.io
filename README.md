@@ -129,6 +129,34 @@ Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
+> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
+> Digipeating on LoRa channels leads to unwanted congestion.
+> Anyway, there are no LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
+> Above `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating addresses.
+
+
+## Proposed Compression for LoRa Text Frames
+Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
+
+> _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
+ 
+In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
+One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
+
+> In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
+> In resemblance to Morse code, the character set would contain only 26 capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa. Here is the text mesa
+
+|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
+|:--------------:|:-------------------------------:|:-----------------:|
+|4 bytes|1 byte|14 bytes|
+|`CCCC`|`D`|`!TTTT…TTTT`|
+
+where:
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+- `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 
 ## ITU Regulation
 From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only.
@@ -143,15 +171,6 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 ## Reducing Power Consumption
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver [can be put to sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/) when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
 2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available [wardriving](https://en.wikipedia.org/wiki/Wardriving) data service from the Internet. This is comparable to how Google Android smartphone localisation works.
-
-
-## Messaging Pager
-Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
-
-> _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
- 
-In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
-One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
 
 ## Recommended Hardware
