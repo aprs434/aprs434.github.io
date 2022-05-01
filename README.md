@@ -69,14 +69,14 @@ where:
 ### Decoding CCCC
 
 ### Encoding D
-1. First, multiply the _SSID_ integer by 16.
+1. First, multiply the _SSID_ integer by&nbsp;16.
 2. Then, add the path code digit as listed in below table.
 3. Finally, convert the resulting integer to a single Base256 byte.
 
 ### Decoding D
 1. First, decode the given Base256 byte to an integer.
-2. The _SSID_ equals to the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by 16.
-3. Whereas the path code equals to the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by 16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+2. The _SSID_ equals to the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
+3. Whereas the path code equals to the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms
 - [Python3](compression.py) CCCCD compression algorithms and tests
