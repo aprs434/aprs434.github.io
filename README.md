@@ -143,14 +143,15 @@ In Bob's view of APRS as being foremost a real-time situational and tactical too
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
 > In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
+> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
 
 |character set|amount|
 |:-----------:|:----:|
 |Latin capital letters|26|
 |digits|10|
+|space|1|
 |punctuation `.`&nbsp;`?`|2|
-|Internet `/`&nbsp;`-`&nbsp;`@`&nbsp;`_`|4|
+|symbols `-`&nbsp;`/`&nbsp;`_`|4|
 |**TOTAL**|**42**|
 
 Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since on air experience is limited. Therefore, below specification **may be subject to change.**
