@@ -56,9 +56,11 @@ $$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125\,000}{2^{12}} \approx
 
 Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as follows:
 
-$$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\text{byte/s}$$
+$$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\,\text{byte/s}$$
 
 Finally, it was observed that amateur radio predominantly employs the LoRa sync word ''.
+
+For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 
 ## Proposed Compression for LoRa Geolocation Frames
@@ -84,30 +86,30 @@ where:
 
 > **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
 >
-> Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with CCCCD callsign compression.
+> Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with `CCCCD` callsign compression.
 
-As mentioned before, and when deemed necessary, CCCCD callsign compression can be used in combination with other, mostly uncompressed _Data Types._
+As mentioned before, and when deemed necessary, `CCCCD` callsign compression can be used in combination with other, mostly uncompressed _Data Types._
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
-2. Then, encode this integer as a 4&nbsp;byte Base256 bytestring.
+2. Then, encode this integer as a 4&nbsp;byte Base256 `CCCC` bytestring.
 
 ### Decoding CCCC
-1. First, decode the given 4&nbsp;byte Base256 bytestring to an integer.
-2. Then, encode this integer as a 6&nbsp;character Base36 string.
+1. First, decode the given 4&nbsp;byte Base256 `CCCC` bytestring to an integer.
+2. Then, encode this integer as a 6&nbsp;character Base36 string, corresponding to the callsign.
 
 ### Encoding D
 1. First, multiply the _SSID_ integer by&nbsp;16.
 2. Then, algebraically add to this the path code digit as listed in below table.
-3. Finally, convert the resulting integer to a single Base256 byte.
+3. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
-1. First, decode the given Base256 byte to an integer.
+1. First, decode the given Base256 `D` byte to an integer.
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the path code equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms
-- [Python3](compression.py) CCCCD compression algorithms and tests
+- [Python3](compression.py) `CCCCD` compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### Recommended n-N paradigm paths
