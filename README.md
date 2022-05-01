@@ -151,7 +151,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |digits|10|
 |space|1|
 |punctuation `.`&nbsp;`?`|2|
-|symbols `-`&nbsp;`/`&nbsp;`_`|4|
+|symbols `-`&nbsp;`/`&nbsp;`_`|3|
 |**TOTAL**|**42**|
 
 Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since on air experience is limited. Therefore, below specification **may be subject to change.**
