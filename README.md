@@ -71,7 +71,7 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 
-Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
+Upon succesful demonstration of its merits, below LoRa frame compression protocols **will be formally proposed as an extension to the APRS standard:**
 
 ## Callsign, SSID, Path and Data Type Compression
 
@@ -97,11 +97,13 @@ where:
 2. Then, encode this integer as a 6&nbsp;character Base36 string, corresponding to the callsign.
 
 ### Encoding D
+0. **[REWRITE]**
 1. First, multiply the _SSID_ integer by&nbsp;16.
 2. Then, algebraically add to this the _Data Type Code_ integer as listed in below table.
 3. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
+0. **[REWRITE]**
 1. First, decode the given Base256 `D` byte to an integer.
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Data Type Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
@@ -170,14 +172,16 @@ where:
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
 
-> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
->
-> Rather, occassionally transmit a _Status Report_.
+> **⚠ <u>DO NOT</u> add any altitude data or comment!**
+> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the loss of the entire geolocation frame <u>by design</u>.
+> Terrestrial objects do not require sending altitude data.
+> Flying objects may alternate the `csT` bytes between altitude and course & speed.
+> Only if deemed absolutely necessary, transmit any other information with an occassional _Status Report_.
 
 
 ## Compressed Text
-> In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-> In resemblance to Morse code, the character set would contain only 26 Latin lower‑case letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
+In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
+In resemblance to Morse code, the character set would contain only 26 Latin lower‑case letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
 
 |character set|amount|
 |:-----------:|:----:|
