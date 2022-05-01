@@ -13,21 +13,21 @@ Python3 codec algorithms for APRS 434 LoRa:
 
 def encodeCCCC(string):
 
-    integer = int(string, 36)                      # Decode the given Base36 string to an integer.
+    integer = int(string, 36)                      # Decode the given 6 character Base36 string to an integer.
 
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
 
 def decodeCCCC(bytestring):
 
-    integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 bytestring to an integer.
+    integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
     encode36 = lambda integer, numerals='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ': \
                       numerals[0] if integer == 0 \
                       else \
                       encode36(integer // 36, numerals).lstrip(numerals[0]) + numerals[integer % 36]    # Recursive!
 
-    return encode36(integer)    # Encode the integer as a Base36 string.
+    return encode36(integer)    # Encode the integer as a 6 character Base36 string.
 
 
 def encodeD(ssid, path):
@@ -41,8 +41,8 @@ def decodeD(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 byte to an integer.
 
-    ssid = integer // 16 
-    path = integer  % 16 
+    ssid = integer // 16    # integer division
+    path = integer  % 16    # modulo operation
 
     return (ssid, path)
 
