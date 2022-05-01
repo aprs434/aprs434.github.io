@@ -67,17 +67,17 @@ Upon succesful demonstration of its merits, below LoRa frame compression procedu
 
 ## Proposed Compression for LoRa Geolocation Frames
 
-|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
-|:--------:|:----------------------:|:-----------------:|
-|4 bytes|1 byte|14 bytes|
-|`CCCC`|`D`|`!/XXXXYYYY$csT`|
+|_Callsign_|_SSID_,<br/>_Path Code_|_Compressed Data_|
+|:--------:|:----------------------:|:---------------:|
+|4 bytes|1 byte|13 bytes|
+|`CCCC`|`D`|`/XXXXYYYY$csT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
   + the _Path Code_ (between path 0 [none] and 7; included)
-- `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+  + the _Data Type Code_
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -113,28 +113,6 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 - [Python3](compression.py) `CCCCD` compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
-### Recommended n-N paradigm paths
-
-|station|generic digipeating path|_Path Code_|
-|:-----:|:----------------------:|:---------:|
-|no digipeating|[none]|0|
-|metropolitan fixed|`WIDE2-1`|1|
-|extremely remote fixed|`WIDE2-2`|2|
-|metropolitan mobile|`WIDE1-1,WIDE2-1`|3|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`|4|
-|balloons & aircraft|`WIDE2-1`|5|
-|space satellites|`ARISS,WIDE2-1`|6|
-|[future use]||7|
-
-Note:
-- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
-- The second `N` digit indicates the number of repeats at the indicated coverage level.
-
-> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
-> Digipeating on LoRa channels leads to unwanted congestion.
-> Anyway, there are hardly any LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
-> Above `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating addresses.
-
 
 ## Proposed Compression for Addressed LoRa Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
@@ -145,27 +123,7 @@ In Bob's view of APRS as being foremost a real-time situational and tactical too
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
 > In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa. Here is the text mesa
-
-|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
-|:--------:|:----------------------:|:-----------------:|
-|4 bytes|1 byte| ≤&nbsp;i bytes|
-|`CCCC`|`D`|`:EEEEFTTTT…TTTT`|
-
-where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Path Code_ (between path 0 [none] and 7; included)
-- `:`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
-- `EEEE`: the compressed _Addressee_ (6 character callsign)
-- `F`:
-  + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Message No_ (from 0 to 15; included)
-- `T`: compressed text from a limited character set.
-- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
-
-The `EEEEF` codec algorithms are identical to the `CCCCD` codec algorithms, where the digi path code is changed for
+> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
 
 |character set|amount|
 |:-----------:|:----:|
@@ -176,9 +134,31 @@ The `EEEEF` codec algorithms are identical to the `CCCCD` codec algorithms, wher
 |**TOTAL**|**42**|
 
 
-## Proposed Compression for Other LoRa Text Frames
+
+|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
+|:--------:|:----------------------:|:-----------------:|
+|4 bytes|1 byte| ≤&nbsp;i bytes|
+|`CCCC`|`D`|`:EEEEFFTTTT…TTTT`|
+
+where:
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Path Code_ (between path 0 [none] and 7; included)
+- `:`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+- `EEEE`: the compressed _Addressee_ (6 character callsign)
+- `FF`:
+  + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Message No_ (from 0 to 4095; included)
+- `T`: compressed text from a limited character set.
+- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
+
+The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#codec-algorithms).
+
+
+## Proposed Compression for LoRa Status Report Frames
 Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
-For example: `>` APRS status reports.
+For example for `>` APRS status reports.
 
 |_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
 |:--------:|:----------------------:|:-----------------:|
@@ -193,6 +173,32 @@ where:
 - `>`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
+
+
+## Proposed Compression for Other LoRa Frames
+TBD
+
+
+## No Digipeating on LoRa Channels
+> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
+
+Digipeating on LoRa channels leads to unwanted channel congestion.
+Anyway, there are hardly any, if any, low power LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
+Hence, below `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating paths.
+One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate.
+
+|station|recommended n-N paradigm path|
+|:-----:|:---------------------------:|
+|metropolitan fixed|`WIDE2-1`|1|
+|extremely remote fixed|`WIDE2-2`|2|
+|metropolitan mobile|`WIDE1-1,WIDE2-1`|3|
+|extremely remote mobile|`WIDE1-1,WIDE2-2`|4|
+|balloons & aircraft|`WIDE2-1`|5|
+|space satellites|`ARISS,WIDE2-1`|6|
+
+Note:
+- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
+- The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
 ## ITU Regulation
