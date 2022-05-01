@@ -51,10 +51,10 @@ The following LoRa link parameters are commonly in use among amateur radio opera
 - To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
 
 With these settings, the symbol rate is:
-$$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125E3}{2^{12}} \approx 30.5\,\text{symbols/s}$$
+$$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125\,000}{2^{12}} \approx 30.5\,\text{symbols/s}$$
 
 Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as follows:
-$$DR = R_b =  \frac{BW}{2^{SF} \SF \frac{4}{4 + CR} = \frac{125E3}{2^{12}} 12 \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\text{byte/s}$$
+$$DR = R_b =  \frac{BW}{2^{SF} \SF \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} 12 \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\text{byte/s}$$
 
 
 ## Proposed Compression for LoRa Geolocation Frames
