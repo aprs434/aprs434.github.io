@@ -72,7 +72,7 @@ where:
 
 ### Encoding D
 1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Then, add the path code digit as listed in below table.
+2. Then, algebraically add to this the path code digit as listed in below table.
 3. Finally, convert the resulting integer to a single Base256 byte.
 
 ### Decoding D
