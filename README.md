@@ -22,7 +22,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Digipeater Address_|any out of [**5** recommended `n-N` paradigm paths](#digipeating-on-lora-channels)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
-|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = _Data Type ID_|
+|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = [_Data Type ID_](#data-type-codes)|
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) are provided by LoRa|
 |_Flag_|**not required**|
 
@@ -60,7 +60,7 @@ $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000
 
 Above LoRa parameters are adequate for sending geolocation frames.
 
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for local digipeating or meshing. Therefore, the ham radio community should **seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for local digipeating or meshing. Therefore, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
 
 SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
 
@@ -173,7 +173,7 @@ where:
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>DO NOT</u> add any altitude data or comment!**
-> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the entire geolocation frame being rejected by the i‑gate <u>by design</u>.
+> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the entire geolocation frame being <u>rejected</u> by the i‑gate <u>by design</u>.
 > Terrestrial objects do not require sending altitude data.
 > Flying objects may alternate the `csT` bytes between altitude and course & speed.
 > Only if deemed absolutely necessary, transmit any other information with an occassional _Status Report_.
@@ -202,14 +202,14 @@ In resemblance to Morse code, the character set would contain only 26 Latin lowe
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
 ### Codec Algorithms for tttt…tttt
-- [Python3](compression.py) compression algorithms and tests
+- [Python3](compression.py) compression algorithms and tests **[TODO]**
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 
 ## Comments
 > **⚠ <u>REFRAIN</u> from adding any comments!**
 > Adding more bytes to a LoRa frame only reduces the chances on successful reception.
-> Rather consider sending an occasional [status report](#compressed-status-report-frames).
+> Rather, consider sending an occasional [status report](#compressed-status-report-frames).
 
 
 ## Compressed Status Report Frames
@@ -266,11 +266,11 @@ The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#co
 
 
 ## Compressed Item Report Frames
-TBD
+**[TBD]**
 
 
 ## Compressed Weather Report Frames
-TBD
+**[TBD]**
 
 
 ## ITU Regulation
