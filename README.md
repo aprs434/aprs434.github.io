@@ -19,7 +19,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
-|_Digipeater Address_|[**not required**](#no-digipeating-on-lora-channels)|
+|_Digipeater Address_|any out of [**5** recommended `n-N` paradigm paths](#digipeating-on-lora-channels)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = _Data Type ID_|
@@ -60,7 +60,7 @@ $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000
 
 Above LoRa parameters are adequate for sending geolocation frames.
 
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. Therefore, the ham radio community should **seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for local digipeating or meshing. Therefore, the ham radio community should **seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
 
 SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
 
@@ -124,8 +124,8 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 Subset
 
-|_Data Type_|_ID_|_Code_|
-|:---------:|:--:|:----:|
+|_Data Type_|_ID_|_Data Type Code_|
+|:---------:|:--:|:--------------:|
 |Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0|
 |Complete Weather Report Format — with Compressed Lat/Long position, no Timestamp|`!` or `=`|0|
 |Compressed Lat/Long Position Report Format — with Timestamp|`/` or `@`||
@@ -225,21 +225,26 @@ where:
 TBD
 
 
-## No Digipeating on LoRa Channels
+## Digipeating on LoRa Channels
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
 
 Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
-Anyway, there are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
-Hence, below `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating paths.
+
+Also consider that:
+- Most LoRa gateways are connected to the APRS‑IS Internet server network.
+- There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
+
+Hence, below `n-N` paradigm paths are to be interpreted mainly as crossover AX.25 packet digipeating paths.
 One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
 
-|station|recommended n-N paradigm path|
-|:-----:|:---------------------------:|
-|metropolitan fixed, balloons & aircraft|`WIDE2-1`|
-|extremely remote fixed|`WIDE2-2`|
-|metropolitan mobile|`WIDE1-1,WIDE2-1`|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`|
-|space satellites|`ARISS,WIDE2-1`|
+|station|recommended `n-N` paradigm path|_Path Code_|
+|:-----:|:-----------------------------:|:---------:|
+|no digipeating||0|
+|metropolitan fixed, balloons & aircraft|`WIDE2-1`|1|
+|extremely remote fixed|`WIDE2-2`||
+|metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
+|extremely remote mobile|`WIDE1-1,WIDE2-2`||
+|space satellites|`ARISS,WIDE2-1`|3|
 
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
