@@ -74,9 +74,10 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
 
 ## Callsign, SSID, Path and Data Type Compression
+
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte| ≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;d bytes|
 |`CCCC`|`D`||
 
 where:
@@ -110,8 +111,7 @@ where:
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### Data Type Codes
-
-Of all the _Data Types_ defined in [](), a subset
+Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwaves.com/prs/doc/2000.aprs.1.01.pdf), a subset was selected, based on popularity and foremost suitability for LoRa.
 
 |_Data Type_|_ID_|_Data Type Code_|
 |:---------:|:--:|:--------------:|
@@ -189,7 +189,7 @@ where:
 |**TOTAL**|**42**|
 
 ### Encoding tttt…tttt
-1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#proposed-compression-for-addressed-lora-message-frames)
+1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
 2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
 3. Then, encode this integer as a Base256 `tttt…tttt` bytestring.
 
@@ -206,7 +206,7 @@ where:
 > **⚠ <u>REFRAIN</u> from adding any comments!**
 
 Adding more bytes to a LoRa frame only reduces the chances on successful reception.
-Rather consider sending an occasional [status report](#proposed-compression-for-lora-status-report-frames).
+Rather consider sending an occasional [status report](#compressed-status-report-frames).
 
 
 ## Compressed Status Report Frames
