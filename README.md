@@ -122,16 +122,19 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Data Type Codes
 
+Subset
+
 |_Data Type_|_ID_|_Code_|
 |:---------:|:--:|:----:|
 |Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0|
-||``|1|
-||``|2|
-||``|3|
-||``|4|
-||``|5|
-||``|6|
-||``|7|
+|Complete Weather Report Format — with Compressed Lat/Long position, no Timestamp|`!` or `=`|0|
+|Compressed Lat/Long Position Report Format — with Timestamp|`/` or `@`||
+|Compressed Lat/Long Position Report Format — with Timestamp|`/` or `@`||
+|Object Report Format — with Compressed Lat/Long position|`;`|1|
+|Item Report Format — with Compressed Lat/Long position|`)`|2|
+|Positionless Weather Report Format|`_`||
+|Telemetry Report Format|`T`||
+|Message Format|`:`|3|
 ||``|8|
 ||``|9|
 ||``|10|
@@ -141,6 +144,7 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 ||``|14|
 ||``|15|
 
+Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
 ## Proposed Compression for Addressed LoRa Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
@@ -231,11 +235,10 @@ One of these can be filled in upon reception by the LoRa (i‑)gate **for use wi
 
 |station|recommended n-N paradigm path|
 |:-----:|:---------------------------:|
-|metropolitan fixed|`WIDE2-1`|
+|metropolitan fixed, balloons & aircraft|`WIDE2-1`|
 |extremely remote fixed|`WIDE2-2`|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|
 |extremely remote mobile|`WIDE1-1,WIDE2-2`|
-|balloons & aircraft|`WIDE2-1`|
 |space satellites|`ARISS,WIDE2-1`|
 
 Note:
