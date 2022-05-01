@@ -224,8 +224,8 @@ TBD
 ## No Digipeating on LoRa Channels
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
 
-Digipeating on LoRa channels leads to unwanted channel congestion.
-Anyway, there are hardly any, if any, low power LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
+Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+Anyway, there are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
 Hence, below `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating paths.
 One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
 
