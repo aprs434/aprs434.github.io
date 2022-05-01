@@ -56,7 +56,7 @@ where:
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
   + the _Digipeater Address_ (between path 0 [none] and 7; included)
-- `!`: the _Data Type ID,_ and at the same time a custom, positional LoRa header
+- `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
