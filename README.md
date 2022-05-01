@@ -45,7 +45,7 @@ Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;b
 
 
 ## LoRa Link Parameters
-The following LoRa link parameters are commonly in use among amateur radio operators. These appear to be adequate.
+Currently, the following LoRa link parameters are commonly in use among amateur radio operators:
 - In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. This corresponds to 12&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{12} = 4096\,\text{chips}$.
 - Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
 - To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
@@ -58,12 +58,18 @@ Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as foll
 
 $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\,\text{byte/s}$$
 
+Above LoRa parameters are adequate for sending geolocation frames.
+
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. Therefore, **one should seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
+
+This would not only prevent channel congestion; It also saves 50% on airtime and batteries. Most importantly, it would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
+
 Finally, it was observed that amateur radio predominantly employs the LoRa sync word ''.
 
-For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
+> For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 
-Upon succesful demonstration of its merits, below LoRa frame compression procedures will be formally proposed as an extension to the APRS standard.
+Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
 
 ## Proposed Compression for LoRa Geolocation Frames
 
@@ -116,22 +122,22 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 |_Data Type_|_ID_|_Code_|
 |:---------:|:--:|:----:|
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
-||``||
+||``|0|
+||``|1|
+||``|2|
+||``|3|
+||``|4|
+||``|5|
+||``|6|
+||``|7|
+||``|8|
+||``|9|
+||``|10|
+||``|11|
+||``|12|
+||``|13|
+||``|14|
+||``|15|
 
 
 ## Proposed Compression for Addressed LoRa Message Frames
