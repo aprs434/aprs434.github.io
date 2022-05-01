@@ -68,7 +68,7 @@ With a payload of only 18&nbsp;bytes, the proposed compressed geolocation frame 
 
 Finally, it was observed that amateur radio predominantly employs the LoRa sync word ''.
 
-> For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
+> For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 
 Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
@@ -122,16 +122,24 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Data Type Codes
 
-|_Data Type_|_ID_|_Code_|_Data Type_|_ID_|_Code_|
-|:---------:|:--:|:----:|:---------:|:--:|:----:|
-|Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0||``|8|
-||``|1||``|9|
-||``|2||``|10|
-||``|3||``|11|
-||``|4||``|12|
-||``|5||``|13|
-||``|6||``|14|
-||``|7||``|15|
+|_Data Type_|_ID_|_Code_|
+|:---------:|:--:|:----:|
+|Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0|
+||``|1|
+||``|2|
+||``|3|
+||``|4|
+||``|5|
+||``|6|
+||``|7|
+||``|8|
+||``|9|
+||``|10|
+||``|11|
+||``|12|
+||``|13|
+||``|14|
+||``|15|
 
 
 ## Proposed Compression for Addressed LoRa Message Frames
