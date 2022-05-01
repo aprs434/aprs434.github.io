@@ -117,8 +117,8 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|
 |:---------:|:--:|:--------------:|
-|compressed geolocation — no timestamp|`!` or `=`|0|
-|complete weather report — with compressed geolocation, no timestamp|`!` or `=`|0|
+|compressed geolocation — no&nbsp;timestamp|`!` or `=`|0|
+|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!` or `=`|0|
 |status report|`>`|1|
 |item report — with compressed geolocation|`)`|2|
 |message|`:`|3|
@@ -173,7 +173,7 @@ where:
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>DO NOT</u> add any altitude data or comment!**
-> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the loss of the entire geolocation frame <u>by design</u>.
+> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the entire geolocation frame being rejected by the i‑gate <u>by design</u>.
 > Terrestrial objects do not require sending altitude data.
 > Flying objects may alternate the `csT` bytes between altitude and course & speed.
 > Only if deemed absolutely necessary, transmit any other information with an occassional _Status Report_.
