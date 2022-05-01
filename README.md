@@ -46,9 +46,13 @@ Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;b
 
 ## LoRa Link Parameters
 The following LoRa link parameters are commonly in use among amateur radio operators. These appear to be adequate.
-- In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. This corresponds to 12&nbsp;raw bits per symbol. Therefore, each symbol holds $2^{12} = 4096\,\text{chips}$.
-- Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, i.e. $BW = 125\,\text{kHz}$. This is by definition also the chip rate.
+- In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. This corresponds to 12&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{12} = 4096\,\text{chips}$.
+- Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
 - To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
+
+With these settings, the symbol rate is:
+
+$$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125E3}{2^{12}} \approx 30.5\,\text{symbols/s}$$
 
 
 ## Proposed Compression for LoRa Geolocation Frames
