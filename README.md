@@ -100,17 +100,38 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Encoding D
 1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Then, algebraically add to this the _Path Code_ digit as listed in below table.
+2. Then, algebraically add to this the _Data Type Code_ integer as listed in below table.
 3. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
 1. First, decode the given Base256 `D` byte to an integer.
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
-3. Whereas the _Path Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+3. Whereas the _Data Type Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms
 - [Python3](compression.py) `CCCCD` compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
+
+### Data Type Codes
+
+|_Data Type_|_ID_|_Code_|
+|:---------:|:--:|:----:|
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
+||``||
 
 
 ## Proposed Compression for Addressed LoRa Message Frames
@@ -151,7 +172,7 @@ where:
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
-The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where is _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_.
+The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_.
 
 
 ## Proposed Compression for LoRa Status Report Frames
