@@ -73,14 +73,14 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
 
-## Source, Path and Data Type Compression
+## Callsign, SSID, Path and Data Type Compression
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
 |4 bytes|1 byte| ≤&nbsp;d bytes|
 |`CCCC`|`D`||
 
 where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
@@ -158,7 +158,7 @@ Note:
 |`CCCC`|`D`|`/XXXXYYYY$csT`|
 
 where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
@@ -219,7 +219,7 @@ For example for `>` APRS status reports. In practice, status reports are also of
 |`CCCC`|`D`|`tttt…tttt`|
 
 where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
@@ -246,7 +246,7 @@ Furthermore, in view of channel capacity and channel isolation, **it remains dou
 |`CCCC`|`D`|`EEEEFtttt…tttt`|
 
 where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
