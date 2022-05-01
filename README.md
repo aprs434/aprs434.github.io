@@ -150,16 +150,20 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
 |4 bytes|1 byte| ≤&nbsp;_n_ bytes|
-|`CCCC`|`D`|`!TTTT…TTTT`|
+|`CCCC`|`D`|`:EEEEFTTTT…TTTT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
   + the _Digipeater Address_ (between path 0 [none] and 7; included)
-- `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+- `:`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+- `EEEE`: the compressed _Addressee_ (6 character callsign)
+- `F`:
+  + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Message No_ (from 0 to 127; included)
 - `T`: compressed text from a limited character set.
-- `n`: the maximum allowed number of compressed text bytes
+- `n`: a sensible maximum allowed number of information field bytes
 
 |characters|quantity|
 |:--------:|:------:|
