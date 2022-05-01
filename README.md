@@ -171,8 +171,8 @@ The `EEEEF` codec algorithms are identical to the `CCCCD` codec algorithms, wher
 |:-----------:|:----:|
 |Latin capital letters|26|
 |digits|10|
-|punctuation<br/>`.` `?`|2|
-|Internet<br/>`/` `-` `@` `_`|4|
+|punctuation `.`&nbsp;`?`|2|
+|Internet `/`&nbsp;`-`&nbsp;`@`&nbsp;`_`|4|
 |**TOTAL**|**42**|
 
 
