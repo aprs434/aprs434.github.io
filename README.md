@@ -67,8 +67,8 @@ Upon succesful demonstration of its merits, below LoRa frame compression procedu
 
 ## Proposed Compression for LoRa Geolocation Frames
 
-|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
-|:--------------:|:-------------------------------:|:-----------------:|
+|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
+|:--------:|:----------------------:|:-----------------:|
 |4 bytes|1 byte|14 bytes|
 |`CCCC`|`D`|`!/XXXXYYYY$csT`|
 
@@ -76,7 +76,7 @@ where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+  + the _Path Code_ (between path 0 [none] and 7; included)
 - `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
@@ -101,13 +101,13 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Encoding D
 1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Then, algebraically add to this the path code digit as listed in below table.
+2. Then, algebraically add to this the _Path Code_ digit as listed in below table.
 3. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
 1. First, decode the given Base256 `D` byte to an integer.
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
-3. Whereas the path code equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+3. Whereas the _Path Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms
 - [Python3](compression.py) `CCCCD` compression algorithms and tests
@@ -115,8 +115,8 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Recommended n-N paradigm paths
 
-|station|generic digipeating path|path code|
-|:-----:|:----------------------:|:-------:|
+|station|generic digipeating path|_Path Code_|
+|:-----:|:----------------------:|:---------:|
 |no digipeating|[none]|0|
 |metropolitan fixed|`WIDE2-1`|1|
 |extremely remote fixed|`WIDE2-2`|2|
@@ -147,8 +147,8 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 > In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
 > In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa. Here is the text mesa
 
-|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
-|:--------------:|:-------------------------------:|:-----------------:|
+|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
+|:--------:|:----------------------:|:-----------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
 |`CCCC`|`D`|`:EEEEFTTTT…TTTT`|
 
@@ -156,14 +156,16 @@ where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+  + the _Path Code_ (between path 0 [none] and 7; included)
 - `:`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
 - `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Message No_ (from 0 to 127; included)
+  + the _Message No_ (from 0 to 15; included)
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes
+
+The `EEEEF` codec algorithms are identical to the `CCCCD` codec algorithms, where the digi path code is changed for
 
 |character set|amount|
 |:-----------:|:----:|
@@ -178,8 +180,8 @@ where:
 Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
 For example: `>` APRS status reports.
 
-|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
-|:--------------:|:-------------------------------:|:-----------------:|
+|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
+|:--------:|:----------------------:|:-----------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
 |`CCCC`|`D`|`>TTTT…TTTT`|
 
@@ -187,7 +189,7 @@ where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+  + the _Path Code_ (between path 0 [none] and 7; included)
 - `>`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes
