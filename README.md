@@ -208,9 +208,8 @@ In resemblance to Morse code, the character set would contain only 26 Latin lowe
 
 ## Comments
 > **⚠ <u>REFRAIN</u> from adding any comments!**
-
-Adding more bytes to a LoRa frame only reduces the chances on successful reception.
-Rather consider sending an occasional [status report](#compressed-status-report-frames).
+> Adding more bytes to a LoRa frame only reduces the chances on successful reception.
+> Rather consider sending an occasional [status report](#compressed-status-report-frames).
 
 
 ## Compressed Status Report Frames
@@ -242,7 +241,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since on air experience is limited. Therefore, below specification **may be subject to change.**
 
-Furthermore, in view of channel capacity and channel isolation, **it remains doubtful whether 2‑way is feasible** on a single LoRa channel or even separate TX and RX channels. Therfore, below proposals for LoRa text frames should be foremost considered as an **uplink protocol only,** e.g. for SOTA or POTA self-spotting, emergencies, telemetry, status reports etc.
+Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing, which protocol is beyond the scope of this document. Therfore, below proposals for LoRa text frames should be foremost considered as an **uplink protocol only,** e.g. for SOTA or POTA self-spotting, emergencies, telemetry, status reports etc.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
