@@ -35,6 +35,10 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 
 LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
+$$PER = 1 - (1 - BER)^n$$
+
+where: $n$ is the number of bits; not bytes.
+
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted as the stepped top trace on the figure below. (Adapted from [[source]](https://avbentem.github.io/airtime-calculator/ttn/eu868/5,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 19 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.19bytes.png)
@@ -214,3 +218,7 @@ Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the 
 
 You are invited to contribute code improvements to [**this project on GitHub**](https://github.com/aprs434).
 Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuPbW31vAw) by Andreas Spiess, HB9BLA.
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
