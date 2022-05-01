@@ -31,7 +31,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 - If APRS Mic-E compression were to be used instead, that would require another 16 payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
 ## Measurable Benefits
-**APRS&nbsp;434** geolocation beacons will encode **a total of only 19 LoRa payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
+**APRS&nbsp;434** geolocation beacons will encode a total of **only 19 payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
 LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
@@ -219,6 +219,12 @@ Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the 
 You are invited to contribute code improvements to [**this project on GitHub**](https://github.com/aprs434).
 Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuPbW31vAw) by Andreas Spiess, HB9BLA.
 
-
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$']]
+  }
+};
+</script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
