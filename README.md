@@ -165,12 +165,32 @@ where:
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes
 
-|characters|quantity|
-|:--------:|:------:|
+|character set|amount|
+|:-----------:|:----:|
 |Latin capital letters|26|
+|digits|10|
+|punctuation<br/>`.` `?`|2|
+|Internet<br/>`/` `-` `@` `_`|4|
+|TOTAL|42|
 
+
+## Proposed Compression for Other LoRa Text Frames
 Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
 For example: `>` APRS status reports.
+
+|_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
+|:--------------:|:-------------------------------:|:-----------------:|
+|4 bytes|1 byte| ≤&nbsp;i bytes|
+|`CCCC`|`D`|`>TTTT…TTTT`|
+
+where:
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
+  + the _Digipeater Address_ (between path 0 [none] and 7; included)
+- `>`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+- `T`: compressed text from a limited character set.
+- `i`: a sensible maximum allowed number of information field bytes
 
 
 ## ITU Regulation
