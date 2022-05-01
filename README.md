@@ -68,6 +68,8 @@ where:
 >
 > Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with CCCCD callsign compression.
 
+As mentioned before, and when deemed necessary, CCCCD callsign compression can be used in combination with other, mostly uncompressed _Data Types._
+
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
 2. Then, encode this integer as a 4&nbsp;byte Base256 bytestring.
@@ -106,8 +108,6 @@ where:
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
-
-As mentioned before, and when deemed necessary, CCCCD callsign compression can be used in combination with other, mostly uncompressed _Data Types._
 
 
 ## ITU Regulation
