@@ -128,15 +128,15 @@ Note: Weather reports use the same _Data Type IDs_ as position reports but with 
 
 ## Digipeating on LoRa Channels
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
-
-Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+> Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
 
 Also consider that:
-- Most LoRa gateways are connected to the APRS‑IS Internet server network.
+- Most LoRa gateways are connected to the APRS‑IS Internet server network and many users are merely interested in reaching APRS‑IS.
 - There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
 
-Hence, below `n-N` paradigm paths are to be interpreted mainly as crossover AX.25 packet digipeating paths.
-One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
+Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.25 packet digipeating paths for any (VHF) digipeater co‑located with the LoRa (i‑)gate.
+
+However, suppose general digipeating were to be allowed on the LoRa channel; even by trackers. This would render it into a mesh network. It would also absolutely require switching from SF12 to the higher data rate SF11 [as explained above](#lora-link-parameters). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
 
 |station|recommended `n-N` paradigm path|_Path Code_|
 |:-----:|:-----------------------------:|:---------:|
