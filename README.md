@@ -65,6 +65,7 @@ where:
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
+>
 > Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with CCCCD callsign compression.
 
 ### Encoding CCCC
