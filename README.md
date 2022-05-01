@@ -171,7 +171,7 @@ where:
 |digits|10|
 |punctuation<br/>`.` `?`|2|
 |Internet<br/>`/` `-` `@` `_`|4|
-|TOTAL|42|
+|**TOTAL**|**42**|
 
 
 ## Proposed Compression for Other LoRa Text Frames
