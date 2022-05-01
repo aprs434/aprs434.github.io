@@ -63,16 +63,20 @@ where:
 > **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
 
 ### Encoding CCCC
-Treat the given 6 character callsign string as a Base36 encoding. Decode it first to an integer.
-Then, encode this integer as a 4 byte Base256 bytestring.
+1. Treat the given 6 character callsign string as a Base36 encoding. Decode it first to an integer.
+2. Then, encode this integer as a 4 byte Base256 bytestring.
 
 ### Decoding CCCC
 
 ### Encoding D
-First, multiply the _SSID_ integer by 16. Then, add the path code digit as listed in below table.
-Finally, convert the resulting integer to a single Base256 byte.
+1. First, multiply the _SSID_ integer by 16.
+2. Then, add the path code digit as listed in below table.
+3. Finally, convert the resulting integer to a single Base256 byte.
 
 ### Decoding D
+1. First, decode the given Base256 byte to an integer.
+2. The _SSID_ equals to the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by 16.
+3. Whereas the path code equals to the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by 16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms
 - [Python3](compression.py) CCCCD compression algorithms and tests
