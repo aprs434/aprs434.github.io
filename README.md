@@ -63,8 +63,9 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 
+Upon succesful demonstration of its merits, below LoRa frame compression procedures will be formally proposed as an extension to the APRS standard.
+
 ## Proposed Compression for LoRa Geolocation Frames
-Upon succesful demonstration of its merits, below LoRa frame compression procedure will be formally proposed as an extension to the APRS standard.
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
@@ -131,7 +132,7 @@ Note:
 
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
 > Digipeating on LoRa channels leads to unwanted congestion.
-> Anyway, there are no LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
+> Anyway, there are hardly any LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
 > Above `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating addresses.
 
 
@@ -144,11 +145,11 @@ In Bob's view of APRS as being foremost a real-time situational and tactical too
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
 > In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-> In resemblance to Morse code, the character set would contain only 26 capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa. Here is the text mesa
+> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits and a couple of punctuation marks and a few Internet related symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa. Here is the text mesa
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
-|4 bytes|1 byte|14 bytes|
+|4 bytes|1 byte| ≤&nbsp;_n_ bytes|
 |`CCCC`|`D`|`!TTTT…TTTT`|
 
 where:
@@ -157,6 +158,13 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
   + the _Digipeater Address_ (between path 0 [none] and 7; included)
 - `!`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+- `T`: compressed text from a limited character set.
+- `n`: the maximum allowed number of compressed text bytes
+
+|characters|quantity|
+|:--------:|:------:|
+|Latin capital letters|26|
+
 
 ## ITU Regulation
 From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only.
