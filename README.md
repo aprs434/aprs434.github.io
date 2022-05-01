@@ -64,6 +64,8 @@ However, sending even length and character set limited text messages with SF12 w
 
 This would not only prevent channel congestion; It also saves 50% on airtime and batteries. Most importantly, it would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
 
+With a payload of only 18&nbsp;bytes, the proposed compressed geolocation frame is perfectly geared towards taking the advantage of reduced airtime with SF11 (see [graph](#measurable-benefits)).
+
 Finally, it was observed that amateur radio predominantly employs the LoRa sync word ''.
 
 > For an in depth tutorial series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
