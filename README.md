@@ -22,7 +22,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Digipeater Address_|[**not required**](#no-digipeating-on-lora-channels)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
-|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first byte = _Data Type ID_|
+|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = _Data Type ID_|
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) are provided by LoRa|
 |_Flag_|**not required**|
 
@@ -116,15 +116,15 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Data Type Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
-### Codec Algorithms
-- [Python3](compression.py) `CCCCD` compression algorithms and tests
+### CCCCD Codec Algorithms
+- [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### Data Type Codes
 
 |_Data Type_|_ID_|_Code_|_Data Type_|_ID_|_Code_|
 |:---------:|:--:|:----:|:---------:|:--:|:----:|
-||``|0||``|8|
+|Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0||``|8|
 ||``|1||``|9|
 ||``|2||``|10|
 ||``|3||``|11|
@@ -176,6 +176,19 @@ where:
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_.
+
+### Encoding TTTT…TTTT
+1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#proposed-compression-for-addressed-lora-message-frames)
+2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
+3. Then, encode this integer as a Base256 `TTTT…TTTT` bytestring.
+
+### Decoding TTTT…TTTT
+1. First, decode the given Base256 `TTTT…TTTT` bytestring to an integer.
+2. Then, encode this integer as a Base42 string, corresponding to the text.
+
+### TTTT…TTTT Codec Algorithms
+- [Python3](compression.py) compression algorithms and tests
+- [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 
 ## Proposed Compression for LoRa Status Report Frames
