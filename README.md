@@ -56,7 +56,9 @@ $$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125\,000}{2^{12}} \approx
 
 Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as follows:
 
-$$DR = R_b =  \frac{BW}{2^{SF} \SF \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} 12 \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\text{byte/s}$$
+$$DR = R_b =  \frac{BW}{2^{SF}} \SF \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} 12 \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\text{byte/s}$$
+
+Finally, it was observed that amateur radio predominantly uses the LoRa sync word ''.
 
 
 ## Proposed Compression for LoRa Geolocation Frames
