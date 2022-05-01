@@ -73,12 +73,11 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Upon succesful demonstration of its merits, below LoRa frame compression algorithms **will be formally proposed as an extension to the APRS standard:**
 
-## Proposed Compression for LoRa Geolocation Frames
-
+## Source, Path and Data Type Compression
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|13 bytes|
-|`CCCC`|`D`|`/XXXXYYYY$csT`|
+|4 bytes|1 byte| ≤&nbsp;d bytes|
+|`CCCC`|`D`||
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
@@ -86,18 +85,7 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
   + the _Data Type Code_ (between type 0 and 3; included)
-- `/`: the _Symbol Table Identifier_
-- `XXXX`: the Base91 compressed longitude
-- `YYYY`: the Base91 compressed latitude
-- `$`: the _Symbol Code_
-- `cs`: the compressed course and speed
-- `T`: the _Compression Type Byte_
-
-> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
->
-> Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with `CCCCD` callsign compression.
-
-As mentioned before, and when deemed necessary, `CCCCD` callsign compression can be used in combination with other _Data Types._
+- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
@@ -127,11 +115,11 @@ Of all the _Data Types_ defined in [](), a subset
 
 |_Data Type_|_ID_|_Data Type Code_|
 |:---------:|:--:|:--------------:|
-|Compressed Lat/Long Position Report — no Timestamp|`!` or `=`|0|
-|Complete Weather Report — with Compressed Lat/Long position, no Timestamp|`!` or `=`|0|
-|Item Report — with Compressed Lat/Long position|`)`|1|
-|Message|`:`|2|
-|Status Report|`>`|3|
+|compressed geolocation — no timestamp|`!` or `=`|0|
+|complete weather report — with compressed geolocation, no timestamp|`!` or `=`|0|
+|status report|`>`|1|
+|item report — with compressed geolocation|`)`|2|
+|message|`:`|3|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
@@ -162,7 +150,85 @@ Note:
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
-## Proposed Compression for Addressed LoRa Message Frames
+## Compressed Geolocation Frames
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte|13 bytes|
+|`CCCC`|`D`|`/XXXXYYYY$csT`|
+
+where:
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
+- `$`: the _Symbol Code_
+- `cs`: the compressed course and speed
+- `T`: the _Compression Type Byte_
+
+> **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
+>
+> Rather, occassionally transmit a _Status Report_.
+
+
+## Compressed Text
+> In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
+> In resemblance to Morse code, the character set would contain only 26 Latin lower‑case letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
+
+|character set|amount|
+|:-----------:|:----:|
+|Latin lower‑case letters|26|
+|digits|10|
+|space|1|
+|punctuation `.`&nbsp;`?`|2|
+|symbols `-`&nbsp;`/`&nbsp;`_`|3|
+|**TOTAL**|**42**|
+
+### Encoding tttt…tttt
+1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#proposed-compression-for-addressed-lora-message-frames)
+2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
+3. Then, encode this integer as a Base256 `tttt…tttt` bytestring.
+
+### Decoding tttt…tttt
+1. First, decode the given Base256 `tttt…tttt` bytestring to an integer.
+2. Then, encode this integer as a Base42 string, corresponding to the text.
+
+### Codec Algorithms for tttt…tttt
+- [Python3](compression.py) compression algorithms and tests
+- [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
+
+
+## Comments
+> **⚠ <u>REFRAIN</u> from adding any comments!**
+
+Adding more bytes to a LoRa frame only reduces the chances on successful reception.
+Rather consider sending an occasional [status report](#proposed-compression-for-lora-status-report-frames).
+
+
+## Compressed Status Report Frames
+Obviously, above `tttt…tttt` compression can also be applied to other APRS text frame types.
+For example for `>` APRS status reports. In practice, status reports are also often employed to send telemetry data.
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte| ≤&nbsp;d bytes|
+|`CCCC`|`D`|`tttt…tttt`|
+
+where:
+- `CCCC`: the compressed _Source Address_ (6 character callsign)
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `tttt…tttt`: compressed text from a limited 42 character set.
+- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
+
+
+## Compressed Addressed Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
 
 > _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
@@ -170,26 +236,14 @@ Up to now, APRS has been unduly considered to be predominantly a one-way localis
 In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
-> In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-> In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
-
-|character set|amount|
-|:-----------:|:----:|
-|Latin capital letters|26|
-|digits|10|
-|space|1|
-|punctuation `.`&nbsp;`?`|2|
-|symbols `-`&nbsp;`/`&nbsp;`_`|3|
-|**TOTAL**|**42**|
-
 Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since on air experience is limited. Therefore, below specification **may be subject to change.**
 
 Furthermore, in view of channel capacity and channel isolation, **it remains doubtful whether 2‑way is feasible** on a single LoRa channel or even separate TX and RX channels. Therfore, below proposals for LoRa text frames should be foremost considered as an **uplink protocol only,** e.g. for SOTA or POTA self-spotting, emergencies, telemetry, status reports etc.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte| ≤&nbsp;i bytes|
-|`CCCC`|`D`|`EEEEFTTTT…TTTT`|
+|4 bytes|1 byte| ≤&nbsp;d bytes|
+|`CCCC`|`D`|`EEEEFtttt…tttt`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
@@ -201,53 +255,19 @@ where:
 - `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 15; included)
-- `T`: compressed text from a limited character set.
-- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
+- `tttt…tttt`: compressed text from a limited 42 character set.
+- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
-The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_.
-
-### Encoding TTTT…TTTT
-1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#proposed-compression-for-addressed-lora-message-frames)
-2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
-3. Then, encode this integer as a Base256 `TTTT…TTTT` bytestring.
-
-### Decoding TTTT…TTTT
-1. First, decode the given Base256 `TTTT…TTTT` bytestring to an integer.
-2. Then, encode this integer as a Base42 string, corresponding to the text.
-
-### Codec Algorithms for TTTT…TTTT
-- [Python3](compression.py) compression algorithms and tests
-- [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
+### Encoding and Decoding EEEEF
+The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_
 
 
-## Proposed Compression for LoRa Status Report Frames
-Obviously, above `TTTT…TTTT` compression can also be applied to other APRS text frame types.
-For example for `>` APRS status reports. In practice, status reports are also often employed to send telemetry data.
-
-|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte| ≤&nbsp;i bytes|
-|`CCCC`|`D`|`TTTT…TTTT`|
-
-where:
-- `CCCC`: the compressed _Source Address_ (6 character callsign)
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
-- `T`: compressed text from a limited character set.
-- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
-
-
-## Proposed Compression for Other LoRa Frames
+## Compressed Item Report Frames
 TBD
 
 
-## Comments
-> **⚠ <u>REFRAIN</u> from adding any comments!**
-
-Adding more bytes to a LoRa frame only reduces the chances on successful reception.
-Rather consider sending an occasional [status report](#proposed-compression-for-lora-status-report-frames).
+## Compressed Weather Report Frames
+TBD
 
 
 ## ITU Regulation
