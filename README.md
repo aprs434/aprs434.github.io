@@ -19,7 +19,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
-|_Digipeater Address_|1 of [**6** recommended n‑N paradigm paths](#recommended-n-n-paradigm-paths)|
+|_Digipeater Address_|1 of [**6** recommended `n‑N` paradigm paths](#recommended-n-n-paradigm-paths)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first byte = _Data Type ID_|
@@ -136,7 +136,7 @@ Note:
 > Above `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating addresses.
 
 
-## Proposed Compression for LoRa Text Frames
+## Proposed Compression for LoRa Text Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
 
 > _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
@@ -149,7 +149,7 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 
 |_Source Address_|_SSID_ &<br/>_Digipeater Address_|_Information Field_|
 |:--------------:|:-------------------------------:|:-----------------:|
-|4 bytes|1 byte| ≤&nbsp;_n_ bytes|
+|4 bytes|1 byte| ≤&nbsp;i bytes|
 |`CCCC`|`D`|`:EEEEFTTTT…TTTT`|
 
 where:
@@ -163,11 +163,14 @@ where:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 127; included)
 - `T`: compressed text from a limited character set.
-- `n`: a sensible maximum allowed number of information field bytes
+- `i`: a sensible maximum allowed number of information field bytes
 
 |characters|quantity|
 |:--------:|:------:|
 |Latin capital letters|26|
+
+Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
+For example: `>` APRS status reports.
 
 
 ## ITU Regulation
