@@ -65,6 +65,7 @@ where:
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>REFRAIN</u> from adding altitude data when being terrestial. Do not add any other data nor comments!**
+> Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with CCCCD callsign compression.
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
