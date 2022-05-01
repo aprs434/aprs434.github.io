@@ -107,6 +107,8 @@ Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
+As mentioned before, and when deemed necessary, CCCCD callsign compression can be used in combination with other, mostly uncompressed _Data Types._
+
 
 ## ITU Regulation
 From a ITU regulatory point of view, long range communication —which, by definition, includes LoRa— is not allowed on ISM (Industrial, Scientific&nbsp;& Medical) bands. ISM&nbsp;bands are intended for local use only.
