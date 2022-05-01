@@ -60,9 +60,9 @@ $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000
 
 Above LoRa parameters are adequate for sending geolocation frames.
 
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. Therefore, **one should seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. Therefore, the ham radio community should **seriously consider switching from SF12 to SF11,** effectively doubling the data rate.
 
-This would not only prevent channel congestion; It also saves 50% on airtime and batteries. Most importantly, it would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
+SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
 
 With a payload of only 18&nbsp;bytes, the proposed compressed geolocation frame is perfectly geared towards taking the advantage of reduced airtime with SF11 (see [graph](#measurable-benefits)).
 
