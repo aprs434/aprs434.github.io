@@ -173,10 +173,10 @@ where:
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>DO NOT</u> add any altitude data or comment!**
-> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the entire geolocation frame being <u>rejected</u> by the i‑gate <u>by design</u>.
+> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the <u>entire</u> geolocation frame being <u>rejected</u> by the i‑gate <u>by design</u>.
 > Terrestrial objects do not require sending altitude data.
 > Flying objects may alternate the `csT` bytes between altitude and course & speed.
-> Only if deemed absolutely necessary, transmit any other information with an occassional _Status Report_.
+> Only if deemed absolutely necessary, transmit any other information with an occassional [_Status Report_](#compressed-status-report-frames).
 
 
 ## Compressed Text
