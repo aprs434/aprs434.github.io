@@ -19,19 +19,19 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
-|_Digipeater Address_|1 of [**6** recommended `n‑N` paradigm paths](#recommended-n-n-paradigm-paths)|
+|_Digipeater Address_|[**not required**](#no-digipeating-on-lora-channels)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first byte = _Data Type ID_|
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) are provided by LoRa|
 |_Flag_|**not required**|
 
-- _Source Address, SSID_ and _Digipeater Address_ can be compressed into only 5 payload bytes, compared to 25 payload bytes with OE5BPA firmware.
-- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 14 payload bytes; _Data Type ID_ included. **APRS&nbsp;434** will not differ in this respect. There is almost no gain to be made in compressing the _Information&nbsp;Field_ any further.
+- _Source Address, SSID_ and _Data Type ID_ can be compressed into only 5 payload bytes, compared to 26 payload bytes with OE5BPA firmware.
+- It is customary to compress latitude, longitude, symbol, course and speed using [Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems), which results in another 13 payload bytes; _Data Type ID_ not included. **APRS&nbsp;434** will not differ in this respect.
 - If APRS Mic-E compression were to be used instead, that would require another 16 payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
 ## Measurable Benefits
-**APRS&nbsp;434** geolocation beacons will encode a total of **only 19 payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
+**APRS&nbsp;434** geolocation beacons will encode a total of **only 18 payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
 LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
@@ -67,8 +67,8 @@ Upon succesful demonstration of its merits, below LoRa frame compression procedu
 
 ## Proposed Compression for LoRa Geolocation Frames
 
-|_Callsign_|_SSID_,<br/>_Path Code_|_Compressed Data_|
-|:--------:|:----------------------:|:---------------:|
+|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:--------------------------:|:---------------:|
 |4 bytes|1 byte|13 bytes|
 |`CCCC`|`D`|`/XXXXYYYY$csT`|
 
@@ -76,8 +76,7 @@ where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Path Code_ (between path 0 [none] and 7; included)
-  + the _Data Type Code_
+  + the _Data Type Code_ (between path 0 [none] and 15; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -133,44 +132,42 @@ One of the long-term goals is rendering APRS messaging more popular by offering 
 |Internet `/`&nbsp;`-`&nbsp;`@`&nbsp;`_`|4|
 |**TOTAL**|**42**|
 
+Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since onair experience is limited. Therefore, below specification **may be subject to change.**
 
-
-|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
-|:--------:|:----------------------:|:-----------------:|
+|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:--------------------------:|:---------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
-|`CCCC`|`D`|`:EEEEFFTTTT…TTTT`|
+|`CCCC`|`D`|`EEEEFTTTT…TTTT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Path Code_ (between path 0 [none] and 7; included)
-- `:`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+  + the _Data Type Code_ (between path 0 [none] and 15; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
-- `FF`:
+- `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Message No_ (from 0 to 4095; included)
+  + the _Message No_ (from 0 to 15; included)
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
-The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#codec-algorithms).
+The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where is _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_.
 
 
 ## Proposed Compression for LoRa Status Report Frames
 Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
 For example for `>` APRS status reports.
 
-|_Callsign_|_SSID_ &<br/>_Path Code_|_Information Field_|
-|:--------:|:----------------------:|:-----------------:|
+|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:--------------------------:|:---------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
-|`CCCC`|`D`|`>TTTT…TTTT`|
+|`CCCC`|`D`|`TTTT…TTTT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Path Code_ (between path 0 [none] and 7; included)
-- `>`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
+  + the _Data Type Code_ (between path 0 [none] and 15; included)
 - `T`: compressed text from a limited character set.
 - `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
@@ -185,16 +182,16 @@ TBD
 Digipeating on LoRa channels leads to unwanted channel congestion.
 Anyway, there are hardly any, if any, low power LoRa devices displaying situational awareness in relation to other LoRa devices in the area.
 Hence, below `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating paths.
-One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate.
+One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
 
 |station|recommended n-N paradigm path|
 |:-----:|:---------------------------:|
-|metropolitan fixed|`WIDE2-1`|1|
-|extremely remote fixed|`WIDE2-2`|2|
-|metropolitan mobile|`WIDE1-1,WIDE2-1`|3|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`|4|
-|balloons & aircraft|`WIDE2-1`|5|
-|space satellites|`ARISS,WIDE2-1`|6|
+|metropolitan fixed|`WIDE2-1`|
+|extremely remote fixed|`WIDE2-2`|
+|metropolitan mobile|`WIDE1-1,WIDE2-1`|
+|extremely remote mobile|`WIDE1-1,WIDE2-2`|
+|balloons & aircraft|`WIDE2-1`|
+|space satellites|`ARISS,WIDE2-1`|
 
 Note:
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
@@ -268,7 +265,7 @@ See: <https://github.com/aprs434/lora.igate>
 |v0.3.0|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of  location, course&nbsp;and speed&nbsp;data|31 bytes|✓|
 |[v0.4.0](https://github.com/aprs434/lora.tracker)|✓|removal of the transmitted [newline](https://en.wikipedia.org/wiki/Newline) `\n`&nbsp;character at&nbsp;frame&nbsp;end|30 bytes|✓|
 |||random time jitter between fixed interval packets to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|
-|||[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|20 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
+|||[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|18 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
 
 > Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
 >
