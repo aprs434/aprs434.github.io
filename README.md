@@ -136,7 +136,7 @@ Note:
 > Above `n-N` paradigm paths are to be interpreted strictly as crossover AX.25 packet digipeating addresses.
 
 
-## Proposed Compression for LoRa Text Message Frames
+## Proposed Compression for LoRa Addressed Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
 
 > _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
@@ -163,7 +163,7 @@ where:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 15; included)
 - `T`: compressed text from a limited character set.
-- `i`: a sensible maximum allowed number of information field bytes
+- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 The `EEEEF` codec algorithms are identical to the `CCCCD` codec algorithms, where the digi path code is changed for
 
@@ -192,7 +192,7 @@ where:
   + the _Path Code_ (between path 0 [none] and 7; included)
 - `>`: the _Data Type ID,_ and at the same time a custom, identifiable, positional **LoRa header**
 - `T`: compressed text from a limited character set.
-- `i`: a sensible maximum allowed number of information field bytes
+- `i`: a sensible maximum allowed number of information field bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 
 ## ITU Regulation
