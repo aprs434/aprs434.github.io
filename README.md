@@ -75,16 +75,17 @@ Upon succesful demonstration of its merits, below LoRa frame compression algorit
 
 ## Proposed Compression for LoRa Geolocation Frames
 
-|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:--------------------------:|:---------------:|
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
 |4 bytes|1 byte|13 bytes|
 |`CCCC`|`D`|`/XXXXYYYY$csT`|
 
 where:
 - `CCCC`: the compressed _Source Address_ (6 character callsign)
 - `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included), and
-  + the _Data Type Code_ (between path 0 [none] and 15; included)
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between path 0 [none] and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -96,7 +97,7 @@ where:
 >
 > Rather, occassionally transmit an uncompressed `>`&nbsp;_Status Report_ with `CCCCD` callsign compression.
 
-As mentioned before, and when deemed necessary, `CCCCD` callsign compression can be used in combination with other, mostly uncompressed _Data Types._
+As mentioned before, and when deemed necessary, `CCCCD` callsign compression can be used in combination with other _Data Types._
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
@@ -122,29 +123,44 @@ As mentioned before, and when deemed necessary, `CCCCD` callsign compression can
 
 ### Data Type Codes
 
-Subset
+Of all the _Data Types_ defined in [](), a subset
 
 |_Data Type_|_ID_|_Data Type Code_|
 |:---------:|:--:|:--------------:|
-|Compressed Lat/Long Position Report Format — no Timestamp|`!` or `=`|0|
-|Complete Weather Report Format — with Compressed Lat/Long position, no Timestamp|`!` or `=`|0|
-|Compressed Lat/Long Position Report Format — with Timestamp|`/` or `@`||
-|Compressed Lat/Long Position Report Format — with Timestamp|`/` or `@`||
-|Object Report Format — with Compressed Lat/Long position|`;`|1|
-|Item Report Format — with Compressed Lat/Long position|`)`|2|
-|Positionless Weather Report Format|`_`||
-|Telemetry Report Format|`T`||
-|Message Format|`:`|3|
-||``|8|
-||``|9|
-||``|10|
-||``|11|
-||``|12|
-||``|13|
-||``|14|
-||``|15|
+|Compressed Lat/Long Position Report — no Timestamp|`!` or `=`|0|
+|Complete Weather Report — with Compressed Lat/Long position, no Timestamp|`!` or `=`|0|
+|Item Report — with Compressed Lat/Long position|`)`|1|
+|Message|`:`|2|
+|Status Report|`>`|3|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
+
+
+## Digipeating on LoRa Channels
+> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
+
+Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+
+Also consider that:
+- Most LoRa gateways are connected to the APRS‑IS Internet server network.
+- There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
+
+Hence, below `n-N` paradigm paths are to be interpreted mainly as crossover AX.25 packet digipeating paths.
+One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
+
+|station|recommended `n-N` paradigm path|_Path Code_|
+|:-----:|:-----------------------------:|:---------:|
+|no digipeating||0|
+|metropolitan fixed, balloons & aircraft|`WIDE2-1`|1|
+|extremely remote fixed|`WIDE2-2`||
+|metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
+|extremely remote mobile|`WIDE1-1,WIDE2-2`||
+|space satellites|`ARISS,WIDE2-1`|3|
+
+Note:
+- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
+- The second `N` digit indicates the number of repeats at the indicated coverage level.
+
 
 ## Proposed Compression for Addressed LoRa Message Frames
 Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
@@ -170,8 +186,8 @@ Below proposal for the compression of addressed LoRa message frames is still som
 
 Furthermore, in view of channel capacity and channel isolation, **it remains doubtful whether 2‑way is feasible** on a single LoRa channel or even separate TX and RX channels. Therfore, below proposals for LoRa text frames should be foremost considered as an **uplink protocol only,** e.g. for SOTA or POTA self-spotting, emergencies, telemetry, status reports etc.
 
-|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:--------------------------:|:---------------:|
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
 |`CCCC`|`D`|`EEEEFTTTT…TTTT`|
 
@@ -204,11 +220,11 @@ The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#co
 
 
 ## Proposed Compression for LoRa Status Report Frames
-Obviously, safe of the `EEEEF` addressing, above compression can also be applied to other APRS text frame types.
-For example for `>` APRS status reports.
+Obviously, above `TTTT…TTTT` compression can also be applied to other APRS text frame types.
+For example for `>` APRS status reports. In practice, status reports are also often employed to send telemetry data.
 
-|_Callsign_|_SSID_,<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:--------------------------:|:---------------:|
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
 |4 bytes|1 byte| ≤&nbsp;i bytes|
 |`CCCC`|`D`|`TTTT…TTTT`|
 
@@ -225,30 +241,11 @@ where:
 TBD
 
 
-## Digipeating on LoRa Channels
-> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
+## Comments
+> **⚠ <u>REFRAIN</u> from adding any comments!**
 
-Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
-
-Also consider that:
-- Most LoRa gateways are connected to the APRS‑IS Internet server network.
-- There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
-
-Hence, below `n-N` paradigm paths are to be interpreted mainly as crossover AX.25 packet digipeating paths.
-One of these can be filled in upon reception by the LoRa (i‑)gate **for use with a co‑located (VHF) AX.25 packet digipeater.** Which path depends on the geographical situation of that particular LoRa (i‑)gate, whilst assuming most LoRa frames to be of mobile origin. However, weather reports could be assumed to be of fixed origin.
-
-|station|recommended `n-N` paradigm path|_Path Code_|
-|:-----:|:-----------------------------:|:---------:|
-|no digipeating||0|
-|metropolitan fixed, balloons & aircraft|`WIDE2-1`|1|
-|extremely remote fixed|`WIDE2-2`||
-|metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`||
-|space satellites|`ARISS,WIDE2-1`|3|
-
-Note:
-- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
-- The second `N` digit indicates the number of repeats at the indicated coverage level.
+Adding more bytes to a LoRa frame only reduces the chances on successful reception.
+Rather consider sending an occasional [status report](#proposed-compression-for-lora-status-report-frames).
 
 
 ## ITU Regulation
