@@ -214,7 +214,7 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 - TTGO T-Beam 433&nbsp;MHz v0.7 or v1.1
 - longer 433&nbsp;MHz antenna with [SMA male](https://en.wikipedia.org/wiki/SMA_connector) connector
 - 16.9&nbsp;mm long tiger tail wire soldered to the female SMA socket
-- 5&nbsp;V 3&nbsp;A microUSB charge adapter
+- 5&nbsp;V, 3&nbsp;A microUSB charge adapter
 - Panasonic NCR18650B Li-ion cell, or quality equivalent
 - glue gun to stick the GPS antenna to the cell holder
 - SH1106 1.3" I²C (4‑pin) OLED display (slightly larger than the usual 0.8" displays often sold with the TTGO T-Beam)
@@ -227,7 +227,7 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
   + **⚠ <u>DO NOT USE</u>** Heltec ESP32 LoRa 433&nbsp;MHz **v1** as it is as deaf as a post!
 - 70&nbsp;cm amateur radio colinear groundplane antenna with coaxial cable and connectors
 - 16.9&nbsp;mm long tiger tail wire soldered to the RF socket
-- 5&nbsp;V 1&nbsp;A microUSB power supply
+- 5&nbsp;V, 1&nbsp;A microUSB power supply
 - enclosure
 
 
