@@ -115,6 +115,7 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |SF|12|11|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
+|sync length|8 symbols|8 symbols|
 |sync word|`0x12`|`0x12`|
 |header|explicit|explicit|
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|on|
