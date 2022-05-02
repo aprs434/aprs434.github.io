@@ -117,8 +117,8 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|
 |:---------:|:--:|:--------------:|
-|compressed geolocation — no&nbsp;timestamp|`!` or `=`|0|
-|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!` or `=`|0|
+|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|
+|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|
 |status report|`>`|1|
 |item report — with compressed geolocation|`)`|2|
 |message|`:`|3|
