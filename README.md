@@ -454,7 +454,7 @@ On the other hand, bidirectional messaging requires time division multiplexing b
 TBD
 
 
-## News, Social & Codevelopment
+## News, Social & Co-Development
 Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the latest news and cordial discussions.
 
 You are invited to contribute code improvements to [**this project on GitHub**](https://github.com/aprs434).
