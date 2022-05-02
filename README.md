@@ -53,7 +53,7 @@ $$PER = 1 - (1 - BER)^n$$
 
 where: $n$ is the number of bits; not bytes.
 
-Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz. This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
+Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 18 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
 
@@ -104,7 +104,7 @@ Upon succesful demonstration of its merits, below LoRa frame compression protoco
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;40&nbsp;bytes|
 |`CCCC`|`D`||
 
 where:
@@ -113,7 +113,6 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
   + the _Data Type Code_ (between type 0 and 3; included)
-- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
@@ -148,11 +147,9 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|29|
 |status report|`>`|1|≤&nbsp;20|
 |item report — with compressed geolocation|`)`|2|20|
-|message|`:`|3|≤&nbsp;d|
+|message|`:`|3|≤&nbsp;40|
 
-Note:
-- Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
-- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
+Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
 
 ## Digipeating on LoRa Channels
@@ -327,7 +324,7 @@ Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-di
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;40&nbsp;bytes|
 |`CCCC`|`D`|`EEEEFtttt…tttt`|
 
 where:
@@ -340,8 +337,7 @@ where:
 - `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 15; included)
-- `tttt…tttt`: compressed text from a limited 42 character set.
-- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
+- `tttt…tttt`: 35 bytes of compressed text from a limited 42 character set, corresponding to 51 uncompressed characters
 
 ### Encoding and Decoding EEEE
 The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#encoding-cccc).
