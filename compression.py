@@ -30,9 +30,9 @@ def decodeCCCC(bytestring):
     return encode36(integer)    # Encode the integer as a 6 character Base36 string.
 
 
-def encodeD(ssid, path):
+def encodeD(ssid, path, datatype):
 
-    integer = ssid * 16 + path
+    integer = ssid * 16 + path * 4 + datatype
 
     return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
 
@@ -41,10 +41,12 @@ def decodeD(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 byte to an integer.
 
-    ssid = integer // 16    # integer division
-    path = integer  % 16    # modulo operation
+    ssid      = integer // 16    # integer division
+    remainder = integer  % 16    # modulo operation
+    path      = remainder // 4
+    datatype  = remainder  % 4
 
-    return (ssid, path)
+    return (ssid, path, datatype)
 
 
 ### TESTS ###
@@ -62,17 +64,17 @@ print()
 print(encodeCCCC('W3A'))
 print(decodeCCCC(encodeCCCC('W3A')))
 print()
-print(encodeD(6, 3))
-print(decodeD(encodeD(6, 3)))
+print(encodeD(6, 3, 2))
+print(decodeD(encodeD(6, 3, 2)))
 print()
-print(encodeD(15, 7))
-print(decodeD(encodeD(15, 7)))
+print(encodeD(15, 3, 3))
+print(decodeD(encodeD(15, 3, 3)))
 print()
-print(encodeD(1, 0))
-print(decodeD(encodeD(1, 0)))
+print(encodeD(1, 0, 0))
+print(decodeD(encodeD(1, 0, 0)))
 print()
-print(encodeD(0, 1))
-print(decodeD(encodeD(0, 1)))
+print(encodeD(0, 0, 1))
+print(decodeD(encodeD(0, 0, 1)))
 print()
-print(encodeD(0, 0))
-print(decodeD(encodeD(0, 0)))
+print(encodeD(0, 0, 0))
+print(decodeD(encodeD(0, 0, 0)))
