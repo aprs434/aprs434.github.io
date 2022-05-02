@@ -53,7 +53,7 @@ $$PER = 1 - (1 - BER)^n$$
 
 where: $n$ is the number of bits; not bytes.
 
-Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
+Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 18 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
 
@@ -147,7 +147,7 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|29|
 |status report|`>`|1|≤&nbsp;20|
 |item report — with compressed geolocation|`)`|2|20|
-|message|`:`|3|≤&nbsp;40|
+|message|`:`|3|≤&nbsp;45|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
