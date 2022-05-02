@@ -19,7 +19,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
     + [Decoding CCCC](#decoding-cccc)
     + [Encoding D](#encoding-d)
     + [Decoding D](#decoding-d)
-    + [Codec Algorithms for CCCCD](#codec-algorithms-for-CCCCD)
+    + [Codec Algorithms for CCCCD](#codec-algorithms-for-ccccd)
     + [Data Type Codes](#data-type-codes)
 - [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
 - [Compressed Geolocation Frames](#compressed-geolocation-frames)
@@ -28,13 +28,26 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
     + [Encoding tttt](#encoding-tttt)
     + [Decoding tttt](#decoding-tttt)
     + [Codec Algorithms for tttt](#codec-algorithms-for-tttt)
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
+- [Comments](#comments)
+- [Compressed Status Report Frames](#compressed-status-report-frames)
+- [Compressed Item Report Frames](#compressed-item-report-frames)
+- [Compressed Addressed Message Frames](#compressed-addressed-message-frames)
+    + [Encoding and Decoding EEEE](#encoding-and-decoding-eeee)
+    + [Encoding F](#encoding-f)
+    + [Decoding F](#decoding-f)
+- [Reducing Power Consumption](#reducing-power-consumption)
+- [Recommended Hardware](#recommended-hardware)
+    + []()
+    + []()
+- [ESP32 Firmware Downloads](#esp32-firmware-downloads)
+    + []()
+    + []()
+- [Development Road Map](#development-road-map)
+    + []()
+    + []()
+    + []()
+    + []()
+- [News, Social & Co-Development](#news-social--co-development)
 
 
 ## An Open Standard for LoRa Frame Compression
@@ -97,8 +110,8 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Summarised, the following LoRa link parameters are proposed for APRS:
 
-|LoRa parameter|for uplink only|for 2‑way&nbsp;& digipeating|
-|:------------:|:-------------:|:--------------------------:|
+|LoRa parameter|for uplink only|for 2‑way, digipeating&nbsp;& meshing|
+|:------------:|:-------------:|:-----------------------------------:|
 |SF|12|11|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
