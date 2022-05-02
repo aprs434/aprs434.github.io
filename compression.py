@@ -49,6 +49,33 @@ def decodeD(bytestring):
     return (ssid, path, datatype)
 
 
+def encodeEEEE(string):
+
+    return encodeCCCC(string)
+
+
+def decodeEEEE(bytestring):
+
+    return decodeCCCC(bytestring)
+
+
+def encodeF(ssid, messageNo):
+
+    integer = ssid * 16 + messageNo
+
+    return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
+
+
+def decodeF(bytestring):
+
+    integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 byte to an integer.
+
+    ssid      = integer // 16    # integer division
+    messageNo = integer  % 16    # modulo operation
+
+    return (ssid, messageNo)
+
+
 ### TESTS ###
 
 
