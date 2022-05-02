@@ -146,7 +146,7 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |:---------:|:--:|:--------------:|:-----:|
 |compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
 |complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|29|
-|status report|`>`|1|≤&nbsp;d|
+|status report|`>`|1|≤&nbsp;20|
 |item report — with compressed geolocation|`)`|2|20|
 |message|`:`|3|≤&nbsp;d|
 
@@ -170,7 +170,7 @@ However, suppose general digipeating were to be allowed on the LoRa channel; eve
 |station|recommended `n-N` paradigm path|_Path Code_|
 |:-----:|:-----------------------------:|:---------:|
 |no digipeating||0|
-|metropolitan fixed, balloons & aircraft|`WIDE2-1`|1|
+|metropolitan fixed, mountain expeditions, balloons&nbsp;& aircraft|`WIDE2-1`|1|
 |extremely remote fixed|`WIDE2-2`||
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
 |extremely remote mobile|`WIDE1-1,WIDE2-2`||
@@ -277,7 +277,7 @@ For example for `>` APRS status reports. In practice, status reports are also of
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;15&nbsp;bytes|
 |`CCCC`|`D`|`tttt…tttt`|
 
 where:
@@ -286,8 +286,7 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
   + the _Data Type Code_ (between type 0 and 3; included)
-- `tttt…tttt`: compressed text from a limited 42 character set
-- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
+- `tttt…tttt`: maximum 15 bytes of compressed text from a limited 42 character set, corresponding to 22 uncompressed characters
 
 
 ## Compressed Item Report Frames
