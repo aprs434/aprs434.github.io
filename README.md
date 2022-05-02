@@ -251,16 +251,16 @@ In resemblance to Morse code, the character set would contain only 26 Latin lowe
 |symbols `-`&nbsp;`/`&nbsp;`_`|3|
 |**TOTAL**|**42**|
 
-### Encoding tttt…tttt
+### Encoding tttt
 1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
 2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
 3. Then, encode this integer as a Base256 `tttt…tttt` bytestring.
 
-### Decoding tttt…tttt
+### Decoding tttt
 1. First, decode the given Base256 `tttt…tttt` bytestring to an integer.
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
-### Codec Algorithms for tttt…tttt
+### Codec Algorithms for tttt
 - [Python3](compression.py) compression algorithms and tests **[TODO]**
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
