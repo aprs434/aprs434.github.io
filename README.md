@@ -180,7 +180,7 @@ where:
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
 - `$`: the _Symbol Code_
-- `cs`: the compressed course and speed
+- `cs`: the compressed course (in degrees) and speed (in knots)
 - `T`: the _Compression Type Byte_
 
 > **⚠ <u>DO NOT</u> add any altitude data or comment!**
@@ -238,7 +238,7 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the _Path Code_ (between path 0 [none] and 3; included), and
   + the _Data Type Code_ (between type 0 and 3; included)
-- `tttt…tttt`: compressed text from a limited 42 character set.
+- `tttt…tttt`: compressed text from a limited 42 character set
 - `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 
@@ -287,11 +287,55 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 
 
 ## Compressed Item Report Frames
-**[TBD]**
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte|20 bytes|
+|`CCCC`|`D`|`/XXXXYYYY$csTttttttt`|
+
+where:
+- `CCCC`: the compressed 6 character _Callsign_
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
+- `$`: the _Symbol Code_
+- `cs`: the compressed course and speed
+- `T`: the _Compression Type Byte_
+- `ttttttt`: the 9 character item name in 7 bytes compressed text from a limited 42 character set
 
 
 ## Compressed Weather Report Frames
-**[TBD]**
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte|24 bytes|
+|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbb`|
+
+where:
+- `CCCC`: the compressed 6 character _Callsign_
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
+- `_`: the weather report _Symbol Code_
+- `cs`: the compressed wind direction (in degrees) and sustained one-minute wind speed (in knots)
+- `T`: the _Compression Type Byte_
+- `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
+- `t`: temperature (in Kelvin above 173.15 K)
+- `rr`: rainfall (in mm) in the last hour
+- `pp`: rainfall (in mm) in the last 24 hours
+- `PP`: rainfall (in mm) since midnight
+- `h`: humidity (in %)
+- `b`: barometric pressure (in Pa above 50000)
+
+**[TBD]** algorithms
 
 
 ## ITU Regulation
