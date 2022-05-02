@@ -9,19 +9,32 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - Lower probability of packet collisions,
 - Therefore, more channel capacity.
 
+
 ## Index
 - [An Open Standard for LoRa Frame Compression](#an-open-standard-for-lora-frame-compression)
 - [Measurable Benefits](#measrable-benefits)
-- [LoRa Link Parameters](#)
-- [Callsign, SSID, Path and Data Type Compression](#)
-- [Digipeating on LoRa Channels](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [LoRa Link Parameters](#lora-link-parameters)
+- [Callsign, SSID, Path and Data Type Compression](#callsign-ssid-path-and-data-type-compression)
+    + [Encoding CCCC](#encoding-cccc)
+    + [Decoding CCCC](#decoding-cccc)
+    + [Encoding D](#encoding-d)
+    + [Decoding D](#decoding-d)
+    + [Codec Algorithms for CCCCD](#codec-algorithms-for-CCCCD)
+    + [Data Type Codes](#data-type-codes)
+- [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
+- [Compressed Geolocation Frames](#compressed-geolocation-frames)
+- [Compressed Weather Report Frames](#compressed-weather-report-frames)
+- [Compressed Text](#compressed-text)
+    + [Encoding tttt](#encoding-tttt)
+    + [Decoding tttt](#decoding-tttt)
+    + [Codec Algorithms for tttt](#codec-algorithms-for-tttt)
+- []()
+- []()
+- []()
+- []()
+- []()
+- []()
+- []()
 
 
 ## An Open Standard for LoRa Frame Compression
@@ -134,7 +147,7 @@ where:
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Data Type Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
-### CCCCD Codec Algorithms
+### Codec Algorithms for CCCCD
 - [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
