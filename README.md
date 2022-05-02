@@ -260,9 +260,9 @@ where:
 - `bb`: barometric pressure (in Pa above 50000)
 - `S`: snowfall (in cm) over the past 24 hours
 
-Here is a list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
-
-**[TBD]** algorithms
+Notes:
+- All numerical encodings are one or two byte Base256 encodings.
+- Here is a fascinating list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
 
 
 ## Compressed Text
