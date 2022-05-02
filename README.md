@@ -235,6 +235,8 @@ where:
 - `h`: humidity (in %)
 - `bb`: barometric pressure (in Pa above 50000)
 
+Here is a list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
+
 **[TBD]** algorithms
 
 
