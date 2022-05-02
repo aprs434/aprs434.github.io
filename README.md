@@ -158,8 +158,8 @@ where:
 
 ### Decoding D
 1. First, decode the given Base256 `D` byte to an integer.
-2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
-3. The [**remainder**](https://en.wikipedia.org/wiki/Remainder) of above integer division is subjected to a second integer division by&nbsp;4.
+2. The _SSID_ equals the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
+3. The [remainder](https://en.wikipedia.org/wiki/Remainder) of above integer division is subjected to a second integer division by&nbsp;4.
 4. The _Path Code_ equals the integer quotient of this second integer division.
 5. Whereas the _Data Type Code_ equals the remainder this second integer division.
 
