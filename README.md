@@ -151,16 +151,17 @@ where:
 2. Then, encode this integer as a 6&nbsp;character Base36 string, corresponding to the callsign.
 
 ### Encoding D
-0. **[REWRITE]**
 1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Then, algebraically add to this the _Data Type Code_ integer as listed in below table.
-3. Finally, convert the resulting integer to a single Base256 `D` byte.
+2. Multiply the _Path Code_  by&nbsp;4.
+3. Then, algebraically add to these intermediate results to the _Data Type Code_ integer from below table.
+4. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
-0. **[REWRITE]**
 1. First, decode the given Base256 `D` byte to an integer.
 2. The _SSID_ equals the **integer quotient** after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
-3. Whereas the _Data Type Code_ equals the [**remainder**](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+3. The [**remainder**](https://en.wikipedia.org/wiki/Remainder) of above integer division is subjected to a second integer division by&nbsp;4.
+4. The _Path Code_ equals the integer quotient of this second integer division.
+5. Whereas the _Data Type Code_ equals the remainder this second integer division.
 
 ### Codec Algorithms for CCCCD
 - [Python3](compression.py) compression algorithms and tests

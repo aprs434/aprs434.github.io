@@ -4,7 +4,7 @@
 Python3 codec algorithms for APRS 434 LoRa:
 
 - Callsign Compression CCCC
-- SSID, Path & Data Type Compression D
+- SSID, pathCode & Data Type Compression D
 
 - Callsign Compression EEEE
 - SSID & MessageNo Compression F
@@ -12,6 +12,12 @@ Python3 codec algorithms for APRS 434 LoRa:
 - Text Compression tttt
 
 '''
+
+### IMPORTS ###
+
+
+import math
+
 
 ### FUNCTIONS ###
 
@@ -35,9 +41,9 @@ def decodeCCCC(bytestring):
     return encode36(integer)    # Encode the integer as a 6 character Base36 string.
 
 
-def encodeD(ssid, path, dataType):
+def encodeD(ssid, pathCode, dataTypeCode):
 
-    integer = ssid * 16 + path * 4 + dataType
+    integer = ssid * 16 + pathCode * 4 + dataTypeCode
 
     return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
 
@@ -48,10 +54,10 @@ def decodeD(bytestring):
 
     ssid      = integer // 16    # integer division
     remainder = integer  % 16    # modulo operation
-    path      = remainder // 4
-    dataType  = remainder  % 4
+    pathCode      = remainder // 4
+    dataTypeCode  = remainder  % 4
 
-    return (ssid, path, dataType)
+    return (ssid, pathCode, dataTypeCode)
 
 
 def encodeEEEE(string):
@@ -79,6 +85,27 @@ def decodeF(bytestring):
     messageNo = integer  % 16    # modulo operation
 
     return (ssid, messageNo)
+
+
+def encodetttt(string):
+
+    integer = int(string, 42)                        # TODO: Decode the given Base42 string to an integer.
+
+    n = math.ceil(math.log(42**len(string), 256))    # number of required Base256 bytes
+
+    return integer.to_bytes(n, byteorder='big')      # Encode the integer as an n byte Base256 bytestring.
+
+
+def decodetttt(bytestring):
+
+    integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 bytestring to an integer.
+
+    encode42 = lambda integer, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
+                      numerals[0] if integer == 0 \
+                      else \
+                      encode42(integer // 42, numerals).lstrip(numerals[0]) + numerals[integer % 42]    # Recursive!
+
+    return encode42(integer)    # Encode the integer as a Base42 string.
 
 
 ### TESTS ###
