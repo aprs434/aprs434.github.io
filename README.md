@@ -70,14 +70,14 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Summarised, the following LoRa link parameters are proposed for APRS:
 
-|LoRa parameter|value|
-|:------------:|:---:|
-|SF|11|
-|BW|125 000|
-|CR|1 (5/4)|
-|sync word|`0x12`|
-|header|explicit|
-|[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|
+|LoRa parameter|for geolocation|for messaging|
+|:------------:|:-------------:|:-----------:|
+|SF|12|11|
+|BW|125 000|125 000|
+|CR|1 (5/4)|1 (5/4)|
+|sync word|`0x12`|`0x12`|
+|header|explicit|explicit|
+|[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|on|
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
