@@ -126,15 +126,17 @@ where:
 ### Data Type Codes
 Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwaves.com/prs/doc/2000.aprs.1.01.pdf), a subset was selected, based on popularity and foremost suitability for LoRa.
 
-|_Data Type_|_ID_|_Data Type Code_|
-|:---------:|:--:|:--------------:|
-|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|
-|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|
-|status report|`>`|1|
-|item report — with compressed geolocation|`)`|2|
-|message|`:`|3|
+|_Data Type_|_ID_|_Data Type Code_|payload|
+|:---------:|:--:|:--------------:|:-----:|
+|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
+|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|29|
+|status report|`>`|1|≤&nbsp;d|
+|item report — with compressed geolocation|`)`|2|20|
+|message|`:`|3|≤&nbsp;d|
 
-Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
+Note:
+- Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
+- `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
 
 ## Digipeating on LoRa Channels
@@ -190,6 +192,36 @@ where:
 > Only if deemed absolutely necessary, transmit any other information with an occassional [_Status Report_](#compressed-status-report-frames).
 
 
+## Compressed Weather Report Frames
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte|24 bytes|
+|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbb`|
+
+where:
+- `CCCC`: the compressed 6 character _Callsign_
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
+- `_`: the weather report _Symbol Code_
+- `cs`: the compressed wind direction (in degrees) and sustained one-minute wind speed (in knots)
+- `T`: the _Compression Type Byte_
+- `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
+- `t`: temperature (in Kelvin above 173.15 K)
+- `rr`: rainfall (in mm) in the last hour
+- `pp`: rainfall (in mm) in the last 24 hours
+- `PP`: rainfall (in mm) since midnight
+- `h`: humidity (in %)
+- `bb`: barometric pressure (in Pa above 50000)
+
+**[TBD]** algorithms
+
+
 ## Compressed Text
 In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
 In resemblance to Morse code, the character set would contain only 26 Latin lower‑case letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
@@ -229,7 +261,7 @@ For example for `>` APRS status reports. In practice, status reports are also of
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte| ≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;d bytes|
 |`CCCC`|`D`|`tttt…tttt`|
 
 where:
@@ -240,6 +272,28 @@ where:
   + the _Data Type Code_ (between type 0 and 3; included)
 - `tttt…tttt`: compressed text from a limited 42 character set
 - `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
+
+
+## Compressed Item Report Frames
+
+|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
+|:--------:|:-------------------------------------------------:|:---------------:|
+|4 bytes|1 byte|20 bytes|
+|`CCCC`|`D`|`/XXXXYYYY$csTttttttt`|
+
+where:
+- `CCCC`: the compressed 6 character _Callsign_
+- `D`:
+  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+  + the _Path Code_ (between path 0 [none] and 3; included), and
+  + the _Data Type Code_ (between type 0 and 3; included)
+- `/`: the _Symbol Table Identifier_
+- `XXXX`: the Base91 compressed longitude
+- `YYYY`: the Base91 compressed latitude
+- `$`: the _Symbol Code_
+- `cs`: the compressed course and speed
+- `T`: the _Compression Type Byte_
+- `ttttttt`: the 9 character item name in 7 bytes compressed text from a limited 42 character set
 
 
 ## Compressed Addressed Message Frames
@@ -256,7 +310,7 @@ Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-di
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte| ≤&nbsp;d bytes|
+|4 bytes|1 byte|≤&nbsp;d bytes|
 |`CCCC`|`D`|`EEEEFtttt…tttt`|
 
 where:
@@ -284,58 +338,6 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 1. First, decode the given Base256 `F` byte to an integer.
 2. The _SSID_ equals the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
-
-
-## Compressed Item Report Frames
-
-|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|20 bytes|
-|`CCCC`|`D`|`/XXXXYYYY$csTttttttt`|
-
-where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
-- `/`: the _Symbol Table Identifier_
-- `XXXX`: the Base91 compressed longitude
-- `YYYY`: the Base91 compressed latitude
-- `$`: the _Symbol Code_
-- `cs`: the compressed course and speed
-- `T`: the _Compression Type Byte_
-- `ttttttt`: the 9 character item name in 7 bytes compressed text from a limited 42 character set
-
-
-## Compressed Weather Report Frames
-
-|_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
-|:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|24 bytes|
-|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbb`|
-
-where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
-- `/`: the _Symbol Table Identifier_
-- `XXXX`: the Base91 compressed longitude
-- `YYYY`: the Base91 compressed latitude
-- `_`: the weather report _Symbol Code_
-- `cs`: the compressed wind direction (in degrees) and sustained one-minute wind speed (in knots)
-- `T`: the _Compression Type Byte_
-- `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
-- `t`: temperature (in Kelvin above 173.15 K)
-- `rr`: rainfall (in mm) in the last hour
-- `pp`: rainfall (in mm) in the last 24 hours
-- `PP`: rainfall (in mm) since midnight
-- `h`: humidity (in %)
-- `b`: barometric pressure (in Pa above 50000)
-
-**[TBD]** algorithms
 
 
 ## ITU Regulation
