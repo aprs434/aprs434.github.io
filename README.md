@@ -9,8 +9,22 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - Lower probability of packet collisions,
 - Therefore, more channel capacity.
 
+## Index
+- [An Open Standard for LoRa Frame Compression](#an-open-standard-for-lora-frame-compression)
+- [Measurable Benefits](#measrable-benefits)
+- [LoRa Link Parameters](#)
+- [Callsign, SSID, Path and Data Type Compression](#)
+- [Digipeating on LoRa Channels](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
 
-## Setting an Open Standard for LoRa Frame Compression
+
+## An Open Standard for LoRa Frame Compression
 As a physical layer, LoRa permits sending any of the [256 characters](https://en.wikipedia.org/wiki/Extended_ASCII) from `\00` to `\ff`. This is double the amount of the [7‑bit, 128 ASCII character set](https://en.wikipedia.org/wiki/ASCII#Character_set). Hence, there are ample opportunities for compressing [AX.25](https://en.wikipedia.org/wiki/AX.25) ([packet radio](https://en.wikipedia.org/wiki/Packet_radio)) unnumbered information (UI) frames at the [data link layer](https://en.wikipedia.org/wiki/Data_link_layer), namely:
 
 |[AX.25](https://en.wikipedia.org/wiki/AX.25) UI frame&nbsp;field|required characters or digits with&nbsp;LoRa|
@@ -70,8 +84,8 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Summarised, the following LoRa link parameters are proposed for APRS:
 
-|LoRa parameter|for geolocation|for messaging|
-|:------------:|:-------------:|:-----------:|
+|LoRa parameter|for uplink only|for 2‑way&nbsp;& digipeating|
+|:------------:|:-------------:|:--------------------------:|
 |SF|12|11|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
@@ -79,7 +93,9 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |header|explicit|explicit|
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|on|
 
-> For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
+Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor. Therefore, a choice needs to be made between SF12 and SF11. In view of what the amateur radio community expects of APRS over LoRa, the faster data rate offered by SF11 ought to be preferred. 
+
+> For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g). **[TODO: spec sheets]**
 
 
 Upon succesful demonstration of its merits, below LoRa frame compression protocols **will be formally proposed as an extension to the APRS standard:**
