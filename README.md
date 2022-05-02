@@ -100,7 +100,7 @@ $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000
 
 Above LoRa parameters are adequate for sending geolocation frames.
 
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for local digipeating or meshing. Therefore, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel. For such applications, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
 
 SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
 
@@ -110,9 +110,10 @@ Finally, it was observed that amateur radio predominantly employs the LoRa sync 
 
 Summarised, the following LoRa link parameters are proposed for APRS:
 
-|LoRa parameter|for uplink only|for 2‑way, digipeating&nbsp;& meshing|
-|:------------:|:-------------:|:-----------------------------------:|
-|SF|12|11|
+|LoRa parameter|uplink|downlink|
+|:------------:|:----:|:------:|
+|Region&nbsp;I frequency|443.775&nbsp;MHz|443.900&nbsp;MHz|
+|SF|12|12|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
 |sync length|8 symbols|8 symbols|
@@ -182,14 +183,16 @@ Note: Weather reports use the same _Data Type IDs_ as position reports but with 
 ## Digipeating on LoRa Channels
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
 > Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+> Unlike AX.25 packet radio, LoRa does not offer [carrier sensing](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access).
 
 Also consider that:
 - Most LoRa gateways are connected to the APRS‑IS Internet server network and many users are merely interested in reaching APRS‑IS.
 - There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
+- In IARU Region&nbsp;I the central frequency of 433.900 MHz is proposed as a downlink channel from gateways to nodes. The proposal does not mention digipeating.
 
 Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.25 packet digipeating paths for any (VHF) digipeater co‑located with the LoRa (i‑)gate.
 
-However, suppose general digipeating were to be allowed on the LoRa channel; even by trackers. This would render it into a mesh network. It would also absolutely require switching from SF12 to the higher data rate SF11 [as explained above](#lora-link-parameters). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
+However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a single LoRa channel; even for trackers. This would offer interesting emergency capabilities when no Internet is available. However, this would absolutely require switching from SF12 to the higher data rate offered by SF11 [as explained above](#lora-link-parameters). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
 
 |station|recommended `n-N` paradigm path|_Path Code_|
 |:-----:|:-----------------------------:|:---------:|

@@ -3,8 +3,13 @@
 '''
 Python3 codec algorithms for APRS 434 LoRa:
 
-- Source Address Callsign compression CCCC
-- Source Address SSID & Digipeater Address compression D
+- Callsign Compression CCCC
+- SSID, Path & Data Type Compression D
+
+- Callsign Compression EEEE
+- SSID & MessageNo Compression F
+
+- Text Compression tttt
 
 '''
 
@@ -30,9 +35,9 @@ def decodeCCCC(bytestring):
     return encode36(integer)    # Encode the integer as a 6 character Base36 string.
 
 
-def encodeD(ssid, path, datatype):
+def encodeD(ssid, path, dataType):
 
-    integer = ssid * 16 + path * 4 + datatype
+    integer = ssid * 16 + path * 4 + dataType
 
     return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
 
@@ -44,9 +49,9 @@ def decodeD(bytestring):
     ssid      = integer // 16    # integer division
     remainder = integer  % 16    # modulo operation
     path      = remainder // 4
-    datatype  = remainder  % 4
+    dataType  = remainder  % 4
 
-    return (ssid, path, datatype)
+    return (ssid, path, dataType)
 
 
 def encodeEEEE(string):
