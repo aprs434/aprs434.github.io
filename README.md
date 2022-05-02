@@ -261,8 +261,18 @@ where:
 - `tttt…tttt`: compressed text from a limited 42 character set.
 - `d`: a sensible maximum allowed number of compressed data bytes, taking into account the [stepped airtime function](#measurable-benefits)
 
-### Encoding and Decoding EEEEF
-The `EEEEF` codec algorithms are identical to the [`CCCCD` codec algorithms](#codec-algorithms), where _Message&nbsp;ID_ is interchanged for _Data&nbsp;Type&nbsp;Code_
+### Encoding and Decoding EEEE
+The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#encoding-cccc).
+
+### Encoding F
+1. First, multiply the _SSID_ integer by&nbsp;16.
+2. Then, algebraically add to this the _Message No_ integer.
+3. Finally, convert the resulting integer to a single Base256 `F` byte.
+
+### Decoding F
+1. First, decode the given Base256 `F` byte to an integer.
+2. The _SSID_ equals the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
+3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 
 ## Compressed Item Report Frames
