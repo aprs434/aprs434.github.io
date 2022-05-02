@@ -38,7 +38,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - [Reducing Power Consumption](#reducing-power-consumption)
 - [Recommended Hardware](#recommended-hardware)
     + [Tracker Hardware](#tracker-hardware)
-    + [](#i-gate-hardware)
+    + [I-Gate Hardware](#i-gate-hardware)
 - [ESP32 Firmware Downloads](#esp32-firmware-downloads)
     + [Tracker Firmware](#tracker-firmware)
     + [I-Gate Firmware](#i-gate-firmware)
