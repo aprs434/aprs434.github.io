@@ -228,7 +228,7 @@ where:
 - `cs`: the compressed wind direction (in degrees) and sustained one-minute wind speed (in knots)
 - `T`: the _Compression Type Byte_
 - `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
-- `t`: temperature (in Kelvin above 173.15 K)
+- `t`: temperature (in kelvin above 173.15 K)
 - `rr`: rainfall (in mm) in the last hour
 - `pp`: rainfall (in mm) in the last 24 hours
 - `PP`: rainfall (in mm) since midnight
