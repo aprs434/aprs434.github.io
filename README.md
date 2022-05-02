@@ -144,7 +144,7 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |_Data Type_|_ID_|_Data Type Code_|payload|
 |:---------:|:--:|:--------------:|:-----:|
 |compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
-|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|29|
+|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|30|
 |status report (≤&nbsp;22&nbsp;characters)|`>`|1|≤&nbsp;20|
 |item report — with compressed geolocation|`)`|2|20|
 |addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|≤&nbsp;45|
@@ -209,8 +209,8 @@ where:
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|24 bytes|
-|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbb`|
+|4 bytes|1 byte|25 bytes|
+|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbbS`|
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
@@ -226,11 +226,12 @@ where:
 - `T`: the _Compression Type Byte_
 - `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
 - `t`: temperature (in kelvin above 173.15 K)
-- `rr`: rainfall (in mm) in the last hour
-- `pp`: rainfall (in mm) in the last 24 hours
+- `rr`: rainfall (in mm) over the past hour
+- `pp`: rainfall (in mm) over the past 24 hours
 - `PP`: rainfall (in mm) since midnight
 - `h`: humidity (in %)
 - `bb`: barometric pressure (in Pa above 50000)
+- `S`: snowfall (in cm) over the past 24 hours
 
 Here is a list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
 
