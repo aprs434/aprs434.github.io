@@ -66,7 +66,18 @@ SF11 not only prevents channel congestion; It also saves 50% on airtime and batt
 
 With a payload of only 18&nbsp;bytes, the proposed compressed geolocation frame is perfectly geared towards taking the advantage of reduced airtime with SF11 (see [graph](#measurable-benefits)).
 
-Finally, it was observed that amateur radio predominantly employs the LoRa sync word ''.
+Finally, it was observed that amateur radio predominantly employs the LoRa sync word '0x12'; which is manufacturer recommended for private networks, different from LoRaWAN.
+
+Summarised, the following LoRa link parameters are proposed for APRS:
+
+|LoRa parameter|value|
+|:------------:|:---:|
+|SF|11|
+|BW|125 000|
+|CR|1 (5/4)|
+|sync word|`0x12`|
+|header|explicit|
+|[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
