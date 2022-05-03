@@ -51,7 +51,7 @@ def encodeBase(base, integer):
     return ''.join(reversed(array or '0'))
 
 
-def decodeBase(base, integer):
+def decodeBase(base, string):
 
     numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
 
