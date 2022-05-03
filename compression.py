@@ -32,6 +32,7 @@ import math
 
 
 # https://stackoverflow.com/a/23926613/2192488
+# https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
 def encodeBase(base, integer):
 
     numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
@@ -165,6 +166,6 @@ print(encodeF(7, 13))
 print(decodeF(encodeF(7, 13)))
 print()
 uncompressed = 'This is ON4AA-6. QSL? _ Yes/No'
-compressed   = encodetttt(uncompressed)
+compressed = encodetttt(uncompressed)
 print('%s = %d bytes' % (compressed, len(compressed)))
 print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
