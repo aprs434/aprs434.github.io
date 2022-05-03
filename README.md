@@ -33,6 +33,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Encoding D](#encoding-d)
     + [Decoding D](#decoding-d)
     + [Codec Algorithms for CCCCD](#codec-algorithms-for-ccccd)
+    + [Recommended SSIDs](#recommended-ssids)
     + [Data Type Codes](#data-type-codes)
 - [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
     + [Path Codes](#path-codes)
@@ -153,8 +154,8 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
@@ -182,6 +183,31 @@ where:
 ### Codec Algorithms for CCCCD
 - [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
+
+### Recommended SSIDs
+A [service set identifier (SSID)]() identifies a service set or extended service set. Normally it is broadcast in the clear by stations in beacon packets to announce the presence of a network and seen by users as a wireless network name.
+
+|_SSID_|APRS station type|
+|:----:|:---------------:|
+|0|primary station; usually fixed and message capable|
+|1|generic additional station, digi, mobile, wx, etc.|
+|2|generic additional station, digi, mobile, wx, etc.|
+|3|generic additional station, digi, mobile, wx, etc.|
+|4|generic additional station, digi, mobile, wx, etc.|
+|5|other networks (Dstar, Iphones, Androids, Blackberry's etc.)|
+|6|special activity, satellite ops, camping, etc.|
+|7|walkie talkies, HTs or other human portable|
+|8|boats, sailboats, RVs or second main mobile|
+|9|primary mobile (usually message capable)|
+|10|internet, (LoRa) i‑gates, echolink, Winlink, AVRS, APRN, etc.|
+|11|balloons, aircraft, spacecraft, etc.|
+|12|APRStt, DTMF, RFID, devices, one‑way (LoRa) trackers^*^, etc.|
+|13|weather stations|
+|14|truckers or generally full time drivers|
+|15|generic additional station, digi, mobile, wx, etc.|
+
+^*^ One-way trackers should best use the `12` one‑way SSID indicator.
+_SSID_ `9` usually means a ham with full communication capabilities; both APRS message and voice.
 
 ### Data Type Codes
 Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwaves.com/prs/doc/2000.aprs.1.01.pdf), a subset was selected, based on popularity and foremost suitability for LoRa.
@@ -236,8 +262,8 @@ Note:
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -263,8 +289,8 @@ where:
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -331,8 +357,8 @@ For example for `>` APRS status reports. In practice, status reports are also of
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `tttt…tttt`: maximum 20 bytes of compressed text from a limited 42 character set, corresponding to 29 uncompressed characters
@@ -347,8 +373,8 @@ where:
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -383,8 +409,8 @@ Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-di
 
 where:
 - `CCCC`: the compressed 6 character _Callsign_
-- `D`:
-  + the compressed _SSID_ (between SSID 0 [none] and 15; included),
+- `D`: compresses
+  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
