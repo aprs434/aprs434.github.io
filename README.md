@@ -167,6 +167,7 @@ the faster data rate offered by SF11 ought to be preferred.
 
 
 ## Callsign, SSID, Path and Data Type Compression
+A compressed APRS frame would typically look like this, independently of its [_Data Type_](#data-type-codes):
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
