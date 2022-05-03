@@ -174,7 +174,7 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |:---------:|:--:|:--------------:|:-----:|
 |compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
 |complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|30|
-|status report (≤&nbsp;22&nbsp;characters)|`>`|1|≤&nbsp;20|
+|status report (≤&nbsp;29&nbsp;characters)|`>`|1|≤&nbsp;25|
 |item report — with compressed geolocation|`)`|2|25|
 |addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|≤&nbsp;45|
 
@@ -308,7 +308,7 @@ For example for `>` APRS status reports. In practice, status reports are also of
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;15&nbsp;bytes|
+|4 bytes|1 byte|≤&nbsp;20&nbsp;bytes|
 |`CCCC`|`D`|`tttt…tttt`|
 
 where:
@@ -317,7 +317,7 @@ where:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
-- `tttt…tttt`: maximum 15 bytes of compressed text from a limited 42 character set, corresponding to 22 uncompressed characters
+- `tttt…tttt`: maximum 20 bytes of compressed text from a limited 42 character set, corresponding to 29 uncompressed characters
 
 
 ## Compressed Item Report Frames
