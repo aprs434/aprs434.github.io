@@ -22,6 +22,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
     + [Codec Algorithms for CCCCD](#codec-algorithms-for-ccccd)
     + [Data Type Codes](#data-type-codes)
 - [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
+    + [Path Codes](#path-codes)
 - [Compressed Geolocation Frames](#compressed-geolocation-frames)
 - [Compressed Weather Report Frames](#compressed-weather-report-frames)
 - [Compressed Text](#compressed-text)
@@ -59,7 +60,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |_Destination Address_|**not required**; software version provided by the i‑gate|
 |_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
 |_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
-|_Digipeater Address_|any out of [**5** recommended `n-N` paradigm paths](#digipeating-on-lora-channels)|
+|_Digipeater Address_|any out of [**5** recommended `n-N` paradigm paths](#path-codes)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
 |_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = [_Data Type ID_](#data-type-codes)|
@@ -139,7 +140,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
 ### Encoding CCCC
@@ -195,6 +196,8 @@ Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.
 
 However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a single LoRa channel; even for trackers. This would offer interesting emergency capabilities when no Internet is available. However, this would absolutely require switching from SF12 to the higher data rate offered by SF11 [as explained above](#lora-link-parameters). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
 
+### Path Codes
+
 |station|recommended `n-N` paradigm path|_Path Code_|
 |:-----:|:-----------------------------:|:---------:|
 |no digipeating||0|
@@ -220,7 +223,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
@@ -247,7 +250,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
@@ -315,7 +318,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `tttt…tttt`: maximum 20 bytes of compressed text from a limited 42 character set, corresponding to 29 uncompressed characters
 
@@ -331,7 +334,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
@@ -363,7 +366,7 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
 - `F`:
