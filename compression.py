@@ -51,6 +51,18 @@ def encodeBase(base, integer):
     return ''.join(reversed(array or '0'))
 
 
+def decodeBase(base, integer):
+
+    numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
+
+    if base > len(numerals):
+        raise ValueError("The base is too large for the number of numerals available.")
+    elif base < 2:
+        raise ValueError("The base should be at least 2.")
+
+    #TODO
+
+
 def encodeCCCC(string):
 
     integer = int(string, 36)                      # Decode the given 6 character Base36 string to an integer.
