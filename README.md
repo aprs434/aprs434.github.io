@@ -175,7 +175,7 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
 |complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|30|
 |status report (≤&nbsp;22&nbsp;characters)|`>`|1|≤&nbsp;20|
-|item report — with compressed geolocation|`)`|2|20|
+|item report — with compressed geolocation|`)`|2|25|
 |addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|≤&nbsp;45|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
