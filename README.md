@@ -136,7 +136,8 @@ However, network simulations are deemed necessary to quantify the statistical ca
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 ### Considerations for Switching to SF11
-Depending on how popular APRS over LoRa becomes and how intensely it gets used, there might come a time where the LoRa channel gets saturated.
+Depending on how popular APRS over LoRa becomes and on how intensely it will get used,
+there might come a time where the LoRa channel gets saturated.
 Unlike packet radio, LoRa has no carrier sensing capability.
 Sending longer text messages, even when compressed, may aggravate this situation.
 The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel.
