@@ -185,7 +185,8 @@ where:
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### Recommended SSIDs
-A [service set identifier (SSID)]() identifies a service set or extended service set. Normally it is broadcast in the clear by stations in beacon packets to announce the presence of a network and seen by users as a wireless network name.
+A secondary station identifier is a number in the range 0-15, as an adjunct to the station _Callsign_.
+Similarly as with 802.11 wireless networks, an ASPR SSID identifies a set of APRS station capabilities.
 
 |_SSID_|APRS station type|
 |:----:|:---------------:|
@@ -194,20 +195,20 @@ A [service set identifier (SSID)]() identifies a service set or extended service
 |2|generic additional station, digi, mobile, wx, etc.|
 |3|generic additional station, digi, mobile, wx, etc.|
 |4|generic additional station, digi, mobile, wx, etc.|
-|5|other networks (Dstar, Iphones, Androids, Blackberry's etc.)|
+|5|other networks (D‑STAR, DMR, smartphones etc.)|
 |6|special activity, satellite ops, camping, etc.|
 |7|walkie talkies, HTs or other human portable|
 |8|boats, sailboats, RVs or second main mobile|
 |9|primary mobile (usually message capable)|
-|10|internet, (LoRa) i‑gates, echolink, Winlink, AVRS, APRN, etc.|
+|10|Internet, (LoRa) i‑gates, echolink, Winlink, AVRS, APRN, etc.|
 |11|balloons, aircraft, spacecraft, etc.|
-|12|APRStt, DTMF, RFID, devices, one‑way (LoRa) trackers^*^, etc.|
+|12|APRStt, DTMF, RFID, devices, one‑way (LoRa) trackers\*, etc.|
 |13|weather stations|
 |14|truckers or generally full time drivers|
 |15|generic additional station, digi, mobile, wx, etc.|
 
-^*^ One-way trackers should best use the `12` one‑way SSID indicator.
-_SSID_ `9` usually means a ham with full communication capabilities; both APRS message and voice.
+^\*^: One-way trackers best use the 12 one‑way _SSID_ indicator,
+whereas _SSID_ 9 usually means a ham with full communication capabilities; both APRS message and voice.
 
 ### Data Type Codes
 Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwaves.com/prs/doc/2000.aprs.1.01.pdf), a subset was selected, based on popularity and foremost suitability for LoRa.
