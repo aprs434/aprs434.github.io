@@ -7,11 +7,12 @@ this project aims at **deploying LoRa the way it was intended;**
 namely by being frugal about the number of bytes put on air.
 Doing so, reaps a number of benefits:
 
-- Increased battery life,
-- Higher chances of good packet reception,
-- Hence, increased range,
-- Lower probability of packet collisions,
-- Therefore, more channel capacity.
+- less airtime,
+- increased battery life,
+- higher chances of good packet reception,
+- hence, increased range,
+- lower probability of packet collisions,
+- therefore, more channel capacity.
 
 In dense urban environments and/or on flat terrain, LoRa works best when the data payload is kept to a strict minimum.
 This can be achieved taking full advantage of all 256 characters available for transmission with LoRa.
@@ -358,9 +359,13 @@ where:
 
 
 ## Compressed Addressed Message Frames
-Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology. This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position." [Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
+Up to now, APRS has been unduly considered to be predominantly a one-way localisation technology.
+This went to the point that many mistakenly think the letter "P" in the acronym APRS would stand for "position."
+[Bob Bruninga WB4APR (SK)](http://www.aprs.org), the spiritual father of APRS, deeply resented this situation.
 
-> _"APRS is not a vehicle tracking system. It is a two-way tactical real-time digital communications system between all assets in a network sharing information about everything going on in the local area."_
+> _"APRS is not a vehicle tracking system.
+> It is a two-way tactical real-time digital communications system between all assets in a network
+> sharing information about everything going on in the local area."_
 
 In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
