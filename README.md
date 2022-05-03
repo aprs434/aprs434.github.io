@@ -26,6 +26,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
 - [Measurable Benefits](#measrable-benefits)
 - [LoRa Link Parameters](#lora-link-parameters)
+    + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
 - [Callsign, SSID, Path and Data Type Compression](#callsign-ssid-path-and-data-type-compression)
     + [Encoding CCCC](#encoding-cccc)
@@ -114,14 +115,6 @@ Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as foll
 
 $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\,\text{byte/s}$$
 
-Above LoRa parameters are adequate for sending geolocation frames.
-
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel. For such applications, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
-
-SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances not be too bad at all.
-
-With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards taking advantage of the reduced airtime offered by SF11 (see [graph](#measurable-benefits)).
-
 Finally, it was observed that amateur radio predominantly employs the LoRa sync word '0x12'; which is manufacturer recommended for private networks, different from LoRaWAN.
 
 Summarised, the following LoRa link parameters are proposed for APRS:
@@ -137,9 +130,19 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |header|explicit|explicit|
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|on|
 
-Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor. Therefore, a choice needs to be made between SF12 and SF11. In view of what the amateur radio community expects of APRS over LoRa, the faster data rate offered by SF11 ought to be preferred.
+Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the largest possible distance when the number of participant nodes is relatively low.
+However, network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in different scenarios.
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
+
+### Considerations for Switching to SF11
+However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel. For such applications, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
+
+SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances be acceptable when the availability of i‑gates in an area is high.
+
+With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards taking advantage of the reduced airtime offered by SF11 (see [graph](#measurable-benefits)).
+
+Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor. Therefore, a choice needs to be made between SF12 and SF11. In view of what the amateur radio community expects of APRS over LoRa, the faster data rate offered by SF11 ought to be preferred.
 
 ### LoRa ICs and Modules
 - [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
@@ -157,8 +160,8 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 |`CCCC`|`D`||
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
@@ -240,7 +243,7 @@ Also consider that:
 
 Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.25 packet digipeating paths for any (VHF) digipeater co‑located with the LoRa (i‑)gate.
 
-However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a single LoRa channel; even for trackers. This would offer interesting emergency capabilities when no Internet is available. However, this would absolutely require switching from SF12 to the higher data rate offered by SF11 [as explained above](#lora-link-parameters). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
+However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a single LoRa channel; even for trackers. This would offer interesting emergency capabilities when no Internet is available. However, this would absolutely require switching from SF12 to the higher data rate offered by SF11 [as explained before](#considerations-for-switching-to-sf11). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
 
 ### Path Codes
 
@@ -266,8 +269,8 @@ Note:
 |`CCCC`|`D`|`/XXXXYYYY$csT`|
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
@@ -293,8 +296,8 @@ where:
 |`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbbS`|
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
@@ -361,8 +364,8 @@ For example for `>` APRS status reports. In practice, status reports are also of
 |`CCCC`|`D`|`tttt…tttt`|
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
@@ -377,8 +380,8 @@ where:
 |`CCCC`|`D`|`/XXXXYYYY$csTttttttt`|
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
@@ -388,7 +391,7 @@ where:
 - `$`: the _Symbol Code_
 - `cs`: the compressed course and speed
 - `T`: the _Compression Type Byte_
-- `ttttttt`: the 9 character item name in 7 bytes compressed text from a limited 42 character set
+- `ttttttt`: 7 bytes for the compressed _Item Name_ (up to 9 characters of the limited 42 character set)
 
 
 ## Compressed Addressed Message Frames
@@ -403,9 +406,16 @@ This went to the point that many mistakenly think the letter "P" in the acronym 
 In Bob's view of APRS as being foremost a real-time situational and tactical tool, messaging definitely merits its place.
 One of the long-term goals is rendering APRS messaging more popular by offering messaging pager designs.
 
-Below proposal for the compression of addressed LoRa message frames is still somewhat tentative since on air experience is limited. Therefore, below specification **may be subject to change.**
+Below proposal for the compression of addressed message frames is primarily intended for uplink-only messaging or
+for direct messaging without the aid of a digipeater.
+The available message length of 51 characters is largely sufficient
+for, for example, SOTA self-spotting using [APRS2SOTA](https://www.sotaspots.co.uk/Aprs2Sota_Info.php).
 
-Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing, which protocol is beyond the scope of this document. Therfore, below proposals for LoRa text frames should be foremost considered as an **uplink protocol only,** e.g. for SOTA or POTA self-spotting, emergencies, telemetry, status reports etc.
+On the other hand, two‑way messaging over a digipeater would definitely require:
+- the faster [SF11](#considerations-for-switching-to-sf11) data mode, and
+- GPS-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing.
+
+The formulation of such a two‑way TDMA protocol is beyond the scope of this document.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
@@ -413,14 +423,14 @@ Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-di
 |`CCCC`|`D`|`EEEEFtttt…tttt`|
 
 where:
-- `CCCC`: the compressed 6 character _Callsign_
-- `D`: compresses
+- `CCCC`: 4 bytes for the compressed 6 character _Callsign_
+- `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
-- `EEEE`: the compressed _Addressee_ (6 character callsign)
-- `F`:
-  + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
+- `EEEE`: 4 bytes for the compressed _Addressee_ (up to 6 character callsign)
+- `F`: compresses into 1 byte:
+  + the _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 15; included)
 - `tttt…tttt`: 35 bytes of compressed text from a limited 42 character set, corresponding to 51 uncompressed characters
 
