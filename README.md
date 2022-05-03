@@ -274,11 +274,11 @@ Notes:
 
 ## Compressed Text
 In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-In resemblance to Morse code, the character set would contain only 26 Latin lower‑case letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
+In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
 
 |character set|amount|
 |:-----------:|:----:|
-|Latin lower‑case letters|26|
+|Latin capital letters|26|
 |digits|10|
 |space|1|
 |punctuation `.`&nbsp;`?`|2|

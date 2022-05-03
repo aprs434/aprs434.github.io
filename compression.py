@@ -31,11 +31,29 @@ import math
 ### FUNCTIONS ###
 
 
+# https://stackoverflow.com/a/23926613/2192488
+def encodeBase(base, integer):
+
+    numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
+
+    if base > len(numerals):
+        raise ValueError("The base is too large for the number of numerals available.")
+    elif base < 2:
+        raise ValueError("The base should be at least 2.")
+
+    integer = abs(integer)
+    array = []
+    while integer:
+        array.append(numerals[integer % base])
+        integer //= base
+
+    return ''.join(reversed(array or '0'))
+
+
 def encodeCCCC(string):
 
     integer = int(string, 36)                      # Decode the given 6 character Base36 string to an integer.
                                                    # Base36 is the maximum allowed base for int(string, base).
-
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
 
@@ -43,13 +61,7 @@ def decodeCCCC(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
-    # https://stackoverflow.com/a/70416418/2192488
-    encode36 = lambda integer, numerals='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ': \
-                      '0' if integer == 0 \
-                      else \
-                      encode36(integer // 36, numerals).lstrip('0') + numerals[integer % 36]    # Recursive!
-
-    return encode36(integer)    # Encode the integer as a 6 character Base36 string.
+    return encodeBase(36, integer)    # Encode the integer as a 6 character Base36 string.
 
 
 def encodeD(ssid, pathCode, dataTypeCode):
@@ -116,12 +128,7 @@ def decodetttt(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 bytestring to an integer.
 
-    encode42 = lambda integer, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
-                      '0' if integer == 0 \
-                      else \
-                      encode42(integer // 42, numerals).lstrip('0') + numerals[integer % 42]    # Recursive!
-
-    return encode42(integer)    # Encode the integer as a Base42 string.
+    return encodeBase(42, integer)                           # Encode the integer as a Base42 string.
 
 
 ### TESTS ###
