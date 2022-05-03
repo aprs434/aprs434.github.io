@@ -207,7 +207,7 @@ Similarly as with IEEE 802.11 wireless networks, an APRS SSID identifies a set o
 |14|truckers or generally full time drivers|
 |15|generic additional station, digi, mobile, wx, etc.|
 
-*: One-way trackers best use the 12 one‑way _SSID_ indicator,
+\*: One-way trackers best use the 12 one‑way _SSID_ indicator,
 whereas _SSID_ 9 usually means a ham with full communication capabilities; both APRS message and voice.
 
 ### Data Type Codes
