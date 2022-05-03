@@ -3,13 +3,22 @@
 '''
 Python3 codec algorithms for APRS 434 LoRa:
 
-- Callsign Compression CCCC
-- SSID, pathCode & Data Type Compression D
+    - Callsign Compression CCCC
+    - SSID, pathCode & Data Type Compression D
 
-- Callsign Compression EEEE
-- SSID & MessageNo Compression F
+    - Callsign Compression EEEE
+    - SSID & MessageNo Compression F
 
-- Text Compression tttt
+    - Text Compression tttt
+
+
+CAVEAT ON ESP32
+
+    Avoid deep recursive function calls.
+    Individual recursive function calls do not always add a lot of stack usage each time they are called,
+    but if each function includes large stack-based variables then the overhead can get quite high.
+
+    https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/performance/ram-usage.html
 
 '''
 
