@@ -1,13 +1,22 @@
 # APRS 434
-Welcome to the home of **APRS&nbsp;434**, the 434&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
+Welcome to the home of **APRS&nbsp;434**,
+the 434&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
 
-Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa the way it was intended;** namely by being frugal about the number of bytes put on air. Doing so, reaps a number of benefits:
+Unlike some other ham radio LoRa APRS projects,
+this project aims at **deploying LoRa the way it was intended;**
+namely by being frugal about the number of bytes put on air.
+Doing so, reaps a number of benefits:
 
 - Increased battery life,
 - Higher chances of good packet reception,
 - Hence, increased range,
 - Lower probability of packet collisions,
 - Therefore, more channel capacity.
+
+In dense urban environments and/or on flat terrain, LoRa works best when the data payload is kept to a strict minimum.
+This can be achieved taking full advantage of all 256 characters available for transmission with LoRa.
+The APRS frame compression protocols presented below aim precisely at doing that;
+for LoRa, or any other data link with an extended character set.
 
 
 ## Index
@@ -131,8 +140,6 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
 **[TODO: spec sheets]**
 
-
-Upon succesful demonstration of its merits, below LoRa frame compression protocols will be formally proposed as an extension to the APRS standard:
 
 ## Callsign, SSID, Path and Data Type Compression
 
