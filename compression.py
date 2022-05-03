@@ -78,7 +78,7 @@ def decodeCCCC(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
-    return encodeBase(36, integer)    # Encode the integer as a 6 character Base36 string.
+    return encodeBase(36, integer)                           # Encode the integer as a 6 character Base36 string.
 
 
 def encodeD(ssid, pathCode, dataTypeCode):
