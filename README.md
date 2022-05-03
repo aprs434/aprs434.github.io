@@ -14,6 +14,7 @@ Unlike other ham radio LoRa APRS projects, this project aims at **deploying LoRa
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
 - [Measurable Benefits](#measrable-benefits)
 - [LoRa Link Parameters](#lora-link-parameters)
+    + [LoRa ICs and Modules](#lora-ics-and-modules)
 - [Callsign, SSID, Path and Data Type Compression](#callsign-ssid-path-and-data-type-compression)
     + [Encoding CCCC](#encoding-cccc)
     + [Decoding CCCC](#decoding-cccc)
@@ -124,7 +125,11 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 
 Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor. Therefore, a choice needs to be made between SF12 and SF11. In view of what the amateur radio community expects of APRS over LoRa, the faster data rate offered by SF11 ought to be preferred.
 
-> For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g). **[TODO: spec sheets]**
+> For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
+
+### LoRa ICs and Modules
+[Semtech LoRa products](https://www.semtech.com/lora/lora-products)
+**[TODO: spec sheets]**
 
 
 Upon succesful demonstration of its merits, below LoRa frame compression protocols will be formally proposed as an extension to the APRS standard:
