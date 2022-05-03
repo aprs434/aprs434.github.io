@@ -292,7 +292,7 @@ In resemblance to Morse code, the character set would contain only 26 Latin lowe
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
 ### Codec Algorithms for tttt
-- [Python3](compression.py) compression algorithms and tests **[TODO]**
+- [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 

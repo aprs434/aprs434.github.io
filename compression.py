@@ -25,6 +25,7 @@ import math
 def encodeCCCC(string):
 
     integer = int(string, 36)                      # Decode the given 6 character Base36 string to an integer.
+                                                   # Base36 is the maximum allowed base for int(string, base).
 
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
@@ -33,10 +34,11 @@ def decodeCCCC(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
+    # https://stackoverflow.com/a/70416418/2192488
     encode36 = lambda integer, numerals='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ': \
-                      numerals[0] if integer == 0 \
+                      '0' if integer == 0 \
                       else \
-                      encode36(integer // 36, numerals).lstrip(numerals[0]) + numerals[integer % 36]    # Recursive!
+                      encode36(integer // 36, numerals).lstrip('0') + numerals[integer % 36]    # Recursive!
 
     return encode36(integer)    # Encode the integer as a 6 character Base36 string.
 
@@ -89,7 +91,12 @@ def decodeF(bytestring):
 
 def encodetttt(string):
 
-    integer = int(string, 42)                        # TODO: Decode the given Base42 string to an integer.
+    decode42 = lambda string, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
+                      0 if string == '' \
+                      else \
+                      decode42(string = string[0:-1]) * 42 + numerals.index(string[-1].lower())    # Recursive!
+
+    integer = decode42(string)                       # Decode the given Base42 string to an integer.
 
     n = math.ceil(math.log(42**len(string), 256))    # number of required Base256 bytes
 
@@ -101,9 +108,9 @@ def decodetttt(bytestring):
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 bytestring to an integer.
 
     encode42 = lambda integer, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
-                      numerals[0] if integer == 0 \
+                      '0' if integer == 0 \
                       else \
-                      encode42(integer // 42, numerals).lstrip(numerals[0]) + numerals[integer % 42]    # Recursive!
+                      encode42(integer // 42, numerals).lstrip('0') + numerals[integer % 42]    # Recursive!
 
     return encode42(integer)    # Encode the integer as a Base42 string.
 
@@ -137,3 +144,11 @@ print(decodeD(encodeD(0, 0, 1)))
 print()
 print(encodeD(0, 0, 0))
 print(decodeD(encodeD(0, 0, 0)))
+print()
+print(encodeF(7, 13))
+print(decodeF(encodeF(7, 13)))
+print()
+uncompressed = 'This is ON4AA-6. QSL? _ Yes/No'
+compressed   = encodetttt(uncompressed)
+print('%s = %d bytes' % (compressed, len(compressed)))
+print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
