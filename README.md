@@ -18,6 +18,7 @@ In dense urban environments and/or on flat terrain, LoRa works best when the dat
 This can be achieved taking full advantage of all 256 characters available for transmission with LoRa.
 The APRS frame compression protocols presented below aim precisely at doing that;
 for LoRa, or any other data link with an extended character set.
+ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) is provided as well.
 
 
 ## Index
