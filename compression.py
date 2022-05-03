@@ -24,18 +24,19 @@ CAVEAT ON ESP32
 
 ### IMPORTS ###
 
-
 import math
+
+
+### GLOBALS ###
+
+numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
 
 
 ### FUNCTIONS ###
 
-
 def encodeBase(base, integer):
     # https://stackoverflow.com/a/23926613/2192488
     # https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
-
-    numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
 
     if base > len(numerals):
         raise ValueError("The base is too large for the number of numerals available.")
@@ -52,8 +53,6 @@ def encodeBase(base, integer):
 
 
 def decodeBase(base, string):
-
-    numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
 
     if base > len(numerals):
         raise ValueError("The base is too large for the number of numerals available.")
@@ -145,7 +144,6 @@ def decodetttt(bytestring):
 
 
 ### TESTS ###
-
 
 print(encodeCCCC('PA0FOT'))
 print(decodeCCCC(encodeCCCC('PA0FOT')))
