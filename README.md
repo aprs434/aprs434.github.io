@@ -136,13 +136,26 @@ However, network simulations are deemed necessary to quantify the statistical ca
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 ### Considerations for Switching to SF11
-However, sending even length and character set limited text messages with SF12 would tremendously increase airtime and quickly congest the LoRa channel. The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel. For such applications, the ham radio community should seriously **consider switching from SF12 to SF11,** effectively doubling the data rate.
+Depending on how popular APRS over LoRa becomes and how intensely it gets used, there might come a time where the LoRa channel gets saturated.
+Unlike packet radio, LoRa has no carrier sensing capability.
+Sending longer text messages, even when compressed, may aggravate this situation.
+The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel.
 
-SF11 not only prevents channel congestion; It also saves 50% on airtime and batteries. Most importantly, SF11 would leave more room for text messaging. The range penalty from switching from SF12 to SF11 would in most circumstances be acceptable when the availability of i‑gates in an area is high.
+When this situation occurs, the ham radio community should seriously **consider switching from SF12 to SF11.**
+Doing so, would effectively double the data rate.
 
-With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards taking advantage of the reduced airtime offered by SF11 (see [graph](#measurable-benefits)).
+Not only would switching to SF11 reduce channel congestion;
+It would also save 50% on airtime and batteries.
+The range penalty from switching from SF12 to SF11 would in most circumstances be acceptable,
+provided the availability of i‑gates in an area is high.
 
-Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor. Therefore, a choice needs to be made between SF12 and SF11. In view of what the amateur radio community expects of APRS over LoRa, the faster data rate offered by SF11 ought to be preferred.
+With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
+taking advantage of the reduced airtime offered by SF11 (see [graph](#measurable-benefits)).
+
+Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor.
+Therefore, a choice needs to be made between SF12 and SF11.
+Considering what certain members of the amateur radio community seem to expect of LoRa, 
+he faster data rate offered by SF11 ought to be preferred.
 
 ### LoRa ICs and Modules
 - [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
