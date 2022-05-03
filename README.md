@@ -126,7 +126,7 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g). **[TODO: spec sheets]**
 
 
-Upon succesful demonstration of its merits, below LoRa frame compression protocols **will be formally proposed as an extension to the APRS standard:**
+Upon succesful demonstration of its merits, below LoRa frame compression protocols will be formally proposed as an extension to the APRS standard:
 
 ## Callsign, SSID, Path and Data Type Compression
 
