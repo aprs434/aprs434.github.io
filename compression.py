@@ -31,9 +31,9 @@ import math
 ### FUNCTIONS ###
 
 
-# https://stackoverflow.com/a/23926613/2192488
-# https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
 def encodeBase(base, integer):
+    # https://stackoverflow.com/a/23926613/2192488
+    # https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
 
     numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
 
@@ -43,7 +43,7 @@ def encodeBase(base, integer):
         raise ValueError("The base should be at least 2.")
 
     integer = abs(integer)
-    array = []
+    array   = []
     while integer:
         array.append(numerals[integer % base])
         integer //= base
@@ -60,13 +60,18 @@ def decodeBase(base, string):
     elif base < 2:
         raise ValueError("The base should be at least 2.")
 
-    #TODO
+    array   = reversed(list(string.upper()))
+    integer = 0
+    for e, c in enumerate(array):
+        integer += numerals.index(c) * base**e
+
+    return integer
 
 
 def encodeCCCC(string):
 
-    integer = int(string, 36)                      # Decode the given 6 character Base36 string to an integer.
-                                                   # Base36 is the maximum allowed base for int(string, base).
+    integer = decodeBase(36, string)               # Decode the given 6 character Base36 string to an integer.
+
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
 
@@ -88,8 +93,8 @@ def decodeD(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 byte to an integer.
 
-    ssid      = integer // 16    # integer division
-    remainder = integer  % 16    # modulo operation
+    ssid          = integer  // 16    # integer division
+    remainder     = integer   % 16    # modulo operation
     pathCode      = remainder // 4
     dataTypeCode  = remainder  % 4
 
@@ -117,20 +122,15 @@ def decodeF(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 byte to an integer.
 
-    ssid      = integer // 16    # integer division
-    messageNo = integer  % 16    # modulo operation
+    ssid      = integer // 16
+    messageNo = integer  % 16
 
     return (ssid, messageNo)
 
 
 def encodetttt(string):
 
-    decode42 = lambda string, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
-                      0 if string == '' \
-                      else \
-                      decode42(string = string[:-1]) * 42 + numerals.index(string[-1].lower())    # Recursive!
-
-    integer = decode42(string)                       # Decode the given Base42 string to an integer.
+    integer = decodeBase(42, string)                 # Decode the given Base42 string to an integer.
 
     n = math.ceil(math.log(42**len(string), 256))    # number of required Base256 bytes
 
