@@ -33,7 +33,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Encoding D](#encoding-d)
     + [Decoding D](#decoding-d)
     + [Codec Algorithms for CCCCD](#codec-algorithms-for-ccccd)
-    + [Recommended SSIDs](#recommended-ssids)
+    + [SSID Recommendations](#ssid-recommendations)
     + [Data Type Codes](#data-type-codes)
 - [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
     + [Path Codes](#path-codes)
@@ -155,7 +155,7 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
@@ -184,7 +184,7 @@ where:
 - [Python3](compression.py) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
-### Recommended SSIDs
+### SSID Recommendations
 A secondary station identifier is a number in the range 0-15, as an adjunct to the station _Callsign_.
 Similarly as with IEEE 802.11 wireless networks, an APRS SSID identifies a set of APRS station capabilities.
 
@@ -264,7 +264,7 @@ Note:
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -291,7 +291,7 @@ where:
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -359,7 +359,7 @@ For example for `>` APRS status reports. In practice, status reports are also of
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `tttt…tttt`: maximum 20 bytes of compressed text from a limited 42 character set, corresponding to 29 uncompressed characters
@@ -375,7 +375,7 @@ where:
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
@@ -411,7 +411,7 @@ Furthermore, 2‑way messaging requires [SF11](#lora-link-parameters) and GPS-di
 where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`: compresses
-  + the [_SSID_](#recommended-ssids) (between SSID 0 [none] and 15; included),
+  + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
