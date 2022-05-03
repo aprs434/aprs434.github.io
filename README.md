@@ -139,8 +139,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
 ### Encoding CCCC
 1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
@@ -220,8 +220,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -247,8 +247,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -315,8 +315,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `tttt…tttt`: maximum 15 bytes of compressed text from a limited 42 character set, corresponding to 22 uncompressed characters
 
 
@@ -331,8 +331,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `/`: the _Symbol Table Identifier_
 - `XXXX`: the Base91 compressed longitude
 - `YYYY`: the Base91 compressed latitude
@@ -363,8 +363,8 @@ where:
 - `CCCC`: the compressed 6 character _Callsign_
 - `D`:
   + the compressed _SSID_ (between SSID 0 [none] and 15; included),
-  + the _Path Code_ (between path 0 [none] and 3; included), and
-  + the _Data Type Code_ (between type 0 and 3; included)
+  + the [_Path Code_](#digipeating-on-lora-channels) (between path 0 [none] and 3; included), and
+  + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 - `EEEE`: the compressed _Addressee_ (6 character callsign)
 - `F`:
   + the compressed _Addressee SSID_ (between SSID 0 [none] and 15; included), and
