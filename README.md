@@ -141,8 +141,11 @@ Unfortunately, most cheap i‑gates currently in use by ham operators are only c
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
 ### LoRa ICs and Modules
-[Semtech LoRa products](https://www.semtech.com/lora/lora-products)
-**[TODO: spec sheets]**
+- [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
+- [Semtech SX1278](https://www.semtech.com/products/wireless-rf/lora-core/sx1278)
+
+- [HopeRF LoRa modules](https://www.hoperf.com/modules/lora/index.html)
+- [HopeRF RFM98W](https://www.hoperf.com/modules/lora/RFM98.html)
 
 
 ## Callsign, SSID, Path and Data Type Compression
