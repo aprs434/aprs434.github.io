@@ -94,7 +94,7 @@ def encodetttt(string):
     decode42 = lambda string, numerals='0123456789abcdefghijklmnopqrstuvwxyz .?-/_': \
                       0 if string == '' \
                       else \
-                      decode42(string = string[0:-1]) * 42 + numerals.index(string[-1].lower())    # Recursive!
+                      decode42(string = string[:-1]) * 42 + numerals.index(string[-1].lower())    # Recursive!
 
     integer = decode42(string)                       # Decode the given Base42 string to an integer.
 
