@@ -50,6 +50,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Encoding and Decoding EEEE](#encoding-and-decoding-eeee)
     + [Encoding F](#encoding-f)
     + [Decoding F](#decoding-f)
+    + [Codec Algorithms for EEEEF](#codec-algorithms-for-eeeef)
 - [Reducing Power Consumption](#reducing-power-consumption)
 - [Recommended Hardware](#recommended-hardware)
     + [Tracker Hardware](#tracker-hardware)
@@ -435,6 +436,10 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 1. First, decode the given Base256 `F` byte to an integer.
 2. The _SSID_ equals the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+
+### Codec Algorithms for EEEEF
+- [Python3](compression.py) compression algorithms and tests
+- [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 
 ## ITU Regulation
