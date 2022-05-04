@@ -67,6 +67,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Messaging](#messaging)
     + [WiFi Geolocation](#wifi-geolocation)
 - [News, Social & Co-Development](#news-social--co-development)
+- [Acknowledgements](#acknowledgements)
 
 
 ## An Open Standard for LoRa APRS Frame Compression
@@ -98,15 +99,18 @@ $$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
 
 approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
-- $n$: the number of bits in a packet, which is 8 times the number of bytes
+- $n$: the number of bits in a packet; which is 8 times the number of bytes
 
 ### Some Examples
+**TODO: Add header (13 bytes) and CRC (2 bytes)**
 
 |payload|18 bytes|25 bytes|30 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
 |n|144|200|240|360|904|
 |BER|0.1%|0.1%|0.1%|0.1%|0.1%|
 |PER|13.4%|18.1%|21.3%|30.2%|59.5%|
+
+Hence, the chances of correctly receiving **TODO**
 
 ### Airtime Gains
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
@@ -590,7 +594,18 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 
 
 ## Acknowledgements
+- Bernd Gasser, OE1ACM, for the earliest LoRa APRS experiments and code
+- Christian Johann Bauer, OE3CJB, for the Base91 geolocation compression algorithm
+- Peter Buchegger, OE5BPA, for providing the bulk of the tracker and i‑gate firmware as open source code, in a handy [PlatformIO](https://platformio.org) environment, with [over-the-air (OTA)](https://en.wikipedia.org/wiki/Over-the-air_programming) i‑gate updates. This was the ideal starting point for running LoRa frame compression experiments.
+- Folkert Tijdens, PA0FOT, for asking the right questions, rendering this document more scholarly
+- Pascal Schiks, PA3FKM, for providing insights about microcontroller stacks
+- Greg Stroobandt, ON3GR, for cycling around the city with a privacy invading tracker
+- Erwin Fiten, ON8AR, for testing firmware and reporting on long distance car approaches to the LoRa i‑gate
+- Jan Engelen, DG6ZG, for testing firmware and providing feedback
+- [Github.com](httos://github.com/) for hosting this project, free of charge
 
+| Hasselt, Belgium, May 2022
+| Serge Y. Stroobandt, ON4AA
 
 
 <script>
