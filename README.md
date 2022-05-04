@@ -602,7 +602,7 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 - Greg Stroobandt, ON3GR, for cycling around the city with a privacy invading tracker
 - Erwin Fiten, ON8AR, for testing firmware and reporting on long distance car approaches to the LoRa i‑gate
 - Jan Engelen, DG6ZG, for testing firmware and providing feedback
-- [Github.com](httos://github.com/) for hosting this project, free of charge
+- [Github.com](https://github.com/) for hosting this project, free of charge
 
 May 2022<br/>
 Serge Y. Stroobandt, ON4AA
