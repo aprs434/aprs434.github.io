@@ -94,9 +94,7 @@ LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that t
 
 $$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
 
-approximately, when $BER$ is small and $n$ is large.
-
-where:
+approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet, which is 8 times the number of bytes
 
