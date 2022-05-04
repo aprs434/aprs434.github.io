@@ -94,7 +94,9 @@ LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that t
 
 $$PER = 1 - (1 - BER)^n$$
 
-where: $n$ is the number of bits; not bytes.
+where:
+- $(1-BER)$: the probability of receiving a bit correctly
+- $n$: the number of bits in a packet, which is 8 times the number of bytes
 
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
