@@ -604,8 +604,8 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 - Jan Engelen, DG6ZG, for testing firmware and providing feedback
 - [Github.com](httos://github.com/) for hosting this project, free of charge
 
-| Hasselt, Belgium, May 2022
-| Serge Y. Stroobandt, ON4AA
+May 2022<br/>
+Serge Y. Stroobandt, ON4AA
 
 
 <script>
