@@ -90,7 +90,7 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 ## Measurable Benefits
 **APRS&nbsp;434** geolocation beacons will encode a total of **only 18 payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
-LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
+LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that [**the packet error ratio (PER)**](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
 $$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
 
@@ -98,9 +98,19 @@ approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet, which is 8 times the number of bytes
 
+An example:
+
+|payload|18 bytes|113 bytes|
+|:-----:|:------:|:-------:|
+|n|144|904|
+|BER|0.1%|0.1%|
+|PER|13.4%|59.5%|
+
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 18 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
+
+[The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
 
 ## LoRa Link Parameters
