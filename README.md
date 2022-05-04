@@ -24,7 +24,9 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 
 ## Index
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
-- [Measurable Benefits](#measrable-benefits)
+- [Measurable Benefits](#measurable-benefits)
+    + [Some Examples](#some-examples)
+    + [Airtime Gains](#airtime-gains)
 - [LoRa Link Parameters](#lora-link-parameters)
     + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
@@ -98,14 +100,15 @@ approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet, which is 8 times the number of bytes
 
-An example:
+### Some Examples
 
-|payload|18 bytes|113 bytes|
-|:-----:|:------:|:-------:|
-|n|144|904|
-|BER|0.1%|0.1%|
-|PER|13.4%|59.5%|
+|payload|18 bytes|25 bytes|30 bytes|45 bytes|113 bytes|
+|:-----:|:------:|:------:|:------:|:------:|:-------:|
+|n|144|200|240|360|904|
+|BER|0.1%|0.1%|0.1%|0.1%|0.1%|
+|PER|13.4%|18.1%|21.3%|30.2%|59.5%|
 
+### Airtime Gains
 Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 18 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
@@ -163,7 +166,7 @@ The range penalty from switching from SF12 to SF11 would in most circumstances b
 provided the availability of i‑gates in an area is sufficient.
 
 With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
-taking advantage of the reduced airtime offered by SF11 (see [graph](#measurable-benefits)).
+taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-gains)).
 
 Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor.
 Therefore, a choice needs to be made between SF12 and SF11.
@@ -584,6 +587,11 @@ Feel free to join our public [**Telegram Group**](https://t.me/aprs434) for the 
 
 You are invited to contribute code improvements to [**this project on GitHub**](https://github.com/aprs434).
 Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuPbW31vAw) by Andreas Spiess, HB9BLA.
+
+
+## Acknowledgements
+
+
 
 <script>
 MathJax = {
