@@ -92,7 +92,9 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 
 LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that the packet error ratio (PER) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
-$$PER = 1 - (1 - BER)^n$$
+$$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
+
+approximately, when $BER$ is small and $n$ is large.
 
 where:
 - $(1-BER)$: the probability of receiving a bit correctly
