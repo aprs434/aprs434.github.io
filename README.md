@@ -25,8 +25,8 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 ## Index
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
 - [Measurable Benefits](#measurable-benefits)
-    + [Some Examples](#some-examples)
-    + [Airtime Gains](#airtime-gains)
+    + [Reduced Packet Error Rate](#reduced-packet-error-rate)
+    + [Airtime Reductions](#airtime-reductions)
 - [LoRa Link Parameters](#lora-link-parameters)
     + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
@@ -91,9 +91,11 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 - If APRS Mic-E compression were to be used instead, that would require another 16 payload bytes to compress latitude, longitude, symbol, course and speed; 7&nbsp;bytes in the superfluous _Destination&nbsp;Address_ and 9&nbsp;bytes in the _Information&nbsp;Field; Data Type ID_ included. Hence, this is not a good option.
 
 ## Measurable Benefits
+
+### Reduced Packet Error Rate
 **APRS&nbsp;434** geolocation beacons will encode a total of **only 18 payload bytes** at a time, tremendously **increasing the chances of a flawless reception** by an [**APRS&nbsp;434&nbsp;LoRa&nbsp;i-gate**](https://github.com/aprs434/lora.igate). Other firmware tends to consume about six times as many LoRa payload bytes.
 
-LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that [**the packet error ratio (PER)**](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
+LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that [**the packet error rate (PER)**](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio) as a function of the bit error rate (BER) [increases with the number of transmitted bits](https://en.wikipedia.org/wiki/Bit_error_rate#Packet_error_ratio).
 
 $$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
 
@@ -101,21 +103,22 @@ approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet; which is 8 times the number of bytes
 
-### Some Examples
-**TODO: Add header (13 bytes) and CRC (2 bytes)**
+#### Some Examples
+**TODO: physical explicit header PHDR (16 bits), PHDR_CRC (4 bits) and CRC (16 bits)**
 
-|payload|18 bytes|25 bytes|30 bytes|45 bytes|113 bytes|
+|payload|17 bytes|24 bytes|29 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
-|n|144|200|240|360|904|
+|overhead|36 bits|36 bits|36 bits|36 bits|36 bits|
+|n|172 bits|228 bits|268 bits|396 bits|940 bits|
 |BER|0.1%|0.1%|0.1%|0.1%|0.1%|
-|PER|13.4%|18.1%|21.3%|30.2%|59.5%|
+|PER|%|%|%|%|%|
 
 Hence, the chances of correctly receiving **TODO**
 
-### Airtime Gains
-Due to the LoRa symbol encoding scheme, airtime gains occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
+### Airtime Reduction
+Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
-![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 18 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
+![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 17 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
@@ -144,10 +147,11 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |SF|12|12|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
-|sync length|8 symbols|8 symbols|
+|preamble sync length|8&nbsp;symbols|8&nbsp;symbols|
 |sync word|`0x12`|`0x12`|
-|header|explicit|explicit|
-|[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on|on|
+|header|explicit (20&nbsp;bits)|explicit (20&nbsp;bits)|
+|[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on (16&nbsp;bits)|on (16&nbsp;bits)|
+|IQ|normal|inversed|
 
 Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the largest possible distance when the number of participant nodes is relatively low.
 However, network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in different scenarios.
@@ -169,8 +173,8 @@ It would also save 50% on airtime and batteries.
 The range penalty from switching from SF12 to SF11 would in most circumstances be acceptable,
 provided the availability of i‑gates in an area is sufficient.
 
-With a payload of only 18&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
-taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-gains)).
+With a payload of only 17&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
+taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-reductions)).
 
 Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor.
 Therefore, a choice needs to be made between SF12 and SF11.
@@ -186,8 +190,18 @@ the faster data rate offered by SF11 ought to be preferred.
 
 
 ## Callsign, SSID, Path and Data Type Compression
-A compressed APRS frame would typically look like this, independently of its [_Data Type_](#data-type-codes).
-It all starts with realising that source callsigns can contain only capital letters and digits.
+All compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
+Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes.
+For certain _Data Types,_ the maximum length is even significantly lower.
+
+I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
+**Frames that do not comply, should be rejected.**
+
+The combination of the declared _Data Type_ with the corresponding payload length forms the key so to speak to the i‑gate.
+This is what allowed for a headerless frame design.
+It prevents the i‑gate from relaying frames that are not intended for this compressed frame link.
+
+Source callsigns can contain only capital letters and digits.
 Up to six characters from a 36 character set can easily be compressed to 4 bytes in an extended 256 character set.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
@@ -258,11 +272,11 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|payload|
 |:---------:|:--:|:--------------:|:-----:|
-|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|18|
-|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|30|
-|status report (≤&nbsp;29&nbsp;characters)|`>`|1|≤&nbsp;25|
-|item report — with compressed geolocation|`)`|2|25|
-|addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|≤&nbsp;45|
+|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
+|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
+|status report (≤&nbsp;29&nbsp;characters)|`>`|1|6\--24|
+|item report — with compressed geolocation|`)`|2|20\--24|
+|addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|10\--45|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
@@ -298,11 +312,12 @@ Note:
 
 
 ## Compressed Geolocation Frames
+A compressed geolocation frame has a payload of either exactly 17 or 19 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|13 bytes|
-|`CCCC`|`D`|`/XXXXYYYY$csT`|
+|4 bytes|1 byte|13 (or 15) bytes|
+|`CCCC`|`D`|`/XXXXYYYY$cs`+`(aa)`|
 
 where:
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
@@ -315,21 +330,21 @@ where:
 - `YYYY`: the Base91 compressed latitude
 - `$`: the _Symbol Code_
 - `cs`: the compressed course (in degrees) and speed (in knots)
-- `T`: the _Compression Type Byte_
+- `(aa)`: optionally, the compressed altitude (in feet)
 
-> **⚠ <u>DO NOT</u> add any altitude data or comment!**
-> Any transmitted bytes beyond the `T` _Compression Type Byte_ will result in the <u>entire</u> geolocation frame being <u>rejected</u> by the i‑gate <u>by design</u>.
-> Terrestrial objects do not require sending altitude data.
-> Flying objects may alternate the `csT` bytes between altitude and course & speed.
-> Only if deemed absolutely necessary, transmit any other information with an occassional [_Status Report_](#compressed-status-report-frames).
+Note:
+- Terrestrial objects do not require sending altitude data. Anyhow, GPS height readings are notorious for being significantly inaccurate.
+- In absence of `aa`, the i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
+- When `aa` is present, the i‑gate will decompress the whole frame.
 
 
 ## Compressed Weather Report Frames
+A compressed weather report frame has a payload of either exactly 28 or 29 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|25 bytes|
-|`CCCC`|`D`|`/XXXXYYYY_csTgtrrppPPhbbS`|
+|4 bytes|1 byte|23 (or 24) bytes|
+|`CCCC`|`D`|`/XXXXYYYY_csgtrrppPPhbb(S)`|
 
 where:
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
@@ -342,7 +357,6 @@ where:
 - `YYYY`: the Base91 compressed latitude
 - `_`: the weather report _Symbol Code_
 - `cs`: the compressed wind direction (in degrees) and sustained one-minute wind speed (in knots)
-- `T`: the _Compression Type Byte_
 - `g`: gust (half of peak wind speed in km/h in the last 5 minutes)
 - `t`: temperature (in kelvin above 173.15 K)
 - `rr`: rainfall (in mm) over the past hour
@@ -350,11 +364,12 @@ where:
 - `PP`: rainfall (in mm) since midnight
 - `h`: humidity (in %)
 - `bb`: barometric pressure (in Pa above 50000)
-- `S`: snowfall (in cm) over the past 24 hours
+- `(S)`: optionally, snowfall (in cm) over the past 24 hours
 
 Notes:
 - All numerical encodings are one or two byte Base256 encodings.
 - Here is a fascinating list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
+- The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
 
 
 ## Compressed Text
@@ -373,10 +388,10 @@ In resemblance to Morse code, the character set would contain only 26 Latin capi
 ### Encoding tttt
 1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
 2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
-3. Then, encode this integer as a Base256 `tttt…tttt` bytestring.
+3. Then, encode this integer as a Base256 `tttt` bytestring.
 
 ### Decoding tttt
-1. First, decode the given Base256 `tttt…tttt` bytestring to an integer.
+1. First, decode the given Base256 `tttt` bytestring to an integer.
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
 ### Codec Algorithms for tttt
@@ -391,13 +406,12 @@ In resemblance to Morse code, the character set would contain only 26 Latin capi
 
 
 ## Compressed Status Report Frames
-Obviously, above `tttt…tttt` compression can also be applied to other APRS text frame types.
-For example for `>` APRS status reports. In practice, status reports are also often employed to send telemetry data.
+A compressed status report frame has a payload of between 6 and 24 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;20&nbsp;bytes|
-|`CCCC`|`D`|`tttt…tttt`|
+|4 bytes|1 byte|≤&nbsp;19&nbsp;bytes|
+|`CCCC`|`D`|`t(tttt…tttt)`|
 
 where:
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
@@ -405,15 +419,16 @@ where:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
   + the [_Path Code_](#path-codes) (between path 0 [none] and 3; included), and
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
-- `tttt…tttt`: maximum 20 bytes of compressed text from a limited 42 character set, corresponding to 29 uncompressed characters
+- `t(tttt…tttt)`: between 1 and 19 bytes of compressed text from a limited 42 character set, corresponding to 28 uncompressed characters
 
 
 ## Compressed Item Report Frames
+A compressed item report frame has a payload of between 20 and 24 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|20 bytes|
-|`CCCC`|`D`|`/XXXXYYYY$csTttttttt`|
+|4 bytes|1 byte|15\--19 bytes|
+|`CCCC`|`D`|`/XXXXYYYY$csTttt(tttt)`|
 
 where:
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
@@ -426,8 +441,9 @@ where:
 - `YYYY`: the Base91 compressed latitude
 - `$`: the _Symbol Code_
 - `cs`: the compressed course and speed
-- `T`: the _Compression Type Byte_
-- `ttttttt`: 7 bytes for the compressed _Item Name_ (up to 9 characters of the limited 42 character set)
+- `ttt(tttt)`: 3 to 7 bytes for the compressed _Item Name_ (between 3 and 9 characters of the limited 42 character set)
+
+Note: The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
 
 
 ## Compressed Addressed Message Frames
@@ -453,10 +469,12 @@ On the other hand, two‑way messaging over a digipeater would definitely requir
 
 The formulation of such a two‑way TDMA protocol is beyond the scope of this document.
 
+A compressed addressed message frame has a payload of between 10 (for an empty ping) and 45 bytes.
+
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
 |4 bytes|1 byte|≤&nbsp;40&nbsp;bytes|
-|`CCCC`|`D`|`EEEEFtttt…tttt`|
+|`CCCC`|`D`|`EEEEF(tttt…tttt)`|
 
 where:
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
@@ -468,7 +486,7 @@ where:
 - `F`: compresses into 1 byte:
   + the _Addressee SSID_ (between SSID 0 [none] and 15; included), and
   + the _Message No_ (from 0 to 15; included)
-- `tttt…tttt`: 35 bytes of compressed text from a limited 42 character set, corresponding to 51 uncompressed characters
+- `(tttt…tttt)`: up to 35 bytes of compressed text from a limited 42 character set, corresponding to 51 uncompressed characters
 
 ### Encoding and Decoding EEEE
 The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#encoding-cccc).
@@ -555,7 +573,7 @@ See: <https://github.com/aprs434/lora.igate>
 |v0.3.0|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of  location, course&nbsp;and speed&nbsp;data|31 bytes|✓|
 |[v0.4.0](https://github.com/aprs434/lora.tracker)|✓|removal of the transmitted [newline](https://en.wikipedia.org/wiki/Newline) `\n`&nbsp;character at&nbsp;frame&nbsp;end|30 bytes|✓|
 |||random time jitter between fixed interval packets to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|
-|||[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|18 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
+|||[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|17 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
 
 > Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
 >
