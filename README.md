@@ -119,8 +119,9 @@ By consequence, the chances of correctly receiving a 17&nbsp;byte payload are mo
 $$\frac{1-0.158}{1-0.610} \approx 2.18$$
 
 In reality, above calculations are more convoluted as LoRa employs symbols that are chip jumps or discontinuities in chirps to convey information.
-Moreover a preamble, consisting out of a configurable length variable preamble, a set sync word, a start frame delimiter (SDF) and a small pause precede the explicit header.
+Moreover, a preamble, consisting out of a configurable length preamble, a set sync word, a start frame delimiter (SDF) and a small pause precede the explicit header.
 The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this variable preamble also has an effect on the packet error rate.
+[](https://blog.csdn.net/weixin_43270276/article/details/122144556)
 
 
 ### Airtime Reduction
