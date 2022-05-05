@@ -190,8 +190,11 @@ the faster data rate offered by SF11 ought to be preferred.
 
 
 ## Callsign, SSID, Path and Data Type Compression
-All compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
-Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes.
+Callsigns contain only capital letters and digits.
+Up to six characters from such a 36 character set can easily be compressed into 4 `CCCC` bytes of an extended 256 character set.
+
+Hence, all compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
+Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes, which leaves up to 40&nbsp; bytes for a payload.
 For certain _Data Types,_ the maximum length is even significantly lower.
 
 I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
@@ -200,9 +203,6 @@ I‑gates should test whether the payload length of a received frame is in corre
 The combination of the declared _Data Type_ with the corresponding payload length forms the key so to speak to the i‑gate.
 This is what allowed for a headerless frame design.
 It prevents the i‑gate from relaying frames that are not intended for this compressed frame link.
-
-Source callsigns can contain only capital letters and digits.
-Up to six characters from a 36 character set can easily be compressed to 4 bytes in an extended 256 character set.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
@@ -272,11 +272,11 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|payload|
 |:---------:|:--:|:--------------:|:-----:|
-|compressed geolocation — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
-|complete weather report — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
-|status report (≤&nbsp;29&nbsp;characters)|`>`|1|6\--24|
-|item report — with compressed geolocation|`)`|2|20\--24|
-|addressed message (≤&nbsp;51&nbsp;characters)|`:`|3|10\--45|
+|compressed [geolocation](#compressed-geolocation-frames) — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
+|complete [weather report](#compressed-weather-report-frames) — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
+|[status report](#compressed-status-report-frames) (≤&nbsp;28&nbsp;characters)|`>`|1|6—24|
+|[item report](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24|
+|[addressed message](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
@@ -427,7 +427,7 @@ A compressed item report frame has a payload of between 20 and 24 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|15\--19 bytes|
+|4 bytes|1 byte|15—19 bytes|
 |`CCCC`|`D`|`/XXXXYYYY$csTttt(tttt)`|
 
 where:
@@ -619,7 +619,7 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 - Pascal Schiks, PA3FKM, for providing insights about microcontroller stacks
 - Greg Stroobandt, ON3GR, for cycling around the city with a privacy invading tracker
 - Erwin Fiten, ON8AR, for testing firmware and reporting on long distance car approaches to the LoRa i‑gate
-- Jan Engelen, DG6ZG, for testing firmware and providing feedback
+- Jan Engelen, DL6ZG, for testing firmware and providing feedback
 - [Github.com](https://github.com/) for hosting this project, free of charge
 
 May 2022<br/>
