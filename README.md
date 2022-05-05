@@ -120,8 +120,7 @@ $$\frac{1-0.158}{1-0.610} \approx 2.18$$
 
 In reality, above calculations are more convoluted as LoRa employs symbols that are chip jumps or discontinuities in chirps to convey information.
 Moreover, a preamble, consisting out of a configurable length preamble, a set sync word, a start frame delimiter (SDF) and a small pause precede the explicit header.
-The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this variable preamble also has an effect on the packet error rate.
-[](https://blog.csdn.net/weixin_43270276/article/details/122144556)
+The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this [variable preamble also has an effect on the packet error rate](https://hal.archives-ouvertes.fr/hal-02316402/document). Details about the LoRa packet structure [here](https://blog.csdn.net/weixin_43270276/article/details/122144556)
 
 
 ### Airtime Reduction
@@ -134,8 +133,8 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&n
 
 |payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
-|airtime SF12||||||
-|airtime SF11||||||
+|airtime with SF12||||||
+|airtime with SF11||||||
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
@@ -168,7 +167,7 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |sync word|`0x12`|`0x12`|
 |header|explicit (20&nbsp;bits)|explicit (20&nbsp;bits)|
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on (16&nbsp;bits)|on (16&nbsp;bits)|
-|IQ|normal|inversed|
+|[IQ](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components) polarisation|normal|inversed|
 
 Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the largest possible distance when the number of participant nodes is relatively low.
 However, network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in different scenarios.
@@ -215,7 +214,7 @@ Furthermore, the compressed frame length is limited by design to a maximum of 45
 For certain _Data Types,_ the maximum length is even significantly lower.
 
 I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
-**Frames that do not comply, should be rejected.**
+Frames that do not comply, should be rejected.
 
 The combination of the declared _Data Type_ with the corresponding payload length forms the key so to speak to the i‑gate.
 This is what allowed for a headerless frame design.
