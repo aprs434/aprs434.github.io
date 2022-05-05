@@ -103,22 +103,38 @@ approximately, when $BER$ is small and $n$ is large, and where:
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet; which is 8 times the number of bytes
 
-#### Some Examples
-**TODO: physical explicit header PHDR (16 bits), PHDR_CRC (4 bits) and CRC (16 bits)**
+#### PER Examples
+When used with an explicit header, LoRa packets will have the following 36&nbsp;bit overhead:
+a 16&nbsp;bit physical header `PHDR`, 4&nbsp;bits of header [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) `PHDR_CRC` and another 16&nbsp;bits of payload `CRC`.
 
-|payload|17 bytes|24 bytes|29 bytes|45 bytes|113 bytes|
+|payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
 |overhead|36 bits|36 bits|36 bits|36 bits|36 bits|
-|n|172 bits|228 bits|268 bits|396 bits|940 bits|
+|n|172 bits|228 bits|260 bits|396 bits|940 bits|
 |BER|0.1%|0.1%|0.1%|0.1%|0.1%|
-|PER|%|%|%|%|%|
+|PER|15.8%|20.4%|22.9%|32.7%|61.0%|
 
-Hence, the chances of correctly receiving **TODO**
+By consequence, the chances of correctly receiving a 17&nbsp;byte payload are more than twice as high than with a 113&nbsp;payload:
+
+$$\frac{1-0.158}{1-0.610} \approx 2.18$$
+
+In reality, above calculations are more convoluted as LoRa employs symbols that are chip jumps or discontinuities in chirps to convey information.
+Moreover a preamble, consisting out of a configurable length variable preamble, a set sync word, a start frame delimiter (SDF) and a small pause precede the explicit header.
+The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this variable preamble also has an effect on the packet error rate.
+
 
 ### Airtime Reduction
+An even more important reason for keeping the payload as small as possible, is the airtime required to send the LoRa frame.
+AS will be shown in the next section, LoRa **TODO**
+
 Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 17 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
+
+|payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
+|:-----:|:------:|:------:|:------:|:------:|:-------:|
+|airtime SF12||||||
+|airtime SF11||||||
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
@@ -272,11 +288,11 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|payload|
 |:---------:|:--:|:--------------:|:-----:|
-|compressed [geolocation](#compressed-geolocation-frames) — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
-|complete [weather report](#compressed-weather-report-frames) — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
-|[status report](#compressed-status-report-frames) (≤&nbsp;28&nbsp;characters)|`>`|1|6—24|
-|[item report](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24|
-|[addressed message](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45|
+|compressed [**geolocation**](#compressed-geolocation-frames) — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
+|complete [**weather report**](#compressed-weather-report-frames) — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
+|[**status report**](#compressed-status-report-frames) (≤&nbsp;28&nbsp;characters)|`>`|1|6—24|
+|[**item report**](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24|
+|[**addressed message**](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
