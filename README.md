@@ -120,12 +120,12 @@ $$\frac{1-0.158}{1-0.610} \approx 2.18$$
 
 In reality, above calculations are more convoluted as LoRa employs symbols that are chip jumps or discontinuities in chirps to convey information.
 Moreover, a preamble, consisting out of a configurable length preamble, a set sync word, a start frame delimiter (SDF) and a small pause precede the explicit header.
-The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this [variable preamble also has an effect on the packet error rate](https://hal.archives-ouvertes.fr/hal-02316402/document). Details about the LoRa packet structure [here](https://blog.csdn.net/weixin_43270276/article/details/122144556)
+The variable preamble is important as it trains the receiver at receiving the signal. Hence, the symbol length of this [variable preamble also has an effect on the packet error rate](https://hal.archives-ouvertes.fr/hal-02316402/document). Details about the LoRa packet structure can be found [here](https://blog.csdn.net/weixin_43270276/article/details/122144556).
 
 
 ### Airtime Reduction
-An even more important reason for keeping the payload as small as possible, is the airtime required to send the LoRa frame.
-AS will be shown in the next section, LoRa **TODO**
+Keeping the payload as small as possible, has an even more important reason: to reduce the airtime required to send the LoRa frame.
+As will be shown in the next section, LoRa slow**TODO**
 
 Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
