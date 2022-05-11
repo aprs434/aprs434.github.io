@@ -84,6 +84,10 @@ def decodeCCCC(bytestring):
 
 def encodeD(ssid, pathCode, dataTypeCode):
 
+    ssid         = min(abs(ssid), 15)
+    pathCode     = min(abs(pathCode), 3)
+    dataTypeCode = min(abs(dataTypeCode), 3)
+
     integer = ssid * 16 + pathCode * 4 + dataTypeCode
 
     return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
@@ -113,6 +117,9 @@ def decodeEEEE(bytestring):
 
 def encodeF(ssid, messageNo):
 
+    ssid      = min(abs(ssid), 15)
+    messageNo = min(abs(messageNo), 15)
+
     integer = ssid * 16 + messageNo
 
     return integer.to_bytes(1, byteorder='big')    # Encode the integer as a single Base256 byte.
@@ -130,7 +137,7 @@ def decodeF(bytestring):
 
 def encodetttt(string):
 
-    integer = decodeBase(42, string)                 # Decode the given Base42 string to an integer.
+    integer = decodeBase(42, string[:51])            # Decode the first 51 characters of the given Base42 string to an integer.
 
     n = math.ceil(math.log(42**len(string), 256))    # number of required Base256 bytes
 

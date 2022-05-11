@@ -233,18 +233,20 @@ where:
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
 ### Encoding CCCC
-1. Treat the given 6&nbsp;character callsign string as a Base37 encoding. Decode it first to an integer.
-2. Then, encode this integer as a 4&nbsp;byte Base256 `CCCC` bytestring.
+1. Perform input sanitisation and right padding with spaces up to 6 characters.
+2. Treat the given 6&nbsp;character callsign string as a Base37 encoding. Decode it first to an integer.
+3. Then, encode this integer as a 4&nbsp;byte Base256 `CCCC` bytestring.
 
 ### Decoding CCCC
 1. First, decode the given 4&nbsp;byte Base256 `CCCC` bytestring to an integer.
 2. Then, encode this integer as a 6&nbsp;character Base37 string, corresponding to the callsign.
 
 ### Encoding D
-1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Multiply the _Path Code_  by&nbsp;4.
-3. Then, algebraically add to these intermediate results to the _Data Type Code_ integer from below table.
-4. Finally, convert the resulting integer to a single Base256 `D` byte.
+1. Perform input sanitisation.
+2. Multiply the _SSID_ integer by&nbsp;16.
+3. Multiply the _Path Code_  by&nbsp;4.
+4. Then, algebraically add to these intermediate results to the _Data Type Code_ integer from below table.
+5. Finally, convert the resulting integer to a single Base256 `D` byte.
 
 ### Decoding D
 1. First, decode the given Base256 `D` byte to an integer.
@@ -402,9 +404,10 @@ In resemblance to Morse code, the character set would contain only 26 Latin capi
 |**TOTAL**|**42**|
 
 ### Encoding tttt
-1. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
-2. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
-3. Then, encode this integer as a Base256 `tttt` bytestring.
+1. Perform input sanitisation.
+2. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
+3. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
+4. Then, encode this integer as a Base256 `tttt` bytestring.
 
 ### Decoding tttt
 1. First, decode the given Base256 `tttt` bytestring to an integer.
@@ -508,9 +511,10 @@ where:
 The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#encoding-cccc).
 
 ### Encoding F
-1. First, multiply the _SSID_ integer by&nbsp;16.
-2. Then, algebraically add to this the _Message No_ integer.
-3. Finally, convert the resulting integer to a single Base256 `F` byte.
+1. Perform input sanitisation.
+2. Multiply the _SSID_ integer by&nbsp;16.
+3. Then, algebraically add to this the _Message No_ integer.
+4. Finally, convert the resulting integer to a single Base256 `F` byte.
 
 ### Decoding F
 1. First, decode the given Base256 `F` byte to an integer.
