@@ -134,8 +134,8 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&n
 
 |payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
-|airtime with SF12||||||
-|airtime with SF11||||||
+|airtime with SF12|1.32&nbsp;s|1.48&nbsp;s|1.65&nbsp;s|2.14&nbsp;s|4.43&nbsp;s|
+|airtime with SF11|0.66&nbsp;s|0.82&nbsp;s|0.91&nbsp;s|1.15&nbsp;s|2.46&nbsp;s|
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
