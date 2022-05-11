@@ -69,7 +69,7 @@ def decodeBase(base, string):
 
 def encodeCCCC(string):
 
-    integer = decodeBase(37, string)      # Decode the given 6 character Base37 string to an integer.
+    integer = decodeBase(37, string.ljust(6))      # Decode the given 6 character Base37 string to an integer.
 
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
