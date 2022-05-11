@@ -27,6 +27,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [Measurable Benefits](#measurable-benefits)
     + [Reduced Packet Error Rate](#reduced-packet-error-rate)
     + [Airtime Reductions](#airtime-reductions)
+    + [From Pure to Slotted ALOHA](#from-pure-to-slotted-aloha)
 - [LoRa Link Parameters](#lora-link-parameters)
     + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
@@ -137,6 +138,14 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&n
 |airtime with SF11||||||
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
+
+
+### From Pure to Slotted ALOHA
+**TODO**
+
+![Pure ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/3/35/Pure_ALOHA1.svg)
+
+![Slotted ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/7/7a/Slotted_ALOHA.svg)
 
 
 ## LoRa Link Parameters
@@ -592,8 +601,8 @@ See: <https://github.com/aprs434/lora.igate>
 |v0.2.0|✓|fork of the [OE5BPA tracker](https://github.com/lora-aprs/LoRa_APRS_Tracker)<br/>with significantly less transmitted&nbsp;bytes|44 bytes|✓|
 |v0.3.0|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of  location, course&nbsp;and speed&nbsp;data|31 bytes|✓|
 |[v0.4.0](https://github.com/aprs434/lora.tracker)|✓|removal of the transmitted [newline](https://en.wikipedia.org/wiki/Newline) `\n`&nbsp;character at&nbsp;frame&nbsp;end|30 bytes|✓|
-|||random time jitter between fixed interval packets to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|
 |||[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|17 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
+|||randomly [slotted ALOHA protocol](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA) to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|30 bytes|✓|
 
 > Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
 >
