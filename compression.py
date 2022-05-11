@@ -69,8 +69,9 @@ def decodeBase(base, string):
 
 def encodeCCCC(string):
 
-    integer = decodeBase(37, string.ljust(6))      # Decode the given 6 character Base37 string to an integer.
-
+    integer = decodeBase(37, string[-6:].ljust(6)) # Decode the 6 character Base37 string to an integer.
+                                                   # The given string cannot be longer than 6 characters and
+                                                   # will be right-padded with spaces if shorter.
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
 
