@@ -206,8 +206,8 @@ the faster data rate offered by SF11 ought to be preferred.
 
 
 ## Callsign, SSID, Path and Data Type Compression
-Callsigns contain only capital letters and digits.
-Up to six characters from such a 36 character set can easily be compressed into 4 `CCCC` bytes of an extended 256 character set.
+Callsigns contain only capital letters, digits and empty spaces.
+Up to six characters from such a 37 character set can easily be compressed into 4 `CCCC` bytes of an extended 256 character set.
 
 Hence, all compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
 Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes, which leaves up to 40&nbsp; bytes for a payload.
@@ -233,12 +233,12 @@ where:
   + the [_Data Type Code_](#data-type-codes) (between type 0 and 3; included)
 
 ### Encoding CCCC
-1. Treat the given 6&nbsp;character callsign string as a Base36 encoding. Decode it first to an integer.
+1. Treat the given 6&nbsp;character callsign string as a Base37 encoding. Decode it first to an integer.
 2. Then, encode this integer as a 4&nbsp;byte Base256 `CCCC` bytestring.
 
 ### Decoding CCCC
 1. First, decode the given 4&nbsp;byte Base256 `CCCC` bytestring to an integer.
-2. Then, encode this integer as a 6&nbsp;character Base36 string, corresponding to the callsign.
+2. Then, encode this integer as a 6&nbsp;character Base37 string, corresponding to the callsign.
 
 ### Encoding D
 1. First, multiply the _SSID_ integer by&nbsp;16.
