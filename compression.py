@@ -29,7 +29,7 @@ import math
 
 ### GLOBALS ###
 
-numerals = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .?-/_'
+numerals = ' 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.?-/_'
 
 
 ### FUNCTIONS ###
@@ -69,7 +69,7 @@ def decodeBase(base, string):
 
 def encodeCCCC(string):
 
-    integer = decodeBase(36, string)               # Decode the given 6 character Base36 string to an integer.
+    integer = decodeBase(37, string)      # Decode the given 6 character Base37 string to an integer.
 
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
 
@@ -78,7 +78,7 @@ def decodeCCCC(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
-    return encodeBase(36, integer)                           # Encode the integer as a 6 character Base36 string.
+    return encodeBase(37, integer)                           # Encode the integer as a 6 character Base37 string.
 
 
 def encodeD(ssid, pathCode, dataTypeCode):
@@ -157,6 +157,9 @@ print()
 print(encodeCCCC('W3A'))
 print(decodeCCCC(encodeCCCC('W3A')))
 print()
+print(encodeCCCC('0HN0'))
+print(decodeCCCC(encodeCCCC('0HN0')))
+print()
 print(encodeD(6, 3, 2))
 print(decodeD(encodeD(6, 3, 2)))
 print()
@@ -175,7 +178,7 @@ print()
 print(encodeF(7, 13))
 print(decodeF(encodeF(7, 13)))
 print()
-uncompressed = 'This is ON4AA-6. QSL? _ Yes/No'
+uncompressed = '0 This is ON4AA-6. QSL? _ Yes/No'
 compressed = encodetttt(uncompressed)
 print('%s = %d bytes' % (compressed, len(compressed)))
 print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
