@@ -143,9 +143,9 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&n
 ### From Pure to Slotted ALOHA
 **TODO**
 
-![Pure ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/3/35/Pure_ALOHA1.svg)
-
-![Slotted ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/7/7a/Slotted_ALOHA.svg)
+|[pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)|[slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)|
+|:-:|:-:|
+|![Pure ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/3/35/Pure_ALOHA1.svg)|![Slotted ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/7/7a/Slotted_ALOHA.svg)|
 
 
 ## LoRa Link Parameters
