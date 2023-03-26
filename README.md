@@ -166,7 +166,7 @@ Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as foll
 
 $$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\,\text{byte/s}$$
 
-Finally, it was observed that amateur radio predominantly employs the LoRa sync word '0x12'; which is manufacturer recommended for private networks, different from LoRaWAN.
+Finally, it was observed that amateur radio predominantly employs the LoRa sync word `0x12`; which is manufacturer recommended for private networks, different from LoRaWAN.
 
 Summarised, the following LoRa link parameters are proposed for APRS:
 
