@@ -222,9 +222,9 @@ Callsigns contain only capital letters, digits and empty spaces.
 Up to six characters from such a 37 character set can easily be compressed into 4 `CCCC` bytes of an extended 256 character set.
 
 Hence, all compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
-Furthermore, **the compressed frame length is voluntarily limited by design to a maximum of 45\ bytes,** which leaves up to 40&nbsp;bytes for a payload.
+Furthermore, **the compressed frame length is voluntarily limited by design to a maximum of 45&nbsp;bytes,** which leaves up to 40&nbsp;bytes for a payload.
 For certain _Data Types,_ the maximum length is even significantly lower.
-A maximum frame length of 45\ bytes corresponds to a **maximum airtime of 2.14\ s with SF12 or 1.15\ s with SF11.**
+A maximum frame length of 45&nbsp;bytes corresponds to a **maximum airtime of 2.14&nbsp;s with SF12 or 1.15&nbsp;s with SF11.**
 
 I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
 Frames that do not comply, should be rejected.
@@ -543,7 +543,7 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 
 
 ## Codec Algorithms
-The digits order for all Base codecs is: ` 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@`
+The digits order for all Base codecs is: `[space]0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@`
 
 - [Python3](code/codec.py) **reference implementation** of codec algorithms and tests
 - [C](code/codec.cpp) codec algorithms and tests
@@ -558,6 +558,8 @@ From a ITU regulatory point of view, long range communication —which, by defin
 
 The amateur radio service forms a sole exception to this, as its 70&nbsp;cm UHF band happens to [overlap](https://hamwaves.com/lpd433/en/index.html#lpd433-channels) the [ITU&nbsp;Region&nbsp;1](https://en.wikipedia.org/wiki/ITU_Region) 434&nbsp;MHz ISM&nbsp;band as a primary service.
 Moreover, ham radio is not restricted to a 20&nbsp;dBm (=&nbsp;100&nbsp;mW) power level, nor any 1% duty cycle limits on this band.
+
+**The modulation gain of LoRa over FSK is about 10&nbsp;dB** in the link budget. By consequence, a 10&nbsp;W AFSK packet link could be replaced with a 1&nbsp;W LoRa link.
 
 As a general rule, secondary users should always check whether a frequency is in use by a primary user before transmitting on air.
 However, LoRa has no carrier sensing capability. Therefore, secondary ISM band users lack the ability to check whether an amateur radio operator is using the 434&nbsp;MHz band as a primary user.
@@ -657,7 +659,7 @@ As ESP32 chips incorporate WiFi which consumes less energy than GPS reception, g
 For this reason, smartphone OS companies like Google have initially [war-driven](https://en.wikipedia.org/wiki/Wardriving) entire countries to map the location of WLAN base stations.
 Nowadays, the same smartphone operating systems report these locations back to these companies' servers.
 
-One could envision sending the compressed 64‑bit MAC address of the strongest received WLAN node to an APRS\ 434 i‑gate.
+One could envision sending the compressed 64‑bit MAC address of the strongest received WLAN node to an APRS&nbsp;434 i‑gate.
 The i‑gate would then look up the approximate geographic coordinates from an Internet service,
 modify the geolocation frame with this information before forwarding it to [APRS‑IS](http://www.aprs-is.net).
 Conversely, APRS‑IS could be augmented to accept MAC-addresses and to perform the geolocation lookup.
