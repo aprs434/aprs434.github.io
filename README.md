@@ -351,8 +351,8 @@ A compressed geolocation frame has a payload of either exactly **17 or 19 bytes.
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|13 (or 15) bytes|
-|`CCCC`|`D`|`/XXXXYYYY$cs`+`(aa)`|
+|4 bytes|1 byte|12 (or 14) bytes|
+|`CCCC`|`D`|`/XXXXYYYY$cs(aa)`|
 
 where:
 
