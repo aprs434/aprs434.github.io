@@ -372,7 +372,8 @@ Note:
 
 - Terrestrial objects do not require sending altitude data. Anyhow, GPS height readings are notorious for being significantly inaccurate.
 - In absence of `aa`, the i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
-- When `aa` is present, the i‑gate will decompress the whole frame.
+- When `aa` is present, the i‑gate will instead decompress the whole frame and forward the uncompressed frame to APRS‑IS.
+- The parenthesis are not sent; these merely indicate optionality.
 
 
 ## Compressed Weather Report Frames
@@ -409,6 +410,7 @@ Notes:
 - All numerical encodings are one or two byte Base256 encodings.
 - Here is a fascinating list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
 - The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
+- The parenthesis are not sent; these merely indicate optionality.
 
 
 ## Compressed Text
@@ -486,7 +488,10 @@ where:
 - `cs`: the compressed course and speed
 - `ttt(tttt)`: 3 to 7 bytes for the compressed _Item Name_ (between 3 and 9 characters of the limited 42 character set)
 
-Note: The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
+Notes:
+
+- The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
+- The parenthesis are not sent; these merely indicate optionality.
 
 
 ## Compressed Addressed Message Frames
