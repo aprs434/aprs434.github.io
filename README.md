@@ -1,4 +1,5 @@
 # APRS 434
+<img src="images/aprs434.logo.png" style="max-width: 160px; float: left;"/>
 Welcome to the home of **APRS&nbsp;434**,
 the 434&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
 
