@@ -69,6 +69,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [WiFi Geolocation](#wifi-geolocation)
 - [News, Social & Co-Development](#news-social--co-development)
 - [Acknowledgements](#acknowledgements)
+- [Major Revisions](#major-revisions)
 
 
 ## An Open Standard for LoRa APRS Frame Compression
@@ -78,12 +79,12 @@ As a physical layer, LoRa permits sending any of the [256 characters](https://en
 |:-:|:-:|
 |_Flag_|**not required**; explicit header provided by LoRa|
 |_Destination Address_|**not required**; software version provided by the i‑gate|
-|_Source Address_|any 6 out of **37** characters: 26 capital letters + 10 digits + space|
-|_SSID_|1 out of [**16** hexadecimal numerals](https://en.wikipedia.org/wiki/Hexadecimal)|
+|_Source Address_|6 out of **37** possible characters: 26 capital letters + 10 digits + space|
+|_SSID_|1 out of [**16** hexadecimal digits](https://en.wikipedia.org/wiki/Hexadecimal)|
 |_Digipeater Address_|any out of [**5** recommended `n-N` paradigm paths](#path-codes)|
 |_Control Field_|**not required**|
 |_Protocol ID_|**not required**|
-|_Information Field_|up to 256 out of [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = [_Data Type ID_](#data-type-codes)|
+|_Information Field_|256 characters of which [**95** printable ASCII characters](https://en.wikipedia.org/wiki/ASCII#Printable_characters)<br/>first character = [_Data Type ID_](#data-type-codes)|
 |_Frame Check Sequence_|**not required**; [FEC](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction)&nbsp;& [CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) are provided by LoRa|
 |_Flag_|**not required**|
 
@@ -101,6 +102,7 @@ LoRa may receive up to 20&nbsp;dB under the noise floor, but keep in mind that [
 $$PER = 1 - (1 - BER)^n \approx n \cdot BER$$
 
 approximately, when $BER$ is small and $n$ is large, and where:
+
 - $(1-BER)$: the probability of receiving a bit correctly
 - $n$: the number of bits in a packet; which is 8 times the number of bytes
 
@@ -126,11 +128,11 @@ The variable preamble is important as it trains the receiver at receiving the si
 
 ### Airtime Reduction
 Keeping the payload as small as possible, has an even more important reason: to reduce the airtime required to send the LoRa frame.
-As will be shown in the next section, LoRa slow**TODO**
+As will be shown in the [next section](#lora-link-parameters), LoRa is a slow data rate mode.
 
-Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
+Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
-![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 17 bytes as proposed for geolocation packets with compression.](lora.airtime-payload.18bytes.png)
+![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 17 bytes as proposed for geolocation packets with compression.](images/lora.airtime-payload.18bytes.png)
 
 |payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
 |:-----:|:------:|:------:|:------:|:------:|:-------:|
@@ -150,6 +152,7 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in steps of 5&n
 
 ## LoRa Link Parameters
 Currently, the following LoRa link parameters are commonly in use among amateur radio operators:
+
 - In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. This corresponds to 12&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{12} = 4096\,\text{chips}$.
 - Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
 - To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
@@ -209,9 +212,9 @@ the faster data rate offered by SF11 ought to be preferred.
 ### LoRa ICs and Modules
 - [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
 - [Semtech SX1278](https://www.semtech.com/products/wireless-rf/lora-core/sx1278)
-
 - [HopeRF LoRa modules](https://www.hoperf.com/modules/lora/index.html)
 - [HopeRF RFM98W](https://www.hoperf.com/modules/lora/RFM98.html)
+- [G-NiceRF Lora1278F30 1 watt module](https://www.aliexpress.com/item/32686822638.html)
 
 
 ## Callsign, SSID, Path and Data Type Compression
@@ -219,7 +222,7 @@ Callsigns contain only capital letters, digits and empty spaces.
 Up to six characters from such a 37 character set can easily be compressed into 4 `CCCC` bytes of an extended 256 character set.
 
 Hence, all compressed APRS frames in this standard begin with 5 `CCCCD` bytes, irrespectively of the [_Data Type_](#data-type-codes).
-Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes, which leaves up to 40&nbsp; bytes for a payload.
+Furthermore, the compressed frame length is limited by design to a maximum of 45 bytes, which leaves up to 40&nbsp;bytes for a payload.
 For certain _Data Types,_ the maximum length is even significantly lower.
 
 I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
@@ -235,6 +238,7 @@ It prevents the i‑gate from relaying frames that are not intended for this com
 |`CCCC`|`D`||
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -265,7 +269,8 @@ where:
 5. Whereas the _Data Type Code_ equals the remainder this second integer division.
 
 ### Codec Algorithms for CCCCD
-- [Python3](compression.py) compression algorithms and tests
+- [Python3](code/compression.py) compression algorithms and tests
+- [C](code/compression.cpp) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 ### SSID Recommendations
@@ -299,11 +304,11 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 
 |_Data Type_|_ID_|_Data Type Code_|payload|
 |:---------:|:--:|:--------------:|:-----:|
-|compressed [**geolocation**](#compressed-geolocation-frames) — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19|
-|complete [**weather report**](#compressed-weather-report-frames) — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29|
-|[**status report**](#compressed-status-report-frames) (≤&nbsp;28&nbsp;characters)|`>`|1|6—24|
-|[**item report**](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24|
-|[**addressed message**](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45|
+|compressed [**geolocation**](#compressed-geolocation-frames) — no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|17 or 19 bytes|
+|complete [**weather report**](#compressed-weather-report-frames) — with compressed geolocation, no&nbsp;timestamp|`!`&nbsp;or&nbsp;`=`|0|28 or 29 bytes|
+|[**status report**](#compressed-status-report-frames) (≤&nbsp;28&nbsp;characters)|`>`|1|6—24 bytes|
+|[**item report**](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24 bytes|
+|[**addressed message**](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45 bytes|
 
 Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
 
@@ -314,6 +319,7 @@ Note: Weather reports use the same _Data Type IDs_ as position reports but with 
 > Unlike AX.25 packet radio, LoRa does not offer [carrier sensing](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access).
 
 Also consider that:
+
 - Most LoRa gateways are connected to the APRS‑IS Internet server network and many users are merely interested in reaching APRS‑IS.
 - There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
 - In IARU Region&nbsp;I the central frequency of 433.900 MHz is proposed as a downlink channel from gateways to nodes. The proposal does not mention digipeating.
@@ -334,12 +340,13 @@ However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a s
 |space satellites|`ARISS,WIDE2-1`|3|
 
 Note:
+
 - The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
 ## Compressed Geolocation Frames
-A compressed geolocation frame has a payload of either exactly 17 or 19 bytes.
+A compressed geolocation frame has a payload of either exactly **17 or 19 bytes.**
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
@@ -347,6 +354,7 @@ A compressed geolocation frame has a payload of either exactly 17 or 19 bytes.
 |`CCCC`|`D`|`/XXXXYYYY$cs`+`(aa)`|
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -360,13 +368,14 @@ where:
 - `(aa)`: optionally, the compressed altitude (in feet)
 
 Note:
+
 - Terrestrial objects do not require sending altitude data. Anyhow, GPS height readings are notorious for being significantly inaccurate.
 - In absence of `aa`, the i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
 - When `aa` is present, the i‑gate will decompress the whole frame.
 
 
 ## Compressed Weather Report Frames
-A compressed weather report frame has a payload of either exactly 28 or 29 bytes.
+A compressed weather report frame has a payload of either exactly **28 or 29 bytes.**
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
@@ -374,6 +383,7 @@ A compressed weather report frame has a payload of either exactly 28 or 29 bytes
 |`CCCC`|`D`|`/XXXXYYYY_csgtrrppPPhbb(S)`|
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -394,6 +404,7 @@ where:
 - `(S)`: optionally, snowfall (in cm) over the past 24 hours
 
 Notes:
+
 - All numerical encodings are one or two byte Base256 encodings.
 - Here is a fascinating list of [weather records](https://en.wikipedia.org/wiki/List_of_weather_records).
 - The i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
@@ -401,20 +412,20 @@ Notes:
 
 ## Compressed Text
 In order to prevent channel congestion, it is crucial to limit the character set of messages. This allows for more frame compression.
-In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters lets it fit 6 times in the 256 character set of LoRa.
+In resemblance to Morse code, the character set would contain only 26 Latin capital letters, the 10&nbsp;digits, space and a few punctuation marks and symbols. Limiting the set to 42 characters makes it fit 6 times in the 256 character set of LoRa.
 
-|character set|amount|
-|:-----------:|:----:|
+|character subset|# of characters|
+|:--------------:|:-------------:|
 |Latin capital letters|26|
 |digits|10|
 |space|1|
 |punctuation `.`&nbsp;`?`|2|
-|symbols `-`&nbsp;`/`&nbsp;`_`|3|
+|symbols `-`&nbsp;`/`&nbsp;`@`|3|
 |**TOTAL**|**42**|
 
 ### Encoding tttt
 1. Perform input sanitisation.
-2. Perform character replacement and filtering on the given string; only allow for charcters of the [42&nbsp;character set](#compressed-text).
+2. Perform character replacement and filtering on the given string; only allow for characters of the [42&nbsp;character set](#compressed-text).
 3. Treat the resulting text string as a Base42 encoding. Decode it first to an integer.
 4. Then, encode this integer as a Base256 `tttt` bytestring.
 
@@ -423,25 +434,27 @@ In resemblance to Morse code, the character set would contain only 26 Latin capi
 2. Then, encode this integer as a Base42 string, corresponding to the text.
 
 ### Codec Algorithms for tttt
-- [Python3](compression.py) compression algorithms and tests
+- [Python3](code/compression.py) compression algorithms and tests
+- [C](code/compression.cpp) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 
 ## Comments
-> **⚠ <u>REFRAIN</u> from adding any comments!**
+> **⚠ <u>REFRAIN</u> from adding any APRS comments!**
 > Adding more bytes to a LoRa frame only reduces the chances on successful reception.
 > Rather, consider sending an occasional [status report](#compressed-status-report-frames).
 
 
 ## Compressed Status Report Frames
-A compressed status report frame has a payload of between 6 and 24 bytes.
+A compressed status report frame has a payload of between **6 and 24 bytes.**
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;19&nbsp;bytes|
+|4 bytes|1 byte|1—19&nbsp;bytes|
 |`CCCC`|`D`|`t(tttt…tttt)`|
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -451,7 +464,7 @@ where:
 
 
 ## Compressed Item Report Frames
-A compressed item report frame has a payload of between 20 and 24 bytes.
+A compressed item report frame has a payload of between **20 and 24 bytes.**
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
@@ -459,6 +472,7 @@ A compressed item report frame has a payload of between 20 and 24 bytes.
 |`CCCC`|`D`|`/XXXXYYYY$csTttt(tttt)`|
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -493,18 +507,19 @@ for, for example, SOTA self-spotting using [APRS2SOTA](https://www.sotaspots.co.
 
 On the other hand, two‑way messaging over a digipeater would definitely require:
 - the faster [SF11](#considerations-for-switching-to-sf11) data mode, and
-- GPS-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing.
+- GPS time-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing.
 
 The formulation of such a two‑way TDMA protocol is beyond the scope of this document.
 
-A compressed addressed message frame has a payload of between 10 (for an empty ping) and 45 bytes.
+A compressed addressed message frame has a payload of **between 10 (for an empty ping) and 45 bytes.**
 
 |_Callsign_|_SSID_,<br/>_Path Code_&nbsp;&<br/>_Data Type Code_|_Compressed Data_|
 |:--------:|:-------------------------------------------------:|:---------------:|
-|4 bytes|1 byte|≤&nbsp;40&nbsp;bytes|
+|4 bytes|1 byte|5—40&nbsp;bytes|
 |`CCCC`|`D`|`EEEEF(tttt…tttt)`|
 
 where:
+
 - `CCCC`: 4 bytes for the compressed 6 character _Callsign_
 - `D`: compresses into 1 byte:
   + the [_SSID_](#ssid-recommendations) (between SSID 0 [none] and 15; included),
@@ -531,7 +546,8 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 ### Codec Algorithms for EEEEF
-- [Python3](compression.py) compression algorithms and tests
+- [Python3](code/compression.py) compression algorithms and tests
+- [C](code/compression.cpp) compression algorithms and tests
 - [MIT License](https://github.com/aprs434/aprs434.github.io/blob/main/LICENSE)
 
 
@@ -547,7 +563,7 @@ However, LoRa has no carrier sensing capability. Therefore, secondary ISM band u
 
 ## Reducing Power Consumption
 1. OLED displays have a limited life span and consume quite a bit of power. An OLED screen and its driver [can be put to sleep](https://bengoncalves.wordpress.com/2015/10/01/oled-display-and-arduino-with-power-save-mode/) when the tracker is idle. The same holds true for the LoRa radio module and the ESP32. This needs to be investigated.
-2. GPS modules are also power hogs. It may be conceivable to use the WLAN receiver aboard an ESP32 for localisation, whereby the three strongest WLAN SSIDs are transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available [wardriving](https://en.wikipedia.org/wiki/Wardriving) data service from the Internet. This is comparable to how Google Android smartphone localisation works.
+2. GPS modules are also power hogs. It may be conceivable to use the WiFi receiver aboard an ESP32 for localisation, whereby the MAC-address of the strongest WLAN is transmitted to the i‑gate. The i‑gate would then guess the tracker location from a freely available [wardriving](https://en.wikipedia.org/wiki/Wardriving) data service from the Internet. This is comparable to how Google Android smartphone localisation works.
 
 
 ## Recommended Hardware
@@ -630,7 +646,19 @@ On the other hand, bidirectional messaging requires time division multiplexing b
 |||[support](https://www.hackster.io/scottpowell69/lora-qwerty-messenger-c0eee6) for the [M5Stack CardKB Mini](https://shop.m5stack.com/products/cardkb-mini-keyboard) keyboard|
 
 ### WiFi Geolocation
-TBD
+Continuously running an onboard GPS receiver consumes a lot of tracker's valuable battery energy.
+Moreover, GPS reception is often abyssal both indoors and in so-called city canyons; i.e. narrow streets with tall buildings on the sides.
+This is due to the lack of view on open sky.
+
+As ESP32 chips incorporate WiFi which consumes less energy than GPS reception, geolocation on the basis of the unique [MAC address](https://en.wikipedia.org/wiki/MAC_address) of WLAN base stations is better.
+
+For this reason, smartphone OS companies like Google have initially [war-driven](https://en.wikipedia.org/wiki/Wardriving) entire countries to map the location of WLAN base stations.
+Nowadays, the same smartphone operating systems report these locations back to these companies' servers.
+
+One could envision sending the compressed 64‑bit MAC address of the strongest received WLAN node to an APRS\ 434 i‑gate.
+The i‑gate would then look up the approximate geographic coordinates from an Internet service,
+modify the geolocation frame with this information before forwarding it to [APRS‑IS](http://www.aprs-is.net).
+Conversely, APRS‑IS could be augmented to accept MAC-addresses and to perform the geolocation lookup.
 
 
 ## News, Social & Co-Development
@@ -643,15 +671,23 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 ## Acknowledgements
 - Bernd Gasser, OE1ACM, for the earliest LoRa APRS experiments and code
 - Christian Johann Bauer, OE3CJB, for the Base91 geolocation compression algorithm
-- Peter Buchegger, OE5BPA, for providing the bulk of the tracker and i‑gate firmware as open source code, in a handy [PlatformIO](https://platformio.org) environment, with [over-the-air (OTA)](https://en.wikipedia.org/wiki/Over-the-air_programming) i‑gate updates. This was the ideal starting point for running LoRa frame compression experiments.
-- Folkert Tijdens, PA0FOT, for asking the right questions, rendering this document more scholarly
+- Peter Buchegger, OE5BPA, for providing a tracker and i‑gate firmware as open source code, in a handy [PlatformIO](https://platformio.org) environment, with [over-the-air (OTA)](https://en.wikipedia.org/wiki/Over-the-air_programming) i‑gate updates. This was the ideal starting point for running LoRa frame compression experiments.
+- Folkert Tijdens, PA0FOT, for contributing [`compression.cpp`](code/compression.cpp) and asking the right questions, rendering this document more scholarly
 - Pascal Schiks, PA3FKM, for providing insights about microcontroller stacks
+- Ricardo Guzman Christie, CD2RXU, for developing client and i‑gate firmware employing the compression algorithms presented in this white paper.
 - Greg Stroobandt, ON3GR, for cycling around the city with a privacy invading tracker
 - Erwin Fiten, ON8AR, for testing firmware and reporting on long distance car approaches to the LoRa i‑gate
 - Jan Engelen, DL6ZG, for testing firmware and providing feedback
 - [Github.com](https://github.com/) for hosting this project, free of charge
 
-May 2022<br/>
+
+## Major Revisions
+
+|date|changes|
+|:--:|:------|
+|2022‑05|initial release|
+|2023‑03|change in the order of the codec digits; also, `@` instead of `_` is now allowed in text messages|
+
 Serge Y. Stroobandt, ON4AA
 
 

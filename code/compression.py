@@ -29,7 +29,7 @@ import math
 
 ### GLOBALS ###
 
-numerals = ' 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.?-/_'
+digits = ' -./0123456789?@ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
 ### FUNCTIONS ###
@@ -38,15 +38,15 @@ def encodeBase(base, integer):
     # https://stackoverflow.com/a/23926613/2192488
     # https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
 
-    if base > len(numerals):
-        raise ValueError("The base is too large for the number of numerals available.")
+    if base > len(digits):
+        raise ValueError("The base is too large for the number of digits available.")
     elif base < 2:
         raise ValueError("The base should be at least 2.")
 
     integer = abs(integer)
     array   = []
     while integer:
-        array.append(numerals[integer % base])
+        array.append(digits[integer % base])
         integer //= base
 
     return ''.join(reversed(array or '0'))
@@ -54,15 +54,15 @@ def encodeBase(base, integer):
 
 def decodeBase(base, string):
 
-    if base > len(numerals):
-        raise ValueError("The base is too large for the number of numerals available.")
+    if base > len(digits):
+        raise ValueError("The base is too large for the number of digits available.")
     elif base < 2:
         raise ValueError("The base should be at least 2.")
 
     array   = reversed(list(string.upper()))
     integer = 0
     for e, c in enumerate(array):
-        integer += numerals.index(c) * base**e
+        integer += digits.index(c) * base**e
 
     return integer
 
@@ -186,7 +186,12 @@ print()
 print(encodeF(7, 13))
 print(decodeF(encodeF(7, 13)))
 print()
-uncompressed = '0 This is ON4AA-6. QSL? _ Yes/No'
+uncompressed = '0 This is ON4AA-6. QSL? @ Yes/No'
+compressed = encodetttt(uncompressed)
+print('%s = %d bytes' % (compressed, len(compressed)))
+print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
+print()
+uncompressed = 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
 compressed = encodetttt(uncompressed)
 print('%s = %d bytes' % (compressed, len(compressed)))
 print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
