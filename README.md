@@ -229,7 +229,7 @@ A maximum frame length of 45&nbsp;bytes corresponds to a **maximum airtime of 2.
 I‑gates should test whether the payload length of a received frame is in correspondence to the declared _Data Type_.
 Frames that do not comply, should be rejected.
 
-The combination of the four first `CCCC` hexadecimal _Callsign_ bytes and the in `D` declared _Data Type_ with the corresponding payload length forms the key —so to speak— to the i‑gate.
+The combination of the four first `CCCC` Base256 _Callsign_ bytes and the in `D` declared _Data Type_ with the corresponding payload length form the key —so to speak— to the i‑gate.
 This is what allows for a headerless frame design.
 It prevents the i‑gate from relaying frames that are not intended for this compressed frame link.
 
