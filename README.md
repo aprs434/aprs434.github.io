@@ -306,7 +306,11 @@ Of all the _Data Types_ defined in the [APRS Protocol Reference](https://hamwave
 |[**item report**](#compressed-item-report-frames) — with compressed geolocation|`)`|2|20—24 bytes|
 |[**addressed message**](#compressed-addressed-message-frames) (≤&nbsp;51&nbsp;characters)|`:`|3|10—45 bytes|
 
-Note: Weather reports use the same _Data Type IDs_ as position reports but with a _Symbol Code_ `_` overlay.
+Notes:
+
+- APRS 434 will not transmit any _ID_ byte over LoRa. The _ID_ will be added at the i‑gate.
+- Weather reports use the same _IDs_ and _Data Type Codes_ as position reports but with a _Symbol Code_ `_` overlay.
+- A _Symbol Table Identifier_ nor a _Symbol Code_ can be compressed.
 
 
 ## Digipeating on LoRa Channels
