@@ -28,7 +28,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [Measurable Benefits](#measurable-benefits)
     + [Reduced Packet Error Rate](#reduced-packet-error-rate)
     + [Airtime Reductions](#airtime-reductions)
-    + [From Pure to Slotted ALOHA](#from-pure-to-slotted-aloha)
+    + [From Pure to Reservation ALOHA](#from-pure-to-reservation-aloha)
 - [LoRa Link Parameters](#lora-link-parameters)
     + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
@@ -128,7 +128,7 @@ The variable preamble is important as it trains the receiver at receiving the si
 
 ### Airtime Reduction
 Keeping the payload as small as possible, has an even more important reason: to reduce the airtime required to send the LoRa frame.
-As will be shown in the [next section](#lora-link-parameters), LoRa is a slow data rate mode.
+As will be shown in the [next section](#lora-link-parameters), **LoRa is a slow data rate mode.**
 
 Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps of 5&nbsp;bytes when the spreading factor is SF12 and the bandwidth 125&nbsp;kHz (CR=1, explicit header, CRC=on). This is depicted as the stepped top trace on the figure below. (Adapted from [airtime-calculator](https://avbentem.github.io/airtime-calculator/ttn/eu868/4,14).)
 
@@ -142,8 +142,12 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
 
-### From Pure to Slotted ALOHA
+### From Pure to Reservation ALOHA
 **TODO**
+
+- [Pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)
+- [Slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)
+- [Reservation ALOHA](https://en.wikipedia.org/wiki/Reservation_ALOHA)
 
 |[pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)|[slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)|
 |:-:|:-:|
@@ -171,8 +175,8 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 
 |LoRa parameter|uplink|downlink|
 |:------------:|:----:|:------:|
-|Region&nbsp;I frequency|443.775&nbsp;MHz|443.900&nbsp;MHz|
-|SF|12 _(or 11; see below)_|12 _(or 11; see below)_|
+|Region&nbsp;I frequency|443.775&nbsp;MHz|443.900&nbsp;MHz<br/>(poor choice)|
+|SF|12<br/>_(or 11; see below)_|12s<br/> _(or 11; see below)_|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
 |preamble sync length|8&nbsp;symbols|8&nbsp;symbols|
@@ -183,6 +187,7 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 
 Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the largest possible distance when the number of participant nodes is relatively low.
 However, network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in different scenarios.
+Nonetheless, the downlink frequency is poorly chosen, since it will suffer **interference from ubiquitous car lock keys on 433.920&nbsp;MHz.**
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
@@ -341,7 +346,7 @@ However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a s
 
 Note:
 
-- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for domestic fill‑in digipeaters and `2` is for county-level digipeaters.
+- The first `n` digit in `n-N` paradigm paths indicates the coverage level of the digipeater, whereby `1` is for local fill‑in digipeaters and `2` is for county-level digipeaters.
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
@@ -626,7 +631,7 @@ See: <https://github.com/aprs434/lora.igate>
 |v0.3.0|✓|[Base91](https://en.wikipedia.org/wiki/List_of_numeral_systems#Standard_positional_numeral_systems) compression of  location, course&nbsp;and speed&nbsp;data|31 bytes|✓|
 |[v0.4.0](https://github.com/aprs434/lora.tracker)|✓|removal of the transmitted [newline](https://en.wikipedia.org/wiki/Newline) `\n`&nbsp;character at&nbsp;frame&nbsp;end|30 bytes|✓|
 |v0.5.0|Q2 2023|[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|17 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
-|||acknowledged&nbsp;biderectional&nbsp;messaging with [slotted&nbsp;ALOHA&nbsp;protocol](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA) to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|17 bytes||
+|||acknowledged&nbsp;biderectional&nbsp;messaging with [reservation&nbsp;ALOHA&nbsp;protocol](https://en.wikipedia.org/wiki/Reservation_ALOHA) to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|17 bytes||
 
 > Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
 >
