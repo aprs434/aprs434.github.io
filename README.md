@@ -550,7 +550,7 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 The digits order for all Base codecs is: `[space]0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@`
 
 - [Python3](code/codec.py) **reference implementation** of codec algorithms and tests
-- [C](code/codec.cpp) codec algorithms and tests
+- [C (for PC)](code/codec.cpp) codec algorithms and tests
 - [MIT License](LICENSE)
 
 Please, note that this codec is not an encryption algorithm as its algorithm is openly published here.
