@@ -134,10 +134,11 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps
 
 ![Figure 1: The top trace is for SF12BW125. The dot represents a total payload of 17 bytes as proposed for geolocation packets with compression.](images/lora.airtime-payload.18bytes.png)
 
-|payload|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
-|:-----:|:------:|:------:|:------:|:------:|:-------:|
-|airtime with SF12|1.32&nbsp;s|1.48&nbsp;s|1.65&nbsp;s|2.14&nbsp;s|4.43&nbsp;s|
-|airtime with SF11|0.66&nbsp;s|0.82&nbsp;s|0.91&nbsp;s|1.15&nbsp;s|2.46&nbsp;s|
+|payload|5 bytes|17 bytes|24 bytes|28 bytes|45 bytes|113 bytes|
+|:-----:|:-----:|:------:|:------:|:------:|:------:|:-------:|
+|airtime with SF12|0.83&nbsp;s|1.32&nbsp;s|1.48&nbsp;s|1.65&nbsp;s|2.14&nbsp;s|4.43&nbsp;s|
+|airtime with SF11|0.50&nbsp;s|0.66&nbsp;s|0.82&nbsp;s|0.91&nbsp;s|1.15&nbsp;s|2.46&nbsp;s|
+|airtime with SF10|0.25&nbsp;s|0.33&nbsp;s|0.37&nbsp;s|0.41&nbsp;s|0.56&nbsp;s|1.23&nbsp;s|
 
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
@@ -290,9 +291,9 @@ Similarly as with IEEE 802.11 wireless networks, an APRS SSID identifies a set o
 |7|walkie talkies, HTs or other human portable|
 |8|boats, sailboats, RVs or second main mobile|
 |9|primary mobile (usually message capable)|
-|10|Internet, (LoRa) i‑gates, echolink, Winlink, AVRS, APRN, etc.|
+|10|Internet, **(LoRa) i‑gates,** echolink, Winlink, AVRS, APRN, etc.|
 |11|balloons, aircraft, spacecraft, etc.|
-|12|APRStt, DTMF, RFID, devices, one‑way (LoRa) trackers\*, etc.|
+|12|APRStt, DTMF, RFID, devices, **one‑way (LoRa) trackers\*,** etc.|
 |13|weather stations|
 |14|truckers or generally full time drivers|
 |15|generic additional station, digi, mobile, wx, etc.|
@@ -320,14 +321,15 @@ Notes:
 
 ## Digipeating on LoRa Channels
 > **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
-> Because of LoRa being a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
-> Unlike AX.25 packet radio, LoRa does not offer [carrier sensing](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access).
+> Since LoRa is a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+> Unlike AX.25 packet radio, LoRa does not offer [carrier sensing (CS)](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access);
+> only [channel activity detection (CAD)](https://lora-developers.semtech.com/documentation/tech-papers-and-guides/channel-activity-detection-ensuring-your-lora-packets-are-sent/how-to-ensure-your-lora-packets-are-sent-properly/)
 
 Also consider that:
 
 - Most LoRa gateways are connected to the APRS‑IS Internet server network and many users are merely interested in reaching APRS‑IS.
-- There are hardly any, if any, low power portable LoRa devices displaying situational awareness in relation to other LoRa devices.
-- In IARU Region&nbsp;I the central frequency of 433.900 MHz is proposed as a downlink channel from gateways to nodes. The proposal does not mention digipeating.
+- There are hardly any, if any, low power portable LoRa devices able to display situational awareness in relation to other LoRa devices.
+- In IARU Region&nbsp;I the central frequency of 433.900&nbsp;MHz is proposed as a downlink channel from gateways to clients. That proposal does not mention digipeating.
 
 Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.25 packet digipeating paths for any (VHF) digipeater co‑located with the LoRa (i‑)gate.
 
