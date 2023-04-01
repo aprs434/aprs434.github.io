@@ -320,7 +320,7 @@ Notes:
 
 
 ## Digipeating on LoRa Channels
-> **⚠ <u>REFRAIN</u> from digipeating on LoRa channels!**
+> **⚠ <u>REFRAIN</u> from digipeating on uplink LoRa channels!**
 > Since LoRa is a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
 > Unlike AX.25 packet radio, LoRa does not offer [carrier sensing (CS)](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access);
 > only [channel activity detection (CAD)](https://lora-developers.semtech.com/documentation/tech-papers-and-guides/channel-activity-detection-ensuring-your-lora-packets-are-sent/how-to-ensure-your-lora-packets-are-sent-properly/)
@@ -336,14 +336,17 @@ Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.
 However, suppose meshing or `n-N` paradigm digipeating were to be allowed on a single LoRa channel; even for trackers. This would offer interesting emergency capabilities when no Internet is available. However, this would absolutely require switching from SF12 to the higher data rate offered by SF11 [as explained before](#considerations-for-switching-to-sf11). In such a scenario, below table represents the LoRa device communicating its digipeating requirements to the mesh network.
 
 ### Path Codes
+The path codes are of little importance to LoRa APRS&nbsp;434.
+Path codes mainly serve to instruct (VHF) APRS digipeaters.
+These digipeaters may be co‑located with a LoRa i‑gate or may obtain packets from Internet APRS‑IS.
 
 |station|recommended `n-N` paradigm path|_Path Code_|
 |:-----:|:-----------------------------:|:---------:|
 |no digipeating||0|
 |metropolitan fixed, mountain expeditions, balloons&nbsp;& aircraft|`WIDE2-1`|1|
-|extremely remote fixed|`WIDE2-2`||
+|extremely remote fixed|`WIDE2-2`|N/A|
 |metropolitan mobile|`WIDE1-1,WIDE2-1`|2|
-|extremely remote mobile|`WIDE1-1,WIDE2-2`||
+|extremely remote mobile|`WIDE1-1,WIDE2-2`|N/A|
 |space satellites|`ARISS,WIDE2-1`|3|
 
 Note:
