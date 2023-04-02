@@ -144,6 +144,11 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps
 
 
 ### From Pure to Reservation ALOHA
+Recent academic research investigated the collision of two LoRa packets of equal power when collided with a start time offset.
+It was found that first LoRa packet stands a high chance of being correctly received as long as
+its [cyclic redundancy check (CRC)]() information was not interfered by the second LoRa packet.
+This very sensitive CRC information in a LoRa packet is sent immediately after the sync word at the start of the packet.
+
 **TODO**
 
 - [Pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)
