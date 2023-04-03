@@ -148,18 +148,19 @@ The following LoRa link parameters are proposed for amateur radio LoRa APRS&nbsp
 
 |LoRa parameter|uplink|downlink|
 |:------------:|:----:|:------:|
-|Region&nbsp;I&II frequency|434.100&nbsp;MHz|434.300&nbsp;MHz|
+|Region&nbsp;I&nbsp;&&nbsp;II frequency|434.100&nbsp;MHz|434.300&nbsp;MHz|
 |use|bidirectional APRS‑IS&nbsp;access|optional&nbsp;digipeating for situational&nbsp;awareness|
 |SF|11|11|
-|BW|125 000|125 000|
+|BW|125&nbsp;000&nbsp;Hz|125&nbsp;000&nbsp;Hz|
 |CR|1 (5/4)|1 (5/4)|
 |preamble sync length|8&nbsp;symbols|8&nbsp;symbols|
-|sync word|`0x12`|`0x12`|
-|header|explicit (20&nbsp;bits)|explicit (20&nbsp;bits)|
+|preamble sync&nbsp;word|`0x12`|`0x12`|
+|header mode|explicit (20&nbsp;bits)|explicit (20&nbsp;bits)|
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on (16&nbsp;bits)|on (16&nbsp;bits)|
 |[IQ](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components) polarisation|normal|inversed|
 
-- Above proposed frequencies are outside the 433—434&nbsp;MHz band. Moreover, these frequencies maintain sufficient spectrum separation among one another as well as from the ubiquitous car lock keys and home weather stations on 433.920&nbsp;MHz.
+
+- Above proposed frequencies are outside the interfering 433—434&nbsp;MHz [ISM band](https://en.wikipedia.org/wiki/ISM_radio_band). Moreover, these frequencies maintain sufficient spectrum separation among one another as well as from the ubiquitous car lock keys and home weather stations on 433.920&nbsp;MHz.
 - In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. However, SF12 is extremely slow, offering only a mere 36.6&nbsp;byte/s.
 - $SF = 11$ corresponds to 11&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{11} = 2048\,\text{chips}$.
 - Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
@@ -545,7 +546,7 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 Recent academic research investigated the collision of two LoRa packets of equal power when collided with a start time offset.
 It was found that first LoRa packet stands a high chance of being correctly received as long as
 its [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) information was not interfered by the second LoRa packet.
-This very sensitive CRC information in a LoRa packet is sent immediately after the sync word at the start of the packet.
+This very sensitive CRC information of a LoRa packet is sent in the explicit header, towards the beginning of the packet.
 
 Other LoRa APRS implementations allow trackers and other clients to transmit at any moment of time,
 which inevitably results in packet collisions and the loss of the information of one or more packets.
