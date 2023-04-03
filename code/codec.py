@@ -34,7 +34,7 @@ digits = ' 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@'
 
 ### FUNCTIONS ###
 
-def encodeBase(base, integer):
+def encodeInteger(base, integer):
     # https://stackoverflow.com/a/23926613/2192488
     # https://github.com/numpy/numpy/blob/v1.14.2/numpy/core/numeric.py#L2067-L2120
 
@@ -49,10 +49,10 @@ def encodeBase(base, integer):
         array.append(digits[integer % base])
         integer //= base
 
-    return ''.join(reversed(array or '0'))
+    return ''.join(reversed(array or ' '))
 
 
-def decodeBase(base, string):
+def decodeInteger(base, string):
 
     if base > len(digits):
         raise ValueError("The base is too large for the number of digits available.")
@@ -69,7 +69,7 @@ def decodeBase(base, string):
 
 def encodeCCCC(string):
 
-    integer = decodeBase(37, string[-6:].ljust(6)) # Decode the 6 character Base37 string to an integer.
+    integer = decodeInteger(37, string[-6:].ljust(6)) # Decode the 6 character Base37 string to an integer.
                                                    # The given string cannot be longer than 6 characters and
                                                    # will be right-padded with spaces if shorter.
     return integer.to_bytes(4, byteorder='big')    # Encode the integer as a 4 byte Base256 bytestring.
@@ -79,7 +79,7 @@ def decodeCCCC(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given 4 byte Base256 bytestring to an integer.
 
-    return encodeBase(37, integer)                           # Encode the integer as a 6 character Base37 string.
+    return encodeInteger(37, integer)                           # Encode the integer as a 6 character Base37 string.
 
 
 def encodeD(ssid, pathCode, dataTypeCode):
@@ -137,7 +137,7 @@ def decodeF(bytestring):
 
 def encodetttt(string):
 
-    integer = decodeBase(42, string[:51])            # Decode the first 51 characters of the given Base42 string to an integer.
+    integer = decodeInteger(42, string[:51])            # Decode the first 51 characters of the given Base42 string to an integer.
 
     n = math.ceil(math.log(42**len(string), 256))    # number of required Base256 bytes
 
@@ -148,7 +148,7 @@ def decodetttt(bytestring):
 
     integer = int.from_bytes(bytestring, byteorder='big')    # Decode the given Base256 bytestring to an integer.
 
-    return encodeBase(42, integer)                           # Encode the integer as a Base42 string.
+    return encodeInteger(42, integer)                           # Encode the integer as a Base42 string.
 
 
 ### TESTS ###
