@@ -28,8 +28,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [Measurable Benefits](#measurable-benefits)
     + [Reduced Packet Error Rate](#reduced-packet-error-rate)
     + [Airtime Reductions](#airtime-reductions)
-    + [From Pure to Reservation ALOHA](#from-pure-to-reservation-aloha)
-- [LoRa Link Parameters](#lora-link-parameters)
+- [APRS 434 LoRa Link Parameters](#aprs-434-lora-link-parameters)
     + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
 - [Callsign, SSID, Path and Data Type Compression](#callsign-ssid-path-and-data-type-compression)
@@ -53,6 +52,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Encoding and Decoding EEEE](#encoding-and-decoding-eeee)
     + [Encoding F](#encoding-f)
     + [Decoding F](#decoding-f)
+- [From Pure to Reservation ALOHA](#from-pure-to-reservation-aloha)
 - [Codec Algorithms](#codec-algorithms)
 - [ITU Regulation](#itu-regulation)
 - [Reducing Power Consumption](#reducing-power-consumption)
@@ -143,46 +143,14 @@ Due to the LoRa symbol encoding scheme, airtime reductions occur in abrupt steps
 [The Things Network (TTN)](https://www.thethingsnetwork.org) organisation, albeit a global LoRaWAN, is exemplary in stressing [the importance of maintaining LoRa payloads small](https://www.thethingsnetwork.org/docs/devices/bytes/).
 
 
-### From Pure to Reservation ALOHA
-Recent academic research investigated the collision of two LoRa packets of equal power when collided with a start time offset.
-It was found that first LoRa packet stands a high chance of being correctly received as long as
-its [cyclic redundancy check (CRC)]() information was not interfered by the second LoRa packet.
-This very sensitive CRC information in a LoRa packet is sent immediately after the sync word at the start of the packet.
-
-**TODO**
-
-- [Pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)
-- [Slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)
-- [Reservation ALOHA](https://en.wikipedia.org/wiki/Reservation_ALOHA)
-
-|[pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)|[slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)|
-|:-:|:-:|
-|![Pure ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/3/35/Pure_ALOHA1.svg)|![Slotted ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/7/7a/Slotted_ALOHA.svg)|
-
-
-## LoRa Link Parameters
-Currently, the following LoRa link parameters are commonly in use among amateur radio operators:
-
-- In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. This corresponds to 12&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{12} = 4096\,\text{chips}$.
-- Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
-- To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
-
-With these settings, the symbol rate is:
-
-$$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125\,000}{2^{12}} \approx 30.5\,\text{symbols/s}$$
-
-Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as follows:
-
-$$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{12}} \cdot 12 \cdot \frac{4}{5} \approx 293\,\text{bits/s} \approx 36.6\,\text{byte/s}$$
-
-Finally, it was observed that amateur radio predominantly employs the LoRa sync word `0x12`; which is manufacturer recommended for private networks, different from LoRaWAN.
-
-Summarised, the following LoRa link parameters are proposed for APRS:
+## APRS 434 LoRa Link Parameters
+The following LoRa link parameters are proposed for amateur radio LoRa APRS&nbsp;434:
 
 |LoRa parameter|uplink|downlink|
 |:------------:|:----:|:------:|
-|Region&nbsp;I frequency|443.775&nbsp;MHz|443.900&nbsp;MHz<br/>(poor choice)|
-|SF|12<br/>_(or 11; see below)_|12s<br/> _(or 11; see below)_|
+|Region&nbsp;I&II frequency|434.100&nbsp;MHz|434.300&nbsp;MHz|
+|use|bidirectional APRS‑IS&nbsp;access|optional&nbsp;digipeating for situational&nbsp;awareness|
+|SF|11|11|
 |BW|125 000|125 000|
 |CR|1 (5/4)|1 (5/4)|
 |preamble sync length|8&nbsp;symbols|8&nbsp;symbols|
@@ -191,9 +159,22 @@ Summarised, the following LoRa link parameters are proposed for APRS:
 |[CRC](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)|on (16&nbsp;bits)|on (16&nbsp;bits)|
 |[IQ](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components) polarisation|normal|inversed|
 
-Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the largest possible distance when the number of participant nodes is relatively low.
-However, network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in different scenarios.
-Nonetheless, the downlink frequency is poorly chosen, since it will suffer **interference from ubiquitous car lock keys on 433.920&nbsp;MHz.**
+- Above proposed frequencies are outside the 433—434&nbsp;MHz band. Moreover, these frequencies maintain sufficient spectrum separation among one another as well as from the ubiquitous car lock keys and home weather stations on 433.920&nbsp;MHz.
+- In order to achieve a maximum range, [Semtech](https://en.wikipedia.org/wiki/Semtech) —&nbsp;the company that developed LoRa&nbsp;— recommends selecting the maximum spreading factor $SF = 12$. However, SF12 is extremely slow, offering only a mere 36.6&nbsp;byte/s.
+- $SF = 11$ corresponds to 11&nbsp;raw bits per symbol. Therefore, each symbol (or frequency chirp) holds $2^{11} = 2048\,\text{chips}$.
+- Likewise, the bandwidth is set to the smallest commonly available bandwidth among all LoRa ICs, namely $BW = 125\,\text{kHz}$. This is by definition also the chip rate $R_c = BW$.
+- To avoid any further overhead in an already slow mode, the [forward error correction (FEC)](https://en.wikipedia.org/wiki/Error_correction_code#Forward_error_correction) coding rate is kept at $CR = 1$, which corresponds to $\frac{data}{data + FEC} = \frac{4}{5}$.
+- It was observed that amateur radio predominantly employs the LoRa sync word `0x12`; which is manufacturer recommended for private networks, and differs from LoRaWAN.
+
+With these settings, the symbol rate is:
+
+$$R_s = \frac{R_c}{2^{SF}} = \frac{BW}{2^{SF}} = \frac{125\,000}{2^{11}} \approx 61\,\text{symbols/s}$$
+
+Whereas the effective data rate $DR$ or bit rate $R_b$ can be calculated as follows:
+
+$$DR = R_b =  \frac{BW}{2^{SF}} \cdot SF \cdot \frac{4}{4 + CR} = \frac{125\,000}{2^{11}} \cdot 11 \cdot \frac{4}{5} \approx 537\,\text{bits/s} \approx 67\,\text{byte/s}$$
+
+Above parameters seem adequate for sending LoRa frames with short, compressed payloads over the next longest possible distance when the number of participant nodes is relatively low.
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
@@ -202,7 +183,6 @@ Depending on how popular APRS over LoRa becomes and on how intensely it will get
 there might come a time when the LoRa channel gets saturated.
 Unlike packet radio, LoRa has no carrier sensing capability.
 Sending longer text messages, even when compressed, may aggravate the situation.
-The same holds true for meshing or (emergency) `n-N` paradigm digipeating on the same channel.
 
 When this situation occurs, the ham radio community should seriously **consider switching from SF12 to SF11.**
 Doing so, would effectively double the data rate.
@@ -561,6 +541,35 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
 
 
+## From Pure to Reservation ALOHA
+Recent academic research investigated the collision of two LoRa packets of equal power when collided with a start time offset.
+It was found that first LoRa packet stands a high chance of being correctly received as long as
+its [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) information was not interfered by the second LoRa packet.
+This very sensitive CRC information in a LoRa packet is sent immediately after the sync word at the start of the packet.
+
+Other LoRa APRS implementations allow trackers and other clients to transmit at any moment of time,
+which inevitably results in packet collisions and the loss of the information of one or more packets.
+This situation is called [pure ALOHA (P‑ALOHA)](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA).
+It is comparable to a pile up during a DXpedition.
+
+Above situation can be improved upon by allowing the packet transmissions to start only at well defined moments in time.
+This form of [medium access control (MAC)](https://en.wikipedia.org/wiki/Medium_access_control) is called [slotted ALOHA (S‑ALOHA)](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA).
+However, even with slotted ALOHA, packet collisions can still occur.
+
+Taking this a step further, with [reservation ALOHA (R‑ALOHA)](https://en.wikipedia.org/wiki/Reservation_ALOHA)
+the i‑gate temporarily assigns a time slot to a client that was successful in reaching the i‑gate in one of the vacant time slots.
+With this MAC scheme, packet collisions now can only occur at first access; resulting in a vastly more efficient use of the channel.
+This scheme is comparable to a controlled HF&nbsp;net.
+Reserved&nbsp;ALOHA is the medium access control proposed for APRS&nbsp;434.
+This choice was dictated by the requirement for bidirectional messaging.
+
+|[pure ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Pure_ALOHA)|[slotted ALOHA](https://en.wikipedia.org/wiki/ALOHAnet#Slotted_ALOHA)|
+|:-:|:-:|
+|![Pure ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/3/35/Pure_ALOHA1.svg)|![Slotted ALOHA protocol](https://upload.wikimedia.org/wikipedia/commons/7/7a/Slotted_ALOHA.svg)|
+
+Network simulations are deemed necessary to quantify the statistical capacity of a LoRa channel in these different scenarios.
+
+
 ## Codec Algorithms
 The digits order for all Base codecs is: `[space]0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@`
 
@@ -622,9 +631,7 @@ Please, note that the [`tracker.json`](https://github.com/aprs434/lora.tracker/b
 ### I-Gate Firmware
 See: <https://github.com/aprs434/lora.igate>
 
-> Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
->
-> We feel confident that trackers with the proposed APRS&nbsp;434 compressed LoRa frame will eventually become dominant because of the longer range merit. To smooth out the transition, we are developing an **i‑gate capable of understanding both formats;** i.e. compressed APRS&nbsp;434&nbsp;and longer, legacy OE5BPA.
+> Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression and reservation ALOHA is added.
 >
 > It is strongly advised to install [**the accompanying APRS&nbsp;434 i-gate**](https://github.com/aprs434/lora.igate) as new releases will be automatically pulled over‑the‑air (OTA) via WiFi.
 
@@ -643,9 +650,7 @@ See: <https://github.com/aprs434/lora.igate>
 |v0.5.0|Q2 2023|[tracker](https://github.com/aprs434/lora.tracker) and [i-gate](https://github.com/aprs434/lora.igate) with frame&nbsp;address&nbsp;compression,<br/>no custom&nbsp;header in&nbsp;payload|17 bytes|use the [APRS&nbsp;434 i‑gate](https://github.com/aprs434/lora.igate)|
 |||acknowledged&nbsp;biderectional&nbsp;messaging with [reservation&nbsp;ALOHA&nbsp;protocol](https://en.wikipedia.org/wiki/Reservation_ALOHA) to&nbsp;avoid repetitive&nbsp;[collisions](https://en.wikipedia.org/wiki/Collision_domain)|17 bytes||
 
-> Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression is added.
->
-> We feel confident that trackers with the proposed APRS&nbsp;434 compressed LoRa frame will eventually become dominant because of the longer range merit. To smooth out the transition, we are developing an **i‑gate capable of understanding both formats;** i.e. compressed APRS&nbsp;434&nbsp;and longer, legacy OE5BPA.
+> Currently, the APRS&nbsp;434 tracker is still compatible with the i-gate developed by Peter Buchegger, OE5BPA. However, this will soon change as more LoRa frame compression and reservation ALOHA is added.
 >
 > It is strongly advised to install [**the accompanying APRS&nbsp;434 i-gate**](https://github.com/aprs434/lora.igate) as new releases will be automatically pulled over‑the‑air (OTA) via WiFi.
 
