@@ -198,7 +198,7 @@ compressed = encodetttt(uncompressed)
 print('%s = %d bytes' % (compressed, len(compressed)))
 print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
 print()
-uncompressed = 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
+uncompressed = '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 compressed = encodetttt(uncompressed)
 print('%s = %d bytes' % (compressed, len(compressed)))
 print('%s = %d bytes' % (decodetttt(compressed), len(uncompressed)))
