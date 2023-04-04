@@ -49,7 +49,7 @@ def encodeInteger(base, integer):
         array.append(digits[integer % base])
         integer //= base
 
-    return ''.join(reversed(array or ' '))
+    return ''.join(reversed(array or ''))
 
 
 def decodeInteger(base, string):
