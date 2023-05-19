@@ -39,8 +39,6 @@ CAVEAT LARGEST INTEGER
 
 // #define DEBUG
 
-#define uchar unsigned char
-#define uint unsigned int
 
 #include <assert.h>
 #include <iostream>
@@ -48,20 +46,61 @@ CAVEAT LARGEST INTEGER
 #include <cstring>
 #include <cctype>
 #include <cmath>
-#include <boost/multiprecision/cpp_dec_float.hpp>
-#include <boost/multiprecision/cpp_int.hpp>
+#include "uintwide_t.h"
 
-namespace mp = boost::multiprecision;
+#define uchar uint8_t
+#define uint uint32_t
+
+static void strrev(char s[])
+{
+    int length = strlen(s) ;
+    int c, i, j;
+
+    for (i = 0, j = length - 1; i < j; i++, j--)
+    {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
+}
+
+namespace mp = math::wide_integer;
 using std::cout;
 using std::endl;
 using std::dec;
-using std::oct;
 using std::hex;
 
 const char* digits = " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-./?@";
 
-mp::uint512_t bignum;
 uchar bytes[100];
+
+uint32_t encodeCallsign(const char *callsign) {
+    const int b = 37;
+
+    uint32_t result;
+    uint32_t weight;
+    int i, j, k, ch;
+
+    assert(b <= strlen(digits));
+    assert(b > 1);
+
+    result = 0, weight = 1;
+    for (i = j = strlen(callsign); i > 0; i--)         // iterate over input string
+    {
+        ch=toupper(callsign[i-1]);
+        for (k = 0; k < strlen(digits); k++) {    //lookup char index
+            if (digits[k] == ch) {
+                break;
+            }
+        }
+        if (k == strlen(digits))                  // ignore if ch not found in digits
+            continue;
+        result = result + ((k) * weight);
+        weight = weight * b;
+    }
+
+    return result;                                // result can be pow(42,51)!
+}
 
 uchar* encodeBase(int n, mp::uint512_t num) {     // base n, unsigned num - 64 bytes max
 
@@ -132,29 +171,35 @@ int main() {
 
     int i;
 
-    printf("%08x\n", encodeCCCC("ON4AA"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("ON4AA")));
+    const char* callsigns[] =
+    {
+        "ON4AA", "PA0FOT", "cd2rxu", "W3A", "W3A   ", "ZZZZZZ", "HB9EGM", "0HN0"
+    };
 
-    printf("%08x\n", encodeCCCC("PA0FOT"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("PA0FOT")));
+    for (const char* callsign : callsigns) {
+        uint e1 = encodeCCCC(callsign);
+        uint32_t e2 = encodeCallsign(callsign);
 
-    printf("%08x\n", encodeCCCC("cd2rxu"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("cd2rxu")));
+        printf("%08x\n", e1);
+        printf("%s %s\n\n", decodeCCCC(e1), decodeCCCC(e2));
 
-    printf("%08x\n", encodeCCCC("W3A"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("W3A")));
+        if (e1 != e2) {
+            printf("%08x\n", e2);
+            printf("%s\n\n", decodeCCCC(encodeCallsign(callsign)));
+        }
+    }
 
-    printf("%08x\n", encodeCCCC("W3A   "));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("W3A   ")));
-
-    printf("%08x\n", encodeCCCC("ZZZZZZ"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("ZZZZZZ")));
-
-    printf("%08x\n", encodeCCCC("0HN0"));
-    printf("%s\n\n", decodeCCCC(encodeCCCC("0HN0")));
-
-    bignum = encodetttt((char*) uncompressed);
+    mp::uint512_t bignum = encodetttt((char*) uncompressed);
     cout << hex << bignum << " = " << dec << sizeof(bignum) << " bytes" << endl;
+    cout << "Bytewise: ";
+    for (int i = 0; i <= 512; i += 8) {
+        auto v = static_cast<uint8_t>((bignum >> (512-i)) & 0xFF);
+        if (v) {
+            cout << hex << (int)v;
+        }
+    }
+    cout << dec << endl;
+
     decodetttt(bignum);
     cout << bytes << " =  " << strlen((char*)bytes) << " bytes" << endl;
 
@@ -175,7 +220,17 @@ int main() {
             break;
 
         cout << "challenge: '" << challenge << "' - " << strlen(challenge) << " bytes" << endl;
-        cout << "encoded  : " << hex << (bignum = encodetttt(challenge)) << endl;
+        cout << "encoded  : " << hex << (bignum = encodetttt(challenge)) << dec << endl;
+
+        cout << "Bytewise: ";
+        for (int i = 0; i <= 512; i += 8) {
+            auto v = static_cast<uint8_t>((bignum >> (512-i)) & 0xFF);
+            if (v) {
+                cout << hex << (int)v;
+            }
+        }
+        cout << dec << endl;
+
         decodetttt(bignum);
         cout << "decoded  : '" << bytes << "' - " << strlen((char*)bytes) << " bytes" << endl << endl;
     }
