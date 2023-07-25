@@ -366,8 +366,9 @@ where:
 Note:
 
 - Terrestrial objects do not require sending altitude data. Anyhow, GPS height readings are notorious for being significantly inaccurate.
-- In absence of `aa`, the i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
-- When `aa` is present, the i‑gate will instead decompress the whole frame and forward the uncompressed frame to APRS‑IS.
+- APRS-IS already understands Base91 `XXXXYYYY` compression when altitude `aa` is not used.
+- In absence of altitude `aa`, the i‑gate adds the _Compression Type Byte_ `T` right behind `cs`.
+- When `aa` is present, the i‑gate will instead need to decompress the whole frame and forward the uncompressed frame to APRS‑IS.
 - The parenthesis are not sent; these merely indicate optionality.
 
 
