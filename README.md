@@ -345,7 +345,7 @@ Note:
 
 
 ## I-Gate Functions
-I-gates will, in the listed order of priority:
+I-gates will, in the listed order of priority, and with respect for the received _Path Code:_
 
 1. Keep a list of all stations heard on the uplink channel over the last hour. This implies that all clients need to send a geolocation frame or at least a status report when switched on and when not having transmitted over the course of an hour.
 2. Transmit on the downlink channel all frames heard on the uplink channel, other than addressed text messages.
