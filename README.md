@@ -718,6 +718,7 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 |:--:|:------|
 |2022‑05|initial release|
 |2023‑03|change in the order of the codec digits; also, `@` instead of `_` is now allowed in text messages|
+|2023-07|separate up- and downlinks, SF11|
 
 Serge Y. Stroobandt, ON4AA
 
