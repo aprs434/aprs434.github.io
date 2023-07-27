@@ -27,7 +27,7 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
 - [Measurable Benefits](#measurable-benefits)
     + [Reduced Packet Error Rate](#reduced-packet-error-rate)
-    + [Airtime Reductions](#airtime-reductions)
+    + [Airtime Reduction](#airtime-reduction)
 - [APRS 434 LoRa Link Parameters](#aprs-434-lora-link-parameters)
     + [Why SF11](#why-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
@@ -193,7 +193,7 @@ The slight range penalty from switching from SF12 to SF11 is in most circumstanc
 provided the availability of i‑gates in an area is sufficient.
 
 With a payload of only 17&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
-taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-reductions)).
+taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-reduction)).
 
 Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor.
 Therefore, the choice was made to use SF11 exclusively.
