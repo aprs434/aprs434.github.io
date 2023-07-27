@@ -27,9 +27,9 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
 - [An Open Standard for LoRa APRS Frame Compression](#an-open-standard-for-lora-aprs-frame-compression)
 - [Measurable Benefits](#measurable-benefits)
     + [Reduced Packet Error Rate](#reduced-packet-error-rate)
-    + [Airtime Reductions](#airtime-reductions)
+    + [Airtime Reduction](#airtime-reduction)
 - [APRS 434 LoRa Link Parameters](#aprs-434-lora-link-parameters)
-    + [Considerations for Switching to SF11](#considerations-for-switching-to-sf11)
+    + [Why SF11](#why-sf11)
     + [LoRa ICs and Modules](#lora-ics-and-modules)
 - [Callsign, SSID, Path and Data Type Compression](#callsign-ssid-path-and-data-type-compression)
     + [Encoding CCCC](#encoding-cccc)
@@ -149,7 +149,7 @@ The following LoRa link parameters are proposed for amateur radio LoRa APRS&nbsp
 |LoRa parameter|uplink|downlink|
 |:------------:|:----:|:------:|
 |Region&nbsp;I&nbsp;&&nbsp;II frequency|434.100&nbsp;MHz|434.300&nbsp;MHz|
-|use|bidirectional APRS‑IS&nbsp;access|optional&nbsp;digipeating for situational&nbsp;awareness|
+|use|APRS‑IS&nbsp;uplink&nbsp;access & client‑to‑client|i‑gate&nbsp;downlink & digipeating for situational&nbsp;awareness|
 |SF|11|11|
 |BW|125&nbsp;000&nbsp;Hz|125&nbsp;000&nbsp;Hz|
 |CR|1 (5/4)|1 (5/4)|
@@ -179,27 +179,26 @@ Above parameters seem adequate for sending LoRa frames with short, compressed pa
 
 > For an in depth tutorial slide series about LoRa (and LoRaWAN), please refer to [Mobilefish.com](https://www.mobilefish.com/developer/lorawan/lorawan_quickguide_tutorial.html), also available in video format on [YouTube](https://youtube.com/playlist?list=PLmL13yqb6OxdeOi97EvI8QeO8o-PqeQ0g).
 
-### Considerations for Switching to SF11
+### Why SF11
 Depending on how popular APRS over LoRa becomes and on how intensely it will get used,
 there might come a time when the LoRa channel gets saturated.
 Unlike packet radio, LoRa has no carrier sensing capability.
 Sending longer text messages, even when compressed, may aggravate the situation.
 
-When this situation occurs, the ham radio community should seriously **consider switching from SF12 to SF11.**
-Doing so, would effectively double the data rate.
+In order to prevent such a congestion, APRS&nbsp;434 decided to **only employ SF11.**
 
-Not only would switching to SF11 reduce channel congestion;
-It would also save 50% on airtime and batteries.
-The range penalty from switching from SF12 to SF11 would in most circumstances be acceptable,
+Doing so, effectively doubles the data rate over SF12.
+It also saves 50% on airtime and batteries.
+The slight range penalty from switching from SF12 to SF11 is in most circumstances absolutely acceptable,
 provided the availability of i‑gates in an area is sufficient.
 
 With a payload of only 17&nbsp;bytes, the compressed geolocation frame is perfectly geared towards
-taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-reductions)).
+taking advantage of the reduced airtime offered by SF11 (see [graph](#airtime-reduction)).
 
 Unfortunately, most cheap i‑gates currently in use by ham operators are only capable of receiving one preset spreading factor.
-Therefore, a choice needs to be made between SF12 and SF11.
+Therefore, the choice was made to use SF11 exclusively.
 Considering what some members of the amateur radio community have come to expect of LoRa,
-the faster data rate offered by SF11 ought to be preferred.
+the faster data rate offered by SF11 is more than warranted.
 
 ### LoRa ICs and Modules
 - [Semtech LoRa products](https://www.semtech.com/lora/lora-products)
@@ -305,17 +304,18 @@ Notes:
 - A _Symbol Table Identifier_ nor a _Symbol Code_ can be compressed.
 
 
-## Digipeating on LoRa Channels
-> **⚠ <u>REFRAIN</u> from digipeating on uplink LoRa channels!**
-> Since LoRa is a slow data rate mode, digipeating on LoRa channels quickly leads to unwanted channel congestion.
+## No Digipeating on the Uplink Channel
+> **⚠ <u>REFRAIN</u> from digipeating on the uplink LoRa channel!**
+> Since LoRa is a slow data rate mode, digipeating on the LoRa 434.100&nbsp;MHz uplink channel quickly leads to unwanted channel congestion.
 > Unlike AX.25 packet radio, LoRa does not offer [carrier sensing (CS)](https://en.wikipedia.org/wiki/Carrier-sense_multiple_access);
 > only [channel activity detection (CAD)](https://lora-developers.semtech.com/documentation/tech-papers-and-guides/channel-activity-detection-ensuring-your-lora-packets-are-sent/how-to-ensure-your-lora-packets-are-sent-properly/)
 
 Also consider that:
 
+- LoRa was merely intended as an Internet access technology.
 - Most LoRa gateways are connected to the APRS‑IS Internet server network and many users are merely interested in reaching APRS‑IS.
 - There are hardly any, if any, low power portable LoRa devices able to display situational awareness in relation to other LoRa devices.
-- In IARU Region&nbsp;I the central frequency of 433.900&nbsp;MHz is proposed as a downlink channel from gateways to clients. That proposal does not mention digipeating.
+- Only in extremely remote areas without Internet access, digipeating may be considered, but only on the downlink channel 434.300&nbsp;MHz.
 
 Hence, below `n-N` paradigm paths could be interpreted foremost as crossover AX.25 packet digipeating paths for any (VHF) digipeater co‑located with the LoRa (i‑)gate.
 
@@ -503,8 +503,9 @@ The available message length of 51 characters is largely sufficient
 for, for example, SOTA self-spotting using [APRS2SOTA](https://www.sotaspots.co.uk/Aprs2Sota_Info.php).
 
 On the other hand, two‑way messaging over a digipeater would definitely require:
+- separate up- and downlinks,
 - the faster [SF11](#considerations-for-switching-to-sf11) data mode, and
-- GPS time-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing.
+- eventually GPS time-disciplined, dynamic [time division multiple access (TDMA)](https://en.wikipedia.org/wiki/Time-division_multiple_access) multiplexing.
 
 The formulation of such a two‑way TDMA protocol is beyond the scope of this document.
 
@@ -717,6 +718,7 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 |:--:|:------|
 |2022‑05|initial release|
 |2023‑03|change in the order of the codec digits; also, `@` instead of `_` is now allowed in text messages|
+|2023-07|separate up- and downlinks, SF11|
 
 Serge Y. Stroobandt, ON4AA
 
