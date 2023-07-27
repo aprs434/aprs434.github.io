@@ -20,7 +20,9 @@ This can be achieved taking full advantage of all 256 characters available for t
 The APRS frame compression protocols presented below aim precisely at doing that;
 for LoRa, _or any other data link with an extended character set._
 
-ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to these compression protocols is provided as well.
+ESP32 [**tracker, text terminal and i‑gate firmware**](#esp32-firmware-downloads) adhering to these compression protocols is provided as well.
+
+> Beware: This is currently a live document. Check regularly for added clarifications and minor changes.
 
 
 ## Index
@@ -38,8 +40,9 @@ ESP32 [**tracker and i‑gate firmware**](#esp32-firmware-downloads) adhering to
     + [Decoding D](#decoding-d)
     + [SSID Recommendations](#ssid-recommendations)
     + [Data Type Codes](#data-type-codes)
-- [Digipeating on LoRa Channels](#digipeating-on-lora-channels)
+- [No Digipeating on the Uplink Channel](#no-digipeating-on-the-uplink-channel)
     + [Path Codes](#path-codes)
+- [I‑Gate Functions](#i-gate-functions)
 - [Compressed Geolocation Frames](#compressed-geolocation-frames)
 - [Compressed Weather Report Frames](#compressed-weather-report-frames)
 - [Compressed Text](#compressed-text)
@@ -117,7 +120,7 @@ a 16&nbsp;bit physical header `PHDR`, 4&nbsp;bits of header [CRC](https://en.wik
 |BER|0.1%|0.1%|0.1%|0.1%|0.1%|
 |PER|15.8%|20.4%|22.9%|32.7%|61.0%|
 
-By consequence, the chances of correctly receiving a 17&nbsp;byte payload are more than twice as high as with a 113&nbsp;payload:
+By consequence, the chances of correctly receiving a 17&nbsp;byte payload are more than twice as high as with a 113&nbsp;byte payload:
 
 $$\frac{1-0.158}{1-0.610} \approx 2.18$$
 
@@ -341,6 +344,17 @@ Note:
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
+## I-Gate Functions
+I-gates will, in the listed order of priority:
+
+1. Keep a list of all stations heard on the uplink channel over the last hour. This implies that all clients need to send a geolocation frame or at least a status report when switched on and when not having transmitted over the course of an hour.
+2. Transmit on the downlink channel all frames heard on the uplink channel, other than addressed text messages.
+3. Transmit text messages addressed to clients it heard recently. These addressed text messages may originate from the uplink, from an attached packet APRS digipeater or from Internet APRS‑IS.
+4. Transmit situational awareness frames from an attached packet APRS digipeater or APRS‑IS, when these apply to the geographical coverage area of the i‑gate.
+
+When the downlink channel gets saturated, above listed order of priority applies.
+
+
 ## Compressed Geolocation Frames
 A compressed geolocation frame has a payload of either exactly **17 or 19 bytes.**
 
@@ -533,7 +547,7 @@ where:
 The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#encoding-cccc).
 
 ### Encoding F
-1. Perform input sanitisation.
+1. Perform input sanitisation, i.e. perform a modulus 16 operation on a _Message No_ originating from APRS‑IS.
 2. Multiply the _SSID_ integer by&nbsp;16.
 3. Then, algebraically add to this the _Message No_ integer.
 4. Finally, convert the resulting integer to a single Base256 `F` byte.
@@ -542,6 +556,7 @@ The `EEEE` codec algorithms are identical to the [`CCCC` codec algorithms](#enco
 1. First, decode the given Base256 `F` byte to an integer.
 2. The _SSID_ equals the integer quotient after [integer division](https://en.wikipedia.org/wiki/Division_(mathematics)#Of_integers) of the decoded integer by&nbsp;16.
 3. Whereas the _Message No_ equals the [remainder](https://en.wikipedia.org/wiki/Remainder) of the decoded integer by&nbsp;16 ([modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)).
+4. When relaying the text message to APRS‑IS, the i‑gate will add the last digit of the minute the text message was received in front of the received _Message No._
 
 
 ## From Pure to Reservation ALOHA
@@ -718,7 +733,7 @@ Here is a lightweight [video introduction to using GitHub](https://youtu.be/tCuP
 |:--:|:------|
 |2022‑05|initial release|
 |2023‑03|change in the order of the codec digits; also, `@` instead of `_` is now allowed in text messages|
-|2023-07|separate up- and downlinks, SF11|
+|2023-07|separate up- and downlinks, SF11, i‑gate functions|
 
 Serge Y. Stroobandt, ON4AA
 
