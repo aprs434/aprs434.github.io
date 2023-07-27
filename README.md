@@ -42,7 +42,7 @@ ESP32 [**tracker, text terminal and i‑gate firmware**](#esp32-firmware-downloa
     + [Data Type Codes](#data-type-codes)
 - [No Digipeating on the Uplink Channel](#no-digipeating-on-the-uplink-channel)
     + [Path Codes](#path-codes)
-- [I‑Gate Functions](#i-gate-functions)
+- [I‑Gate Functionality](#i-gate-functionality)
 - [Compressed Geolocation Frames](#compressed-geolocation-frames)
 - [Compressed Weather Report Frames](#compressed-weather-report-frames)
 - [Compressed Text](#compressed-text)
@@ -344,7 +344,7 @@ Note:
 - The second `N` digit indicates the number of repeats at the indicated coverage level.
 
 
-## I-Gate Functions
+## I-Gate Functionality
 I-gates will, in the listed order of priority, and with respect for the received _Path Code:_
 
 1. Keep a list of all stations heard on the uplink channel over the last hour. This implies that all clients need to send a geolocation frame or at least a status report when switched on and when not having transmitted over the course of an hour.
