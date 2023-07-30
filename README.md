@@ -1,7 +1,7 @@
-# APRS 434
+# APRS 438
 <img src="images/aprs434.logo.png" style="max-width: 160px; float: left;"/>
-Welcome to the home of **APRS&nbsp;434**,
-the 434&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
+Welcome to the home of **APRS&nbsp;438**,
+the 438&nbsp;MHz LoRa APRS amateur radio project that **extends range by saving bytes.**
 
 Unlike some other ham radio LoRa APRS projects,
 this [white paper](https://en.wikipedia.org/wiki/White_paper) and project aims at **deploying LoRa the way it was intended;**
@@ -15,4 +15,4 @@ Doing so, reaps a number of benefits:
 - lower probability of packet collisions,
 - therefore, more channel capacity.
 
-The documentation of this project was moved to <https://aprs434.readthedocs.io/>
+The documentation of this project was moved to <https://aprs438.readthedocs.io/>
